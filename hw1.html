@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Magnetic - Stunning Responsive HTML5/CSS3 Photography Template</title>
+	<meta charset="utf-8">
+	<meta name="author" content="pixelhint.com">
+	<meta name="description" content="Magnetic is a stunning responsive HTML5/CSS3 photography/portfolio website  template"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <style>
+
+		.chart rect {
+			fill: darkviolet;
+		}
+
+		.chart text {
+			  fill: white;
+			  font-family: "raleway-regular", arial;
+			  text-anchor: end;
+			  font-size: 20px;
+			}
+
+    </style>
+</head>
+<body>
+
+	<header>
+		<div class="logo">
+			<a href="index.html"><img src="img/logo.png" title="Magnetic" alt="Magnetic"/></a>
+		</div><!-- end logo -->
+
+		<!--<div id="menu_icon"></div>
+		<nav>
+			<ul>
+				<li><a href="index.html" class="selected">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">The Team</a></li>
+				<li><a href="#">Journal</a></li>
+				<li><a href="contact.html">Contact Us</a></li>
+			</ul>
+		</nav>end navigation menu -->
+
+		<div> 
+			<h5 style="text-align:center; line-height:160%">This site is a repository for projects completed as part of MSAN's Information Visualization course</h5>
+		</div>
+ 
+		<div class="footer clearfix">
+			<ul class="social clearfix">
+				<li><a href="#" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="#" class="email" data-title="Email"></a></li>
+				<!--<li><a href="#" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="#" class="dribble" data-title="Dribble"></a></li>-->
+				<!--<li><a href="#" class="rss" data-title="RSS"></a></li>-->
+			</ul><!-- end social -->
+
+			<div class="rights">
+				<!--<p>Copyright © 2014 magnetic.</p>-->
+				<p>Template by <a href="">Pixelhint.com</a></p>
+			</div><!-- end rights -->
+		</div ><!-- end footer -->
+	</header><!-- end header -->
+
+	<section class="main clearfix">
+
+		<section class="top">	
+			<div class="wrapper content_header clearfix">
+				<div class="work_nav">
+							
+					<ul class="btn clearfix">
+						<li><a href="#" class="previous" data-title="Previous"></a></li>
+						<li><a href="index.html" class="grid" data-title="Portfolio"></a></li>
+						<li><a href="#" class="next" data-title="Next"></a></li>
+					</ul>							
+					
+				</div><!-- end work_nav -->
+				<h1 class="title">Dynamic Tabulation of Query Strings</h1>
+			</div>		
+		</section><!-- end top -->
+
+		<section class="wrapper">
+			<div class="content">
+				<h1 id="test"></h1>
+				<p id="arraytest"></p>
+				<svg class="chart">	
+				</svg>
+			</div><!-- end content -->
+		</section>
+	</section><!-- end main -->
+	<script>
+				var str = decodeURI(window.location.search); 
+				var letterData = new Object(); 
+				//check for punctuation/special charac
+				for (var i = 0, len = str.length; i < len; i++) {
+					if (!((str[i] == ' ') || (str[i] == '?'))){
+						if (!(letterData.hasOwnProperty(str[i]))) {
+					  		letterData[str[i]] = 0; 
+					 	};
+					 	letterData[str[i]]++;
+					};
+					  
+
+				};
+				d3.select('#test').text(str);
+				var data = d3.entries(letterData);
+				var height = 600, width = 900;
+				var barWidth = width/data.length
+				var values = d3.values(letterData)
+				var y = d3.scale.linear()
+					.domain([0, d3.max(values)])
+				    .range([height, 0]);
+
+
+				var chart = d3.select(".chart")
+				    .attr("width", width)
+				    .attr("height", height);
+
+				var bar = chart.selectAll("g")
+				    .data(data)
+				  .enter().append("g")
+				    .attr("transform", function(d, i) { return "translate(" + i * barWidth + ", 0)"; });
+
+				bar.append("rect")
+					.attr("y", function(d){return y(d['value']);})
+				    .attr("height", function(d){return height - y(d['value']);})
+				    .attr("width", barWidth-1);
+
+				bar.append("text")
+				    .attr("x", barWidth/2)
+				    .attr("y", height - 15)
+				    .attr("dy", ".35em")
+				    .text(function(d) {return d['key'];});
+
+				// d3.select(".chart")
+				//   .selectAll("div")
+				//     .data(d3.entries(letterData))
+				//   .enter().append("div")
+				//     .style("width", function(d) { return d["value"] * 100 + "px"; })
+				//     .text(function(d) { return d["key"]; });
+				//console.log(JSON.stringify(letterData));
+
+			</script>
+</body>
+</html>
