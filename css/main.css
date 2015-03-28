@@ -353,7 +353,7 @@ h5, h6          { font-weight: bolder }
 /*  Inner Page  */
 .top{
     width: 100%;
-    height: 150px;
+    height: 100px;
     overflow: hidden;
     display: block;
     position: relative;
@@ -438,7 +438,7 @@ h5, h6          { font-weight: bolder }
     font-family: "raleway-regular", arial;
     font-size: 15px;
     line-height: 22px;
-    padding: 60px 30px;
+    padding: 10px 30px;
     background: #fff;
 
     -webkit-box-sizing: border-box;
