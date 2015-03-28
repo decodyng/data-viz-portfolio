@@ -166,8 +166,11 @@ h5, h6          { font-weight: bolder }
     header .footer{
         position: absolute;
         bottom: 50px;
-    }
 
+    }
+    .footer{
+        left: 30px;
+    }
     header ul.social{
         list-style: none;
         margin-bottom: 5px;
@@ -185,47 +188,37 @@ h5, h6          { font-weight: bolder }
         display: block;
         width: 30px;
         height: 30px;
-        background: url('../img/sm.png') no-repeat;
+        background: url('../img/contact.jpg') no-repeat;
         background-position: 0 0;
     }
 
 
     header ul.social li a:hover{
-        background: url('../img/sm_hover.png') no-repeat;
+        background: url('../img/contact-hover.jpg') no-repeat;
     }
 
 
 
-    header ul.social li a.fb,
-    header ul.social li a.fb:hover{
-        background-position: 0 0;
+    header ul.social li a.email,
+    header ul.social li a.email:hover{
+        background-position: -1px 0;
     }
 
-
-    header ul.social li a.google,
-    header ul.social li a.google:hover{
-        background-position: -31px 0;
-    }
-
-    header ul.social li a.behance,
-    header ul.social li a.behance:hover{
-        background-position: -62px 0;
+    header ul.social li a.website,
+    header ul.social li a.website:hover{
+        background-position: -35px -36px;
     }
 
     header ul.social li a.twitter,
     header ul.social li a.twitter:hover{
-        background-position: -93px 0;
+        background-position: -3px -70px;
     }
 
-    header ul.social li a.dribble,
-    header ul.social li a.dribble:hover{
-        background-position: -124px 0;
+    header ul.social li a.mobile,
+    header ul.social li a.mobile:hover{
+        background-position: -1px -35px;
     }
 
-    header ul.social li a.rss,
-    header ul.social li a.rss:hover{
-        background-position: -155px 0;
-    }
 
     header .rights p{
         color: #454545;
@@ -357,7 +350,7 @@ h5, h6          { font-weight: bolder }
     overflow: hidden;
     display: block;
     position: relative;
-    background: url('../img/simple.png') no-repeat;
+    background: url('../img/purple.jpg') no-repeat;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
