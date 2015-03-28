@@ -12,7 +12,7 @@
     <script type="text/javascript" src="js/d3.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <style>
-    	.content h1 {
+    	.content h2{
     		font-family: "raleway", arial;
     		margin-bottom: 15px;
     	}
@@ -81,12 +81,13 @@
 					
 				</div><!-- end work_nav -->
 				<h1 class="title">Dynamic Tabulation of Query Strings</h1>
+
 			</div>		
 		</section><!-- end top -->
 
 		<section class="wrapper">
 			<div class="content">
-				<h1 id="test"></h1>
+				<h2 id="test">If you don't see anything, add a query string to the URL (.html?wordsgohere)</h2>
 				<svg class="chart">	
 				</svg>
 			</div><!-- end content -->
@@ -106,7 +107,10 @@
 					  
 
 				};
-				d3.select('#test').text(str);
+				if (str) {
+					d3.select('#test').text(str);
+				}
+				
 				var data = d3.entries(letterData);
 				var height = 450, width = 700;
 				var barWidth = width/data.length
