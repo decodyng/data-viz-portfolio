@@ -16,9 +16,9 @@
     		font-family: "raleway", arial;
     		margin-bottom: 15px;
     	}
-		.chart rect {
+/*		.chart rect {
 			fill:rgb(178, 152, 216);
-		}
+		}*/
 
 		.chart text {
 			  fill: white;
@@ -29,14 +29,38 @@
 		.axis text {
 		  font: 14px "raleway-regular", arial;
 		  fill: black;
+		  
 		}
+/*		.y text {
+			opacity:0.1;
+		}
+		.y path, .y line {
+			opacity: 0.1;
+		}*/
 
+		.x path, .x line {
+			opacity: 0.1;
+		}
 		.axis path,
 		.axis line {
 		  fill: none;
 		  stroke: #000;
 		  shape-rendering: crispEdges;
 		}
+
+		.tooltip {   
+			  position: absolute;           
+			  text-align: center;           
+			  width: 60px;                  
+			  height: 28px;                 
+			  padding: 2px;             
+			  font: 12px sans-serif;        
+			  background: black;   
+			  border: 0px;    
+			  border-radius: 5px;          
+			  pointer-events: none;         
+			}
+
 
     </style>
 </head>
@@ -111,11 +135,12 @@
 				var letterData = new Object(); 
 				//check for punctuation/special charac
 				for (var i = 0, len = str.length; i < len; i++) {
-					if (!((str[i] == ' ') || (str[i] == '?'))){
-						if (!(letterData.hasOwnProperty(str[i]))) {
-					  		letterData[str[i]] = 0; 
+					let = str[i].toLowerCase();
+					if (!((let == ' ') || (let == '?'))){
+						if (!(letterData.hasOwnProperty(let))) {
+					  		letterData[let] = 0; 
 					 	};
-					 	letterData[str[i]]++;
+					 	letterData[let]++;
 					};
 					  
 
@@ -123,7 +148,10 @@
 				if (str) {
 					d3.select('#test').text(str);
 				}
-				
+				var englishFrequencies = {"a":0.08167, "b":0.01492, "c":0.02782, "d":0.04253, "e":0.12702, "f":0.02228, 
+							"g":0.02015, "h":0.06094, "i":0.06966, "j":0.00153, "k":0.00772, "l":0.004025,
+							"m":0.02406, "n":0.06749, "o":0.07507, "p":0.01929, "r": 0.05987, "s":0.06237,
+							"t":0.09056, "u":0.02758, "v":0.00978, "w":0.02360, "x":0.00150, "y":0.01974, "z":0.00074};
 				var data = d3.entries(letterData);
 				var letterNames = d3.keys(letterData);
 				var margin = {top: 20, right: 30, bottom: 30, left: 40};
@@ -146,26 +174,53 @@
 
 				var yAxis = d3.svg.axis()
 				    .scale(y)
-				    .orient("left");
+				    .orient("left")
+				    .ticks(5);
+
+
+				var colorScale = d3.scale.linear()
+					.domain(d3.extent(d3.values(englishFrequencies)))
+					.range(["#DED0E4", "#662977"]);
 
 				var chart = d3.select(".chart")
 				    .attr("width", width + margin.left + margin.right)
 				    .attr("height", height + margin.top + margin.bottom)
 				    .append("g")
-    				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    				
+    				.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    			;
+
+
+    			var tip = d3.select(".content").append("div")   
+					    .attr("class", "tooltip")               
+					    .style("opacity", 0);
+
 
 				var bar = chart.selectAll("g")
 				    .data(data)
-				  .enter().append("g")
-				    .attr("transform", function(d, i) { return "translate(" + x(d.key) + ", 0)"; });
+				  	.enter()
+				  	.append("g")
+				    	.attr("transform", function(d, i) { return "translate(" + x(d.key) + ", 0)"; });
 				
-
+	
 				bar.append("rect")
-					.attr("y", function(d){return y(d['value']);})
-				    .attr("height", function(d){return height - y(d['value']);})
-				    .attr("width", x.rangeBand());
-
+					.attr("y", function(d){return y(d.value);})
+				    .attr("height", function(d){return height - y(d.value);})
+				    .attr("width", x.rangeBand())
+				    .style("fill", function(d){return colorScale(englishFrequencies[d.key]);})
+				    .on("mouseover", function(d, i) {      
+			            tip.transition()        
+			                .duration(200)      
+			                .style("opacity", .9);      
+			            tip .html("Count: " + d.value)   
+			                .style("top", (y(d.value) + 150) + "px")
+			                .style("left", (x(d.key) + 280 + margin.left) + "px") ;    
+			            })                
+			        .on("mouseout", function(d) {       
+			            tip.transition()        
+			                .duration(500)      
+			                .style("opacity", 0);
+			            });  
+									    
 				chart.append("g")
 				    .attr("class", "x axis")
 				    .attr("transform", "translate(0," + height + ")")
@@ -173,13 +228,22 @@
 
 				chart.append("g")
 			      .attr("class", "y axis")
-			      .call(yAxis)
-			      .append("text")
-				    .attr("transform", "rotate(-90)")
-				    .attr("y", 6)
-				    .attr("dy", ".71em")
-				    .style("text-anchor", "end")
-				    .text("Occurances");
+				  .style("opacity", 0.1)
+			      .call(yAxis);
+
+				
+			    yAxElem = chart.select(".y");
+
+			    chart.on("mouseover", function(){
+			    	yAxElem.transition()
+			    			.duration(500)
+			    			.style("opacity", 1);
+			    })
+			    .on("mouseout", function(){
+			    	yAxElem.transition()
+			    			.duration(500)
+			    			.style("opacity", 0.1);
+			    })
 
 				// bar.append("text")
 				//     .attr("x", x.rangeBand()/2)
