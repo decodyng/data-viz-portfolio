@@ -39,7 +39,7 @@
 		}*/
 
 		.x path, .x line {
-			opacity: 0.1;
+			opacity: 0.5;
 		}
 		.axis path,
 		.axis line {
@@ -117,16 +117,36 @@
 					</ul>							
 					
 				</div><!-- end work_nav -->
-				<h1 class="title">Dynamic Tabulation of Query Strings</h1>
+				<h1 class="title">Letter Frequency Tabulation</h1>
 
 			</div>		
 		</section><!-- end top -->
 
 		<section class="wrapper">
 			<div class="content">
-				<h2 id="test">If you don't see anything, add a query string to the URL (.html?wordsgohere)</h2>
+				<h2 id="test">If you don't see a plot below, add a query string to the URL (.html?wordsgohere)</h2>
+				<h5>This chart displays frequncy within your string through bar height and frequency in English as a whole through color intensity</h5>
 				<svg class="chart">	
 				</svg>
+				<div class="explanation">
+				<b>Functionality List</b>
+				<ul>
+					<li>Modified tick appearance to always display five ticks (C)</li>
+					<li>Dynamically colored bars according to overall English frequency of given letter (C)</li>
+					<li>Sorted bars in alphabetical order (C) </li>
+					<li>Modified tickLength on X axis to make ticks less prominent (C)</li>
+					<li>Added tooltip to show value of bars when hovered over (B)</li>
+					<li>Faded in axis line, tick labels only when plot area hovered over (A)</li>
+				</ul>
+				<br>
+				<p>This visualization uses two primary means of encoding data: bar length, to encode the letter count within the entered query string, and intensity of bar color, used to encode the frequency of that letter in the English language as a whole. This is meant as a simple but interesting way to examine, for any given string, whether its frequency magnitudes follow the pattern of the language as whole, or else diverge from it. I chose to use a color palette that fades from intense to nearly white becase frequency has no diverging property that would justify the choice of a two-color palette.
+				<br>
+				<br>
+				While the template graph included a default axis line that was highly granular, I made the choice to reduce the Y axis to only 5 tickmarks because the complexity of the data is low, and doesn't necessitate that high degree of granularity. By simplifing the axis, I removed ink and, in general, elements on the page that could distract from the data itself. In a similar vein of simplification, I shortened the tickLength of the x axis ticks, relying on the fact that the letters are already vertically aligned with their corresponding bars, and so viewers will already tend to associate them, and don't need a strong visual cue to supplement that tendency. 
+				<br><br> Finally, I chose to dynamically modify the page's header text to allow it to provide a tacit user prompt in the case where the page is loaded without a query string, thus making the visualization more usable for those without a pre-conceived expectation of how to access its functionality.
+				</p>
+					
+				</div>
 			</div><!-- end content -->
 		</section>
 	</section><!-- end main -->
@@ -170,7 +190,8 @@
 
 				var xAxis = d3.svg.axis()
 					    .scale(x)
-					    .orient("bottom");
+					    .orient("bottom")
+					    .tickSize(3);
 
 				var yAxis = d3.svg.axis()
 				    .scale(y)
@@ -228,7 +249,7 @@
 
 				chart.append("g")
 			      .attr("class", "y axis")
-				  .style("opacity", 0.1)
+				  .style("opacity", 0)
 			      .call(yAxis);
 
 				
@@ -236,13 +257,13 @@
 
 			    chart.on("mouseover", function(){
 			    	yAxElem.transition()
-			    			.duration(500)
-			    			.style("opacity", 1);
+			    			.duration(700)
+			    			.style("opacity", .8);
 			    })
 			    .on("mouseout", function(){
 			    	yAxElem.transition()
-			    			.duration(500)
-			    			.style("opacity", 0.1);
+			    			.duration(700)
+			    			.style("opacity", 0);
 			    })
 
 				// bar.append("text")
