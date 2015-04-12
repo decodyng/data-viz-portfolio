@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Census Exploration</title>
+	<meta charset="utf-8">
+	<meta name="author" content="pixelhint.com">
+	<meta name="description" content="Magnetic is a stunning responsive HTML5/CSS3 photography/portfolio website  template"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <style>
+    	.content h2{
+    		font-family: "raleway", arial;
+    		margin-bottom: 15px;
+    	}
+/*		.chart rect {
+			fill:rgb(178, 152, 216);
+		}*/
+
+		.chart text {
+			  fill: white;
+			  font-family: "raleway-regular", arial;
+			  text-anchor: end;
+			  font-size: 20px;
+			}
+		.axis text {
+		  font: 14px "raleway-regular", arial;
+		  fill: black;
+		  
+		}
+		.tile {
+			  shape-rendering: crispEdges;
+			}
+
+		.top {
+			background: url('../img/rwb.jpg') no-repeat;
+		}
+		.axis path,
+		.axis line {
+		  fill: none;
+		  stroke: #000;
+		  shape-rendering: crispEdges;
+		}
+
+		.label {
+		  font-weight: bold;
+		}
+/*		.y text {
+			opacity:0.1;
+		}
+		.y path, .y line {
+			opacity: 0.1;
+		}*/
+
+    </style>
+</head>
+<body>
+
+	<header>
+		<div class="logo">
+			<a href="index.html"><img src="img/logo.png" title="Magnetic" alt="Magnetic"/></a>
+		</div><!-- end logo -->
+
+		<!--<div id="menu_icon"></div>
+		<nav>
+			<ul>
+				<li><a href="index.html" class="selected">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">The Team</a></li>
+				<li><a href="#">Journal</a></li>
+				<li><a href="contact.html">Contact Us</a></li>
+			</ul>
+		</nav>end navigation menu -->
+
+		<div> 
+			<h5 style="text-align:center; line-height:160%">This site is a repository for projects completed as part of MSAN's Information Visualization course</h5><h6 style="text-align:center">Code available at https://github.com/decodyng/data-viz-portfolio</h6>
+		</div>
+ 
+		<div class="footer clearfix">
+			<ul class="social clearfix">
+				<li><a href="http://decodyng.com/" target="_blank" class="website" data-title="Website"></a></li>
+				<li><a href="https://twitter.com/decodyng" target="_blank" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="mailto:cody.marie.wild@gmail.com" target="_blank" class="email" data-title="Email"></a></li>
+				<li><a href="#" target="_blank" class="mobile" data-title="814.414.7199"></a></li>
+				<!--<li><a href="#" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="#" class="dribble" data-title="Dribble"></a></li>-->
+				<!--<li><a href="#" class="rss" data-title="RSS"></a></li>-->
+			</ul><!-- end social -->
+
+			<div class="rights">
+				<!--<p>Copyright © 2014 magnetic.</p>-->
+				<p style="font-size:7px; text-align:center;">Template by <a href="">Pixelhint.com</a></p>
+			</div><!-- end rights -->
+		</div ><!-- end footer -->
+	</header><!-- end header -->
+
+	<section class="main clearfix">
+
+		<section class="top">	
+			<div class="wrapper content_header clearfix">
+				<div class="work_nav">
+							
+					<ul class="btn clearfix">
+						<li><a href="#" class="previous" data-title="Previous"></a></li>
+						<li><a href="index.html" class="grid" data-title="Portfolio"></a></li>
+						<li><a href="#" class="next" data-title="Next"></a></li>
+					</ul>							
+					
+				</div><!-- end work_nav -->
+				<h1 class="title">Census Exploration</h1>
+
+
+			</div>		
+		</section><!-- end top -->
+
+		<section class="wrapper">
+			<div class="content">
+				<h2>Murders Per 100,000 By Region and State Population</h2>
+				<svg class="heatmap"></svg>
+			</div><!-- end content -->
+		</section>
+	</section><!-- end main -->
+	<script>
+	var margin = {top: 20, right: 90, bottom: 30, left: 50};
+    var width = 750 - margin.left - margin.right;
+    var height = 400 - margin.top - margin.bottom;
+
+    var HMx = d3.scale.ordinal().rangeBands([0, width]);
+    var HMy = d3.scale.ordinal().rangeBands([height, 0]);
+    var HMz = d3.scale.linear().range(["#FFEBEB", "red"]);
+
+    var HMxStep = 800;
+    var HMyStep = 200;
+    var svg = d3.select(".heatmap")
+    			.attr("width", width + margin.left + margin.right)
+    			.attr("height", height + margin.top + margin.bottom)
+    			.append("g")
+    				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+    d3.json("state77.json", function(data){
+    	data.forEach(function(d){
+    		d.roundPop = d3.round(d.Population, -3);
+    	});
+    	var hmData = d3.nest()
+    	 				.key(function(d) {return d.Region;})
+    	 				.key(function(d) {return d.roundPop;})
+    	 				.rollup(function(d){
+    	 					return d3.mean(d, function(g) {return g.Murder})
+    	 				})
+    	 				.entries(data);
+
+    	
+    	HMz.domain(d3.extent(data, function(d) {return d.Murder}));
+    	console.log(d3.extent(data, function(d) {return d.Murder}));
+    	var populationBuckets = d3.range(0, 22000, 1000); 
+    	HMy.domain(populationBuckets)
+    	var hmBucketData = [];
+    	var regionObjects = d3.keys(hmData);
+    	var regions = [];
+    	regionObjects.forEach(function(r){
+    		var regionEl = hmData[r];
+    		var region = regionEl["key"];
+    		regions.push(region);
+    		var regionDict= new Object();
+    		regionEl["values"].forEach(function(exP){
+    			regionDict[exP["key"]] = exP["values"];
+    		}); 
+
+    		populationBuckets.forEach(function(p){
+    			if(p in regionDict){
+    				var el = {region: region, population: p, murder: regionDict[p]};
+    			} else {
+    				var el = {region: region, population: p, murder: "NA"};	
+    			}
+    			hmBucketData.push(el);
+    		});
+    	});
+
+    	HMx.domain(regions);
+    	// var heatmap = svg.selectAll("g")
+				 //    .data(hmBucketData)
+				 //  	.enter()
+				 //  	.append("g")
+				 //    	.attr("transform", function(d, i) { return "translate(" + HMx(d.region) + ", 0)"; });
+
+    	svg.selectAll(".tile")
+		   .data(hmBucketData)
+		    .enter().append("rect")
+	      .attr("class", "tile")
+	      .attr("x", function(d) { return HMx(d.region); })
+	      .attr("y", function(d) { return HMy(d.population); })
+	      .attr("width", HMx.rangeBand())
+	      .attr("height",  HMy.rangeBand())
+	      .style("fill", function(d) { 
+	      			if(d.murder ==="NA"){
+	      				return "#FFFFFF";
+	      				// return "#696464";
+
+	      			} else {
+	      				return HMz(d.murder); 
+	      			}
+			      	
+				      });
+
+		var legend = svg.selectAll(".legend")
+		      .data(HMz.ticks(6).slice(1).reverse())
+		    .enter().append("g")
+		      .attr("class", "legend")
+		      .attr("transform", function(d, i) { return "translate(" + (width + 20) + "," + (20 + i * 20) + ")"; });
+
+		legend.append("rect")
+	    	.attr("width", 20)
+	      	.attr("height", 20)
+	      	.style("fill", function(d){return HMz(d)});
+
+	  	legend.append("text")
+	      .attr("x", 26)
+	      .attr("y", 10)
+	      .attr("dy", ".35em")
+	      .text(function(d, i){return d3.round(d, 3)});
+
+	 	console.log(HMz.ticks());
+
+	  	svg.append("text")
+	      .attr("class", "label")
+	      .attr("x", width + 2)
+	      .attr("y", 10)
+	      .attr("dy", ".35em")
+	      .text("Murder Rate");
+
+	    svg.append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0," + (height) + ")")
+	      .call(d3.svg.axis().scale(HMx).ticks(4).orient("bottom"));
+	    // .append("text")
+	    //   .attr("class", "label")
+	    //   .attr("x", width)
+	    //   .attr("y", -6)
+	    //   .attr("text-anchor", "end")
+	    //   .text("Region");
+
+	  // Add a y-axis with label.
+	  svg.append("g")
+	      .attr("class", "y axis")
+	      .call(d3.svg.axis().scale(HMy).ticks(10).orient("left"));
+
+	    // .append("text")
+	    //   .attr("class", "label")
+	    //   .attr("y", 6)
+	    //   .attr("dy", ".71em")
+	    //   .attr("text-anchor", "end")
+	    //   .attr("transform", "rotate(-90)")
+	    //   .text("Population");
+
+	    });
+
+
+			
+
+			</script>
+</body>
+</html>
