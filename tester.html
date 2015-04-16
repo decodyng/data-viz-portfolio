@@ -1,0 +1,172 @@
+<html>
+<head>
+<script type="text/javascript" src="https://raw.github.com/mbostock/d3/master/d3.js">
+</script>
+<style type="text/css">
+body {
+  font: 10px sans-serif;
+}
+
+circle {
+stroke: steelblue;
+stroke-width: 3;
+fill: none;
+}
+ 
+line {
+stroke: black;
+stroke-width: 1.5;
+}
+
+.xLabel, .yLabel {
+text-anchor: end;
+}
+
+.xGrid, .yGrid {
+stroke-width: 0.5;
+}
+ 
+text {
+font-family: Arial;
+font-size: 9pt;
+text-anchor: right;
+}
+</style>
+</head>
+<body>
+<script type="text/javascript">
+// data
+var data =
+[{"temp":30,"days":3,"germ":0},
+{"temp":30,"days":6,"germ":0},
+{"temp":30,"days":9,"germ":2},
+{"temp":30,"days":12,"germ":4},
+{"temp":30,"days":15,"germ":7},
+{"temp":30,"days":18,"germ":34},
+{"temp":30,"days":21,"germ":43},
+{"temp":30,"days":24,"germ":47},
+{"temp":30,"days":27,"germ":50},
+{"temp":30,"days":30,"germ":50},
+{"temp":35,"days":3,"germ":0},
+{"temp":35,"days":6,"germ":0},
+{"temp":35,"days":9,"germ":3},
+{"temp":35,"days":12,"germ":6},
+{"temp":35,"days":15,"germ":15},
+{"temp":35,"days":18,"germ":46},
+{"temp":35,"days":21,"germ":78},
+{"temp":35,"days":24,"germ":96},
+{"temp":35,"days":27,"germ":100},
+{"temp":35,"days":30,"germ":100},
+{"temp":40,"days":3,"germ":0},
+{"temp":40,"days":6,"germ":0},
+{"temp":40,"days":9,"germ":1},
+{"temp":40,"days":12,"germ":3},
+{"temp":40,"days":15,"germ":5},
+{"temp":40,"days":18,"germ":6},
+{"temp":40,"days":21,"germ":6},
+{"temp":40,"days":24,"germ":6},
+{"temp":40,"days":27,"germ":6},
+{"temp":40,"days":30,"germ":6}];
+    
+// sizes
+var w = 200,
+    h = 200,
+    p = 20,
+	xlim = 30,
+	ylim = 100,
+	y = d3.scale.linear().domain([0, ylim]).range([0 + p, h - p]),
+	x = d3.scale.linear().domain([0, xlim]).range([0 + p, w - p]);
+    
+var nest = d3.nest()
+    .key(function(d) { return d.temp; })
+    .entries(data);
+
+var svg = d3.select("body")
+    .append("svg:svg")
+	.attr("class", "chart")
+    .attr("width", w * nest.length + p * (nest.length - 1))
+    .attr("height", h + p * 2);
+   
+var cell = svg.selectAll("g")
+    .data(nest)
+    .enter().append("svg:g")
+    .attr("transform", function(d, i) { return "translate(" + (p + i * w) + "," + (h + p) + ")"; });
+	
+var dots = cell.selectAll("circle")
+	.data( function(d) { return d.values; })
+    .enter().append("svg:circle")
+	.attr("cx", function(d, i) { return x(d.days); })
+	.attr("cy", function(d, i) { return -1 * y(d.germ); })
+	.attr("r", 3);
+	
+cell.append("svg:line")
+	.attr("x1", x(0))
+	.attr("y1", -1 * y(0))
+	.attr("x2", x(xlim))
+	.attr("y2", -1 * y(0));
+ 
+cell.append("svg:line")
+	.attr("x1", x(0))
+	.attr("y1", -1 * y(0))
+	.attr("x2", x(0))
+	.attr("y2", -1 * y(ylim));
+	
+cell.selectAll(".xLabel")
+	.data(x.ticks(5))
+	.enter().append("svg:text")
+	.attr("class", "xLabel")
+	.text(String)
+	.attr("x", function(d) { return x(d) })
+	.attr("y", 0)
+	.attr("text-anchor", "middle")
+	.attr("dx", 4);
+ 
+cell.selectAll(".yLabel")
+	.data(y.ticks(4))
+	.enter().append("svg:text")
+	.attr("class", "yLabel")
+	.text(String)
+	.attr("x", 0)
+	.attr("y", function(d) { return -1 * y(d) })
+	.attr("text-anchor", "right")
+	.attr("dy", 4)
+	.attr("dx", 8);
+
+cell.selectAll(".xTicks")
+	.data(x.ticks(5))
+	.enter().append("svg:line")
+	.attr("class", "xTicks")
+	.attr("x1", function(d) { return x(d); })
+	.attr("y1", -1 * y(0))
+	.attr("x2", function(d) { return x(d); })
+	.attr("y2", -1 * y(-1.5));
+ 
+cell.selectAll(".yTicks")
+	.data(y.ticks(4))
+	.enter().append("svg:line")
+	.attr("class", "yTicks")
+	.attr("y1", function(d) { return -1 * y(d); })
+	.attr("x1", x(-0.5))
+	.attr("y2", function(d) { return -1 * y(d); })
+	.attr("x2", x(0));
+
+cell.selectAll(".xGrid")
+	.data(x.ticks(5))
+	.enter().append("svg:line")
+	.attr("class", "xGrid")
+	.attr("x1", function(d) { return x(d); })
+	.attr("y1", -1 * y(0))
+	.attr("x2", function(d) { return x(d); })
+	.attr("y2", -1 * y(ylim));
+ 
+cell.selectAll(".yGrid")
+	.data(y.ticks(4))
+	.enter().append("svg:line")
+	.attr("class", "yGrid")
+	.attr("y1", function(d) { return -1 * y(d); })
+	.attr("x1", x(xlim))
+	.attr("y2", function(d) { return -1 * y(d); })
+	.attr("x2", x(0));
+	
+</script>
+</body>

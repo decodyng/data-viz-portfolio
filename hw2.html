@@ -12,10 +12,7 @@
     <script type="text/javascript" src="js/d3.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <style>
-    	.content h2{
-    		font-family: "raleway", arial;
-    		margin-bottom: 15px;
-    	}
+    	
 /*		.chart rect {
 			fill:rgb(178, 152, 216);
 		}*/
@@ -48,6 +45,39 @@
 		.label {
 		  font-weight: bold;
 		}
+
+		.smAx text{ font-family: sans-serif; font-size: 10px; }
+		.smChart {
+		  float: left;
+		  padding-right: 5px;
+		  padding-bottom: 5px;
+		  padding-top:0;
+		  padding-left:0;
+		}
+		.smBackground {
+		  fill: white;
+		}
+		.smallmult {
+			background: white;
+			  width: 800px;
+			  height: 700px;
+			  margin-left:8%;
+		}
+
+		.content h2 {
+			font-family: "raleway", arial;
+			text-align: center;
+			font-size: 35px;
+			margin-bottom: 5px;
+		}
+
+		.content h4 {
+			text-align:center;
+			font-size:20px;
+			font-weight: normal;
+			color:gray;
+		}
+		
 /*		.y text {
 			opacity:0.1;
 		}
@@ -118,13 +148,18 @@
 
 		<section class="wrapper">
 			<div class="content">
-				<h2>Murders Per 100,000 By Region and State Population</h2>
+				<h2 class="plotTitle">Murders Per 100,000</h2>
+				<h4 class="plotSubtitle">By Region and State Population</h4>
 				<svg class="heatmap"></svg>
+				<hr>
+				<hr>
+				<h2 class="plotTitle">Population vs Illiteracy Rates: By Region</h2>
+				<div class="smallmult"></div>
 			</div><!-- end content -->
 		</section>
 	</section><!-- end main -->
 	<script>
-	var margin = {top: 20, right: 90, bottom: 30, left: 50};
+	var margin = {top: 20, right: 90, bottom: 30, left: 90};
     var width = 750 - margin.left - margin.right;
     var height = 400 - margin.top - margin.bottom;
 
@@ -134,11 +169,21 @@
 
     var HMxStep = 800;
     var HMyStep = 200;
-    var svg = d3.select(".heatmap")
+
+    var smallWidth = 300; 
+    var smallHeight = 240; 
+    var smallRad = 5;
+    var smMargin = {top: 15, right: 10, bottom: 40, left: 35};
+    var hmSvg = d3.select(".heatmap")
     			.attr("width", width + margin.left + margin.right)
     			.attr("height", height + margin.top + margin.bottom)
+    			.style("margin-left", "4%")
     			.append("g")
     				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+
     
     d3.json("state77.json", function(data){
     	data.forEach(function(d){
@@ -154,7 +199,6 @@
 
     	
     	HMz.domain(d3.extent(data, function(d) {return d.Murder}));
-    	console.log(d3.extent(data, function(d) {return d.Murder}));
     	var populationBuckets = d3.range(0, 22000, 1000); 
     	HMy.domain(populationBuckets)
     	var hmBucketData = [];
@@ -180,13 +224,13 @@
     	});
 
     	HMx.domain(regions);
-    	// var heatmap = svg.selectAll("g")
+    	// var heatmap = hmSvg.selectAll("g")
 				 //    .data(hmBucketData)
 				 //  	.enter()
 				 //  	.append("g")
 				 //    	.attr("transform", function(d, i) { return "translate(" + HMx(d.region) + ", 0)"; });
 
-    	svg.selectAll(".tile")
+    	hmSvg.selectAll(".tile")
 		   .data(hmBucketData)
 		    .enter().append("rect")
 	      .attr("class", "tile")
@@ -205,7 +249,7 @@
 			      	
 				      });
 
-		var legend = svg.selectAll(".legend")
+		var legend = hmSvg.selectAll(".legend")
 		      .data(HMz.ticks(6).slice(1).reverse())
 		    .enter().append("g")
 		      .attr("class", "legend")
@@ -222,16 +266,15 @@
 	      .attr("dy", ".35em")
 	      .text(function(d, i){return d3.round(d, 3)});
 
-	 	console.log(HMz.ticks());
 
-	  	svg.append("text")
+	  	hmSvg.append("text")
 	      .attr("class", "label")
 	      .attr("x", width + 2)
 	      .attr("y", 10)
 	      .attr("dy", ".35em")
 	      .text("Murder Rate");
 
-	    svg.append("g")
+	    hmSvg.append("g")
 	      .attr("class", "x axis")
 	      .attr("transform", "translate(0," + (height) + ")")
 	      .call(d3.svg.axis().scale(HMx).ticks(4).orient("bottom"));
@@ -243,7 +286,7 @@
 	    //   .text("Region");
 
 	  // Add a y-axis with label.
-	  svg.append("g")
+	  hmSvg.append("g")
 	      .attr("class", "y axis")
 	      .call(d3.svg.axis().scale(HMy).ticks(10).orient("left"));
 
@@ -254,6 +297,73 @@
 	    //   .attr("text-anchor", "end")
 	    //   .attr("transform", "rotate(-90)")
 	    //   .text("Population");
+	    divisions = ["East South Central", "South Atlantic", "West South Central", "Pacific", "Mountain", "New England",
+	    "Middle Atlantic", "East North Central", "West North Central"];
+
+	    smX = d3.scale.linear().domain(d3.extent(data, function(d) {return d.Population/1000})).range([0.05*smallWidth,smallWidth*0.95]);
+		smY = d3.scale.linear().domain(d3.extent(data, function(d) {return d.Illiteracy})).range([0.95*smallHeight,0.05*smallHeight]);
+		smZ = d3.scale.ordinal().domain(divisions).range(['rgb(166,206,227)','rgb(31,120,180)','rgb(178,223,138)','rgb(51,160,44)','rgb(251,154,153)','rgb(227,26,28)','rgb(253,191,111)','rgb(255,127,0)','rgb(202,178,214)']); 
+
+	   	smData = d3.nest()
+	    			.key(function(d) {return d.Region})
+	    			.entries(data);
+
+	    console.log(smData);
+	    smDiv = d3.select(".smallmult").selectAll(".smChart").data(smData);
+	    smDiv.enter().append("div").attr("class", "smChart")
+      			.append("svg").append("g");
+
+      	smallSvgs = smDiv.select("svg")
+	      .attr("width", smallWidth + smMargin.left + smMargin.right)
+	      .attr("height", smallHeight + smMargin.top + smMargin.bottom);
+
+      	g = smallSvgs.select("g")
+      		.attr("transform", "translate(" + (smMargin.left) + "," + (smMargin.top) + ")");
+
+      	g.append("rect")
+	      .attr("class", "smBackground")
+	      .style("pointer-events", "all")
+	      .attr("width", smallWidth + smMargin.right )
+	      .attr("height", smallHeight);
+
+	    scatter = g.append("g");
+	    circles = scatter.selectAll(".point")
+	    .data(function(c) {return c.values})
+	    .enter()
+	    .append('circle');
+
+	    circles.attr("cx", function(d) {return smX(d.Population/1000)})
+	    .attr("cy", function(d) {return smY(d.Illiteracy)})
+	    .attr("r", smallRad)
+	    .attr("fill", function(d) {return smZ(d.Division)});
+
+	    scatter.append("text")
+			  .attr("class", "title")
+			  .attr("text-anchor", "middle")
+			  .attr("y", smallHeight + 14)
+			  .attr("dy", smMargin.bottom / 2 + 5)
+			  .attr("x", smallWidth / 2)
+			  .text(function(c) {return c.key})
+			  .style("font-size", 18);
+
+		scatter.append("g")
+	      .attr("class", "x axis smAx")
+	      .attr("transform", "translate(0," + (smallHeight) + ")")
+	      .call(d3.svg.axis().scale(smX).ticks(4).orient("bottom"))
+		      .append("text")
+		      .attr("class", "label")
+		      .attr("x", smallWidth)
+		      .attr("y", -6)
+		      .attr("text-anchor", "end")
+		      .text("Population (100,000s)")
+		      .style("font-size", 10);
+
+	    scatter.append("g")
+	      .attr("class", "y axis smAx")
+	      .call(d3.svg.axis().scale(smY).ticks(5).orient("left"));
+	    //add hovers on scatter plot 
+
+	    //.rollup(function(d){return {graduation:d.HSGrad, income:d.Income}})
 
 	    });
 
