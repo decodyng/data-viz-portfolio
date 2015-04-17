@@ -12,6 +12,7 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/d3.js"></script>
     <script type="text/javascript" src="js/d3.parcoords.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <style>
     	
@@ -97,6 +98,47 @@
 		  stroke: #fff;
 		  shape-rendering: crispEdges;
 		}
+		.d3-tip {
+		  line-height: 1;
+		  font-weight: bold;
+		  padding: 12px;
+		  background: rgba(0, 0, 0, 0.8);
+		  color: #fff;
+		  border-radius: 2px;
+		}
+
+		/* Creates a small triangle extender for the tooltip */
+		.d3-tip:after {
+		  box-sizing: border-box;
+		  display: inline;
+		  font-size: 10px;
+		  width: 100%;
+		  line-height: 1;
+		  color: rgba(0, 0, 0, 0.8);
+		  content: "\25BC";
+		  position: absolute;
+		  text-align: center;
+		}
+
+		/* Style northward tooltips differently */
+		.d3-tip.n:after {
+		  margin: -1px 0 0 0;
+		  top: 100%;
+		  left: 0;
+		}
+
+	/*	.tooltip {   
+			  position: absolute;           
+			  text-align: center;           
+			  width: 60px;                  
+			  height: 28px;                 
+			  padding: 2px;             
+			  font: 12px sans-serif;        
+			  background: black;   
+			  border: 0px;    
+			  border-radius: 5px;          
+			  pointer-events: none;         
+			}*/
 		
 /*		.y text {
 			opacity:0.1;
@@ -299,6 +341,15 @@
 				 //  	.enter()
 				 //  	.append("g")
 				 //    	.attr("transform", function(d, i) { return "translate(" + HMx(d.region) + ", 0)"; });
+		
+
+		// var hmTip = d3.tip()
+		// 	  .attr('class', 'd3-tip')
+		// 	  .offset([-10, 0])
+		// 	  .html(function(d) {
+		// 	    return "<strong>Murders:</strong> <span style='color:red'>" + d.murder + "</span>";
+		// 	  }); 
+		// hmSvg.call(hmTip);
 
     	hmSvg.selectAll(".tile")
 		   .data(hmBucketData)
@@ -309,15 +360,34 @@
 	      .attr("width", HMx.rangeBand())
 	      .attr("height",  HMy.rangeBand())
 	      .style("fill", function(d) { 
-	      			if(d.murder ==="NA"){
-	      				return "#FFFFFF";
-	      				// return "#696464";
+      			if(d.murder ==="NA"){
+      				return "#FFFFFF";
+      				// return "#696464";
 
-	      			} else {
-	      				return HMz(d.murder); 
-	      			}
-			      	
-				      });
+      			} else {
+      				return HMz(d.murder); 
+      			}
+		      	
+			      });
+	      
+	      // .on('mouseover', hmTip.show)
+      	//   .on('mouseout', hmTip.hide)
+      	  
+      	  console.log(hmTip);
+	       // .on("mouseover", function(d, i) {      
+	       //      hmTip.transition()        
+	       //          .duration(400)      
+	       //          .style("opacity", .9);      
+	       //      hmTip.html("Rate: " + d.murder)   
+	       //          .attr("x", (90 + HMx(d.region) + HMxStep/2) + "px")
+	       //          .attr("y", (20 + HMy(d.population) - 50) + "px") ;    
+	       //      })                
+	       //  .on("mouseout", function(d) {       
+	       //      hmTip.transition()        
+	       //          .duration(400)      
+	       //          .style("opacity", 0);
+	       //      });
+		
 
 		var legend = hmSvg.selectAll(".legend")
 		      .data(HMz.ticks(6).slice(1).reverse())
