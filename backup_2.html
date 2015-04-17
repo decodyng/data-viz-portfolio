@@ -8,10 +8,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" type="text/css" href="css/d3.parcoords.css">
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/d3.js"></script>
-    <script type="text/javascript" src="js/d3.parcoords.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <style>
     	
@@ -79,25 +77,9 @@
 			font-weight: normal;
 			color:gray;
 		}
-		.pcBackground path {
-		  fill: none;
-		  stroke: #ccc;
-		  stroke-opacity: .4;
-		  shape-rendering: crispEdges;
+		hr {
+			margin: .25em 0;
 		}
-
-		.pcForeground path {
-		  fill: none;
-		  /*stroke: steelblue;*/
-		  stroke-opacity: .9;
-		}
-
-		.brush .extent {
-		  fill-opacity: .3;
-		  stroke: #fff;
-		  shape-rendering: crispEdges;
-		}
-		
 /*		.y text {
 			opacity:0.1;
 		}
@@ -175,10 +157,6 @@
 				<hr>
 				<h2 class="plotTitle">Population vs Illiteracy Rates: By Region</h2>
 				<div class="smallmult"></div>
-				<h2>Data Exploration: Indicators of Wellbeing</h2>
-				<svg class="parcoor"></svg>
-
-				
 			</div><!-- end content -->
 		</section>
 	</section><!-- end main -->
@@ -206,53 +184,8 @@
     				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-    var pcM = [30, 10, 10, 10],
-	    pcW = 960 - pcM[1] - pcM[3],
-	    pcH = 500 - pcM[0] - pcM[2];
 
-	var pcX = d3.scale.ordinal().rangePoints([0, pcW], 1),
-	    pcY = {},
-	    dragging = {};
 
-	var pcLine = d3.svg.line(),
-	    axis = d3.svg.axis().orient("left"),
-	    background,
-	    foreground;
-
-	var pcSvg = d3.select(".parcoor")
-	    .attr("width", pcW + pcM[1] + pcM[3])
-	    .attr("height", pcH + pcM[0] + pcM[2])
-	  .append("g")
-	    .attr("transform", "translate(" + pcM[3] + "," + pcM[0] + ")");
-
-	function position(d) {
-		  var v = dragging[d];
-		  return v == null ? pcX(d) : v;
-		}
-
-	function transition(g) {
-		  return g.transition().duration(500);
-		}
-
-	// Returns the path for a given data point.
-	function path(d) {
-		  return pcLine(dimensions.map(function(p) { return [position(p), pcY[p](d[p])]; }));
-		};
-
-	// When brushing, don’t trigger axis dragging.
-	function brushstart() {
-	  d3.event.sourceEvent.stopPropagation();
-	};
-
-	// Handles a brush event, toggling the display of foreground lines.
-	function brush() {
-	  var actives = dimensions.filter(function(p) { return !pcY[p].brush.empty(); }),
-	      extents = actives.map(function(p) { return pcY[p].brush.extent(); });
-	  foreground.style("display", function(d) {
-	    return actives.every(function(p, i) {
-	      return extents[i][0] <= d[p] && d[p] <= extents[i][1];
-	    }) ? null : "none";
-	  });}
     
     d3.json("state77.json", function(data){
     	data.forEach(function(d){
@@ -368,21 +301,23 @@
 	    //   .text("Population");
 	    divisions = ["East South Central", "South Atlantic", "West South Central", "Pacific", "Mountain", "New England",
 	    "Middle Atlantic", "East North Central", "West North Central"];
-
-	    smX = d3.scale.linear().domain(d3.extent(data, function(d) {return d.Population/1000})).range([0.05*smallWidth,smallWidth*0.95]);
-		smY = d3.scale.linear().domain(d3.extent(data, function(d) {return d.Illiteracy})).range([0.95*smallHeight,0.05*smallHeight]);
-		smZ = d3.scale.ordinal().domain(divisions).range(['rgb(166,206,227)','rgb(31,120,180)','rgb(202,178,214)','rgb(227,26,28)','rgb(251,154,153)','rgb(51,160,44)','rgb(178,223,138)','rgb(255,127,0)','rgb(253,191,111)']); 
-
-	   	smData = d3.nest()
+	    smData = d3.nest()
 	    			.key(function(d) {return d.Region})
 	    			.entries(data);
 
 	    console.log(smData);
-	    smChart = d3.select(".smallmult").selectAll(".smChart").data(smData);
+
+	    smX = d3.scale.linear().domain(d3.extent(data, function(d) {return d.Population/1000})).range([0.05*smallWidth,smallWidth*0.95]);
+		smY = d3.scale.linear().domain(d3.extent(data, function(d) {return d.Illiteracy})).range([0.95*smallHeight,0.05*smallHeight]);
+		smZ = d3.scale.ordinal().domain(divisions).range(['rgb(141,211,199)','rgb(255,255,179)','rgb(190,186,218)','rgb(251,128,114)','rgb(128,177,211)','rgb(253,180,98)','rgb(179,222,105)','rgb(252,205,229)','rgb(217,217,217)']); 
+
+	   	
+	    smDiv = d3.select(".smallmult");
+	    smChart = smDiv.selectAll(".smChart").data(smData);
 	    smChart.enter().append("div").attr("class", "smChart")
       			.append("svg").append("g");
 
-      	smallSvgs = smChart.select("svg")
+      	smallSvgs = smDiv.select("svg")
 	      .attr("width", smallWidth + smMargin.left + smMargin.right)
 	      .attr("height", smallHeight + smMargin.top + smMargin.bottom);
 
@@ -423,7 +358,7 @@
 		      .attr("class", "label")
 		      .attr("x", smallWidth)
 		      .attr("y", -6)
-		      .attr("text-anchor", "end")
+
 		      .text("Population (100,000s)")
 		      .style("font-size", 10);
 
@@ -431,85 +366,42 @@
 	      .attr("class", "y axis smAx")
 	      .call(d3.svg.axis().scale(smY).ticks(5).orient("left"));
 
+	      
+	    //add hovers on scatter plot 
+	    //.rollup(function(d){return {graduation:d.HSGrad, income:d.Income}})
+	 //    var smLegend = smDiv.selectAll(".legend")
+		//       .data(smZ.ticks())
+		//     .enter().append("g")
+		//       .attr("class", "legend")
+		//       .attr("transform", function(d, i) { return "translate(" + (850) + "," + (20 + i * 20) + ")"; });
 
-	      // parallel coordinates 
-	      // hsgrad, income, frost, lifexp
-	    pcVariables = ["HSGrad", "Income", "LifeExp", "Murder"];
-	    pcZ = d3.scale.ordinal()
-	    .domain(["South", "West", "Northeast", "North Central"])
-	    .range(["rgb(31,120,180)", "rgb(227,26,28)", "rgb(51,160,44)", "rgb(255,127,0)"]);
-	    console.log(d3.keys(data[0]));
-	    pcX.domain(dimensions = d3.keys(data[0]).filter(function(d) {
-		    return pcVariables.indexOf(d) > -1 && (pcY[d] = d3.scale.linear()
-		        .domain(d3.extent(data, function(p) { return +p[d]; }))
-		        .range([pcH, 0]));
-		  }));
-
-	    background = pcSvg.append("g")
-		      .attr("class", "pcBackground")
-		    .selectAll("path")
-		      .data(data)
-		    .enter().append("path")
-		      .attr("d", path);
-
-	  // Add blue foreground lines for focus.
-	  	foreground = pcSvg.append("g")
-		      .attr("class", "pcForeground")
-		    .selectAll("path")
-		      .data(data)
-		    .enter().append("path")
-		      .style("stroke", function(d) {return pcZ(d.Region)})
-		      .attr("d", path);
-
-		var pcG = pcSvg.selectAll(".pcDimension")
-		      .data(dimensions)
-		    .enter().append("g")
-		      .attr("class", "pcDimension")
-		      .attr("transform", function(d) { return "translate(" + pcX(d) + ")"; })
-		      .call(d3.behavior.drag()
-		        .on("dragstart", function(d) {
-		          dragging[d] = this.__origin__ = pcX(d);
-		          background.attr("visibility", "hidden");
-		        })
-		        .on("drag", function(d) {
-		          dragging[d] = Math.min(pcW, Math.max(0, this.__origin__ += d3.event.dx));
-		          foreground.attr("d", path);
-		          dimensions.sort(function(a, b) { return position(a) - position(b); });
-		          pcX.domain(dimensions);
-		          g.attr("transform", function(d) { return "translate(" + position(d) + ")"; })
-		        })
-		        .on("dragend", function(d) {
-		          delete this.__origin__;
-		          delete dragging[d];
-		          transition(d3.select(this)).attr("transform", "translate(" + pcX(d) + ")");
-		          transition(foreground)
-		              .attr("d", path);
-		          background
-		              .attr("d", path)
-		              .transition()
-		              .delay(500)
-		              .duration(0)
-		              .attr("visibility", null);
-		        }));
-		pcG.append("g")
-	      .attr("class", "axis")
-	      .each(function(d) { d3.select(this).call(axis.scale(pcY[d])); })
-	    .append("text")
-	      .attr("text-anchor", "middle")
-	      .attr("y", -9)
-	      .text(String);
-
-	  // Add and store a brush for each axis.
-	  pcG.append("g")
-	      .attr("class", "brush")
-	      .each(function(d) { d3.select(this).call(pcY[d].brush = d3.svg.brush().y(pcY[d]).on("brushstart", brushstart).on("brush", brush)); })
-	    .selectAll("rect")
-	      .attr("x", -8)
-	      .attr("width", 16);
-
-
+		// smLegend.append("circle")
+	 //    	.attr("reset", 20)
+	 //      	.style("fill", function(d){return HMz(d)});
 	    });
 
+		var smLegend = d3.select(".smLegend").selectAll(".legend")
+		  .data(smZ.domain())
+		.enter().append("text")
+		.style("display", "block")
+		.text(function(d) {return d})
+		.style("color", function(d){return smZ(d)});
+		
+		
+
+	  	// legend.append("text")
+	   //    .attr("x", 26)
+	   //    .attr("y", 10)
+	   //    .attr("dy", ".35em")
+	   //    .text(function(d, i){return d3.round(d, 3)});
+
+
+	  	// hmSvg.append("text")
+	   //    .attr("class", "label")
+	   //    .attr("x", width + 2)
+	   //    .attr("y", 10)
+	   //    .attr("dy", ".35em")
+	   //    .text("Murder Rate");
 
 			
 
