@@ -12,7 +12,7 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/d3.js"></script>
     <script type="text/javascript" src="js/d3.parcoords.js"></script>
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script type="text/javascript" src="js/d3-tip.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <style>
     	
@@ -103,7 +103,7 @@
 		  font-weight: bold;
 		  padding: 12px;
 		  background: rgba(0, 0, 0, 0.8);
-		  color: #fff;
+		  color: #FFF;
 		  border-radius: 2px;
 		}
 
@@ -125,6 +125,10 @@
 		  margin: -1px 0 0 0;
 		  top: 100%;
 		  left: 0;
+		}
+		.explanation{
+			font-size:16;
+			text-align:center;
 		}
 
 	/*	.tooltip {   
@@ -211,15 +215,34 @@
 		<section class="wrapper">
 			<div class="content">
 				<h2 class="plotTitle">Murders Per 100,000</h2>
-				<h4 class="plotSubtitle">By Region and State Population</h4>
+				<h4 class="plotSubtitle">Grouped By Region and State Population Level</h4>
 				<svg class="heatmap"></svg>
+				<p class="explanation">I chose to visualize the breakdown of murder rates using this heatmap structure because it shows variation across population levels within a dimension - Region - that I explore through all three visualizations on this page. An additional benefit of this structure, with no fill implemented for buckets with no data, is that it shows the differing distribution of populations across regions</p>
+				<br>
 				<hr>
 				<hr>
+				<br>
 				<h2 class="plotTitle">Population vs Illiteracy Rate</h2>
-				<h4 class="plotSubtitle">By Region and Division</h4>
+				<h4 class="plotSubtitle">Arranged By Region and Division</h4>
 				<div class="smallmult"></div>
+				<p class="explanation">This visualization takes advantage of the small multiples framework to show the relationship between population and illiteracy in each of the four regions. In order to provide even more detail, I implemented a "clustered color scheme", where divisions within regions were colored to variants of a central color assigned to each region. Tooltips were added to identify individual states within the plots.</p>
+				<br>
+				<hr>
+				<hr>
+				<br>
 				<h2>Data Exploration: Indicators of Wellbeing</h2>
+				<h4 class="plotSubtitle">Colored By Region</h4>
 				<svg class="parcoor"></svg>
+				<p class="explanation">This visualization's primary goal is to enable exploration by means of brushing. It also re-utilizes the regional color scheme set up in the prior plot to group the lines according to region, and allow users to understand the distribution of regions existing within any given brushing window. </p>
+				<br>
+				<h4 class="explanation" style="margin-bottom:3px">Full Functionality List:</h4>
+				<h6 class="explanation" style="margin-top:4px"> C: Heatmap
+				<br>
+				B: Small Multiples
+				<br>
+				A: Parallel Coordinates
+				<br>
+				Code for all visualizations found <a href="https://github.com/decodyng/data-viz-portfolio/blob/gh-pages/hw2.html">here</a></h6>
 
 				
 			</div><!-- end content -->
@@ -239,7 +262,7 @@
 
     var smallWidth = 300; 
     var smallHeight = 240; 
-    var smallRad = 5;
+    var smallRad = 6;
     var smMargin = {top: 15, right: 10, bottom: 40, left: 35};
     var hmSvg = d3.select(".heatmap")
     			.attr("width", width + margin.left + margin.right)
@@ -343,13 +366,7 @@
 				 //    	.attr("transform", function(d, i) { return "translate(" + HMx(d.region) + ", 0)"; });
 		
 
-		// var hmTip = d3.tip()
-		// 	  .attr('class', 'd3-tip')
-		// 	  .offset([-10, 0])
-		// 	  .html(function(d) {
-		// 	    return "<strong>Murders:</strong> <span style='color:red'>" + d.murder + "</span>";
-		// 	  }); 
-		// hmSvg.call(hmTip);
+		
 
     	hmSvg.selectAll(".tile")
 		   .data(hmBucketData)
@@ -369,11 +386,8 @@
       			}
 		      	
 			      });
-	      
-	      // .on('mouseover', hmTip.show)
-      	//   .on('mouseout', hmTip.hide)
-      	  
-      	  console.log(hmTip);
+
+
 	       // .on("mouseover", function(d, i) {      
 	       //      hmTip.transition()        
 	       //          .duration(400)      
@@ -441,9 +455,10 @@
 	    "Middle Atlantic", "East North Central", "West North Central"];
 
 	    smX = d3.scale.linear().domain(d3.extent(data, function(d) {return d.Population/1000})).range([0.05*smallWidth,smallWidth*0.95]);
-		smY = d3.scale.linear().domain(d3.extent(data, function(d) {return d.Illiteracy})).range([0.95*smallHeight,0.05*smallHeight]);
+		smY = d3.scale.linear().domain(d3.extent(data, function(d) {return d.Illiteracy/100})).range([0.95*smallHeight,0.05*smallHeight]);
 		smZ = d3.scale.ordinal().domain(divisions).range(['rgb(166,206,227)','rgb(31,120,180)','rgb(202,178,214)','rgb(227,26,28)','rgb(251,154,153)','rgb(51,160,44)','rgb(178,223,138)','rgb(255,127,0)','rgb(253,191,111)']); 
 
+		var formatPercent = d3.format(".0%");
 	   	smData = d3.nest()
 	    			.key(function(d) {return d.Region})
 	    			.entries(data);
@@ -457,25 +472,41 @@
 	      .attr("width", smallWidth + smMargin.left + smMargin.right)
 	      .attr("height", smallHeight + smMargin.top + smMargin.bottom);
 
+	     var smTip = d3.tip()
+			  .attr('class', 'd3-tip')
+			  .offset([-5, 0])
+			  .html(function(d) {
+			    return "<span style='text-align:center'>" + d.Name + "<br>" + d.Division + "<br>" + d.Illiteracy + "%</span>";
+			  }); 
+
+	      
+
       	g = smallSvgs.select("g")
       		.attr("transform", "translate(" + (smMargin.left) + "," + (smMargin.top) + ")");
 
       	g.append("rect")
 	      .attr("class", "smBackground")
-	      .style("pointer-events", "all")
+	      // .style("pointer-events", "all")
 	      .attr("width", smallWidth + smMargin.right )
 	      .attr("height", smallHeight);
 
 	    scatter = g.append("g");
+
+
+		scatter.call(smTip);
+
 	    circles = scatter.selectAll(".point")
 	    .data(function(c) {return c.values})
 	    .enter()
 	    .append('circle');
 
 	    circles.attr("cx", function(d) {return smX(d.Population/1000)})
-	    .attr("cy", function(d) {return smY(d.Illiteracy)})
+	    .attr("cy", function(d) {return smY(d.Illiteracy/100)})
 	    .attr("r", smallRad)
-	    .attr("fill", function(d) {return smZ(d.Division)});
+	    .attr("fill", function(d) {return smZ(d.Division)})
+	    .on('mouseover', smTip.show)
+      	.on('mouseout', smTip.hide)
+	    ;
 
 	    scatter.append("text")
 			  .attr("class", "title")
@@ -500,7 +531,7 @@
 
 	    scatter.append("g")
 	      .attr("class", "y axis smAx")
-	      .call(d3.svg.axis().scale(smY).ticks(5).orient("left"));
+	      .call(d3.svg.axis().scale(smY).ticks(5).orient("left").tickFormat(formatPercent));
 
 
 	      // parallel coordinates 
