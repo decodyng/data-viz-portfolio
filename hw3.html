@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Time Series Visualizations</title>
+	<meta charset="utf-8">
+	<meta name="author" content="pixelhint.com">
+	<meta name="description" content="Magnetic is a stunning responsive HTML5/CSS3 photography/portfolio website  template"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/d3.parcoords.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript" src="js/d3.parcoords.js"></script>
+    <script type="text/javascript" src="js/d3-tip.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <style>
+    	.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis text{
+	color:white;
+}
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: green;
+  stroke-width: 1.5px;
+}
+.background{
+	fill:none;
+}
+
+    </style>
+</head>
+<body>
+
+	<header>
+		<div class="logo">
+			<a href="index.html"><img src="img/logo.png" title="Magnetic" alt="Magnetic"/></a>
+		</div><!-- end logo -->
+
+		<!--<div id="menu_icon"></div>
+		<nav>
+			<ul>
+				<li><a href="index.html" class="selected">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">The Team</a></li>
+				<li><a href="#">Journal</a></li>
+				<li><a href="contact.html">Contact Us</a></li>
+			</ul>
+		</nav>end navigation menu -->
+
+		<div> 
+			<h5 style="text-align:center; line-height:160%">This site is a repository for projects completed as part of MSAN's Information Visualization course</h5><h6 style="text-align:center">Code available at https://github.com/decodyng/data-viz-portfolio</h6>
+		</div>
+ 
+		<div class="footer clearfix">
+			<ul class="social clearfix">
+				<li><a href="http://decodyng.com/" target="_blank" class="website" data-title="Website"></a></li>
+				<li><a href="https://twitter.com/decodyng" target="_blank" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="mailto:cody.marie.wild@gmail.com" target="_blank" class="email" data-title="Email"></a></li>
+				<li><a href="#" target="_blank" class="mobile" data-title="814.414.7199"></a></li>
+				<!--<li><a href="#" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="#" class="dribble" data-title="Dribble"></a></li>-->
+				<!--<li><a href="#" class="rss" data-title="RSS"></a></li>-->
+			</ul><!-- end social -->
+
+			<div class="rights">
+				<!--<p>Copyright © 2014 magnetic.</p>-->
+				<p style="font-size:7px; text-align:center;">Template by <a href="">Pixelhint.com</a></p>
+			</div><!-- end rights -->
+		</div ><!-- end footer -->
+	</header><!-- end header -->
+
+	<section class="main clearfix">
+
+		<section class="top">	
+			<div class="wrapper content_header clearfix">
+				<div class="work_nav">
+							
+					<ul class="btn clearfix">
+						<li><a href="#" class="previous" data-title="Previous"></a></li>
+						<li><a href="index.html" class="grid" data-title="Portfolio"></a></li>
+						<li><a href="#" class="next" data-title="Next"></a></li>
+					</ul>							
+					
+				</div><!-- end work_nav -->
+				<h1 class="title">Time Series Visualizations</h1>
+
+
+			</div>		
+		</section><!-- end top -->
+
+		<section class="wrapper">
+			<div class="content">
+			<svg id="petrol"></svg>
+			<svg id="drivdeath"></svg>
+
+
+				
+			</div><!-- end content -->
+		</section>
+	</section><!-- end main -->
+	<script>
+	var margin = {top: 20, right: 80, bottom: 30, left: 50};
+    var width = 900 - margin.left - margin.right; 
+    var height = 250 - margin.top - margin.bottom;
+
+	var parseDate = d3.time.format("%Y-%m-%d").parse;
+	var line_x = d3.time.scale().range([0, width]);
+	var pet_y = d3.scale.linear().range([height, 0]);
+	var death_y = d3.scale.linear().range([height, 0]);
+	var line_xAxis = d3.svg.axis()
+			    .scale(line_x)
+			    .orient("bottom");
+	var pet_yAxis = d3.svg.axis()
+		    .scale(pet_y)
+		    .orient("left")
+		    .ticks(4);
+	var death_yAxis = d3.svg.axis()
+	    .scale(death_y)
+	    .orient("left")
+	    .ticks(5);
+
+	
+
+
+
+	d3.csv("seatbelts.csv", function(data){
+		data.forEach(function(d){
+			d.month = parseDate(d.month);
+			d.DriversKilled = +d.DriversKilled;
+			d.kms = +d.kms;
+			d.VanKilled = +d.VanKilled;
+		});
+
+		var timedomain = d3.extent(data, function(d) { return d.month; })
+		line_x.domain(timedomain);
+		pet_y.domain(d3.extent(data, function(d){return d.PetrolPrice}));
+		death_y.domain(d3.extent(data, function(d){return d.DriversKilled}));
+
+		var pet_line = d3.svg.line()
+	    .interpolate("basis")
+	    .x(function(d) { return line_x(d.month); })
+	    .y(function(d) { return pet_y(d.PetrolPrice); });
+
+		var death_line = d3.svg.line()
+		    .interpolate("basis")
+		    .x(function(d) { return line_x(d.month); })
+		    .y(function(d) { return death_y(d.DriversKilled); });
+
+ 		petrol_svg = d3.select("#petrol")
+ 		.attr("width", width + margin.right + margin.left)
+	    .attr("height", height + margin.top + margin.bottom)
+	  	.append("g")
+	    	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+	    death_svg = d3.select("#drivdeath")
+ 		.attr("width", width + margin.right + margin.left)
+	    .attr("height", height + margin.top + margin.bottom)
+	  	.append("g")
+	    	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	    petrol_svg.append("rect")
+	      .attr("class", "background")
+	      .style("pointer-events", "all")
+	      .attr("width", width + margin.right )
+	      .attr("height", height);
+
+
+      	death_svg.append("rect")
+	      .attr("class", "background")
+	      .style("pointer-events", "all")
+	      .attr("width", width + margin.right )
+	      .attr("height", height);
+
+
+	    // petrol_svg.append("g")
+	    //   .attr("class", "x axis")
+	    //   .attr("transform", "translate(0," + height + ")")
+	    //   .call(line_xAxis);
+
+	    petrol_svg.append("g")
+	      .attr("class", "y axis")
+	      .call(pet_yAxis)
+	    .append("text")
+	      .attr("transform", "rotate(-90)")
+	      .attr("y", 6)
+	      .attr("dy", ".71em")
+	      .style("text-anchor", "end")
+	      .text("Petrol Price");
+
+	    // death_svg.append("g")
+	    //   .attr("class", "x axis")
+	    //   .attr("transform", "translate(0," + height + ")")
+	    //   .call(line_xAxis);
+
+	    death_svg.append("g")
+	      .attr("class", "y axis")
+	      .call(death_yAxis)
+	    .append("text")
+	      .attr("transform", "rotate(-90)")
+	      .attr("y", 6)
+	      .attr("dy", ".71em")
+	      .style("text-anchor", "end")
+	      .text("Driver Deaths");
+
+	      death_svg.append("text")
+		  .attr("class", "static_year")
+		  .attr("text-anchor", "start")
+		  .style("pointer-events", "none")
+		  .attr("dy", 13)
+		  .attr("y", height)
+		  .attr("x", 0)
+		  .style("font-size", 18)
+		  .text(timedomain[0].getFullYear());
+
+
+	     death_svg.append("text")
+		  .attr("class", "static_year")
+		  .attr("text-anchor", "end")
+		  .style("pointer-events", "none")
+		  .attr("dy", 13)
+		  .attr("y", height)
+		  .attr("x", width)
+		  .style("font-size", 18)
+		  .text(timedomain[1].getFullYear());
+
+
+	    var petpoints = petrol_svg
+	    .append("path")
+	    .datum(data)
+	    .attr("class", "line")
+	    .attr("d", pet_line);
+
+	    var deathpoints = death_svg
+	      .append("path")
+	      .datum(data)
+	    .attr("class", "line")
+	    .attr("d", death_line);
+
+	    death_svg.append("text")
+		  .attr("class", "year")
+		  .attr("text-anchor", "middle")
+		  .style("pointer-events", "none")
+		  .attr("dy", 13)
+		  .attr("y", height);
+
+		death_svg.append("text")
+		  .attr("class", "caption")
+		  .attr("text-anchor", "middle")
+		  .style("pointer-events", "none")
+		  .attr("dy", -8);
+
+  		petrol_svg.append("text")
+		  .attr("class", "caption")
+		  .attr("text-anchor", "middle")
+		  .style("pointer-events", "none")
+		  .attr("dy", -8);
+
+		death_svg.append("circle")
+		  .attr("r", 2.2)
+		  .attr("opacity", 0)
+		  .style("pointer-events", "none")
+
+		petrol_svg.append("circle")
+		  .attr("r", 2.2)
+		  .attr("opacity", 0)
+		  .style("pointer-events", "none")
+
+
+
+	    // console.log(death_line(data));
+
+		// console.log(data);
+
+	});
+
+
+	</script>
+</body>
+</html>
