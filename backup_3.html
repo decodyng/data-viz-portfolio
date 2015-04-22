@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Census Exploration</title>
+	<meta charset="utf-8">
+	<meta name="author" content="pixelhint.com">
+	<meta name="description" content="Magnetic is a stunning responsive HTML5/CSS3 photography/portfolio website  template"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/d3.parcoords.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript" src="js/d3.parcoords.js"></script>
+    <script type="text/javascript" src="js/d3-tip.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <style>
+    	
+/*		.chart rect {
+			fill:rgb(178, 152, 216);
+		}*/
+
+		.chart text {
+			  fill: white;
+			  font-family: "raleway-regular", arial;
+			  text-anchor: end;
+			  font-size: 20px;
+			}
+		.axis text {
+		  font: 14px "raleway-regular", arial;
+		  fill: black;
+		  
+		}
+		.tile {
+			  shape-rendering: crispEdges;
+			}
+
+		.top {
+			background: url('img/rwb.jpg') no-repeat;
+		}
+		.axis path,
+		.axis line {
+		  fill: none;
+		  stroke: #000;
+		  shape-rendering: crispEdges;
+		}
+
+		.label {
+		  font-weight: bold;
+		}
+
+		.smAx text{ font-family: sans-serif; font-size: 10px; }
+		.smChart {
+		  float: left;
+		  padding-right: 5px;
+		  padding-bottom: 5px;
+		  padding-top:0;
+		  padding-left:0;
+		}
+		.smBackground {
+		  fill: white;
+		}
+		.smallmult {
+			background: white;
+			  width: 800px;
+			  height: 700px;
+			  margin-left:8%;
+		}
+
+		.content h2 {
+			font-family: "raleway", arial;
+			text-align: center;
+			font-size: 35px;
+			margin-bottom: 5px;
+		}
+
+		.content h4 {
+			text-align:center;
+			font-size:20px;
+			font-weight: normal;
+			color:gray;
+		}
+		.pcBackground path {
+		  fill: none;
+		  stroke: #ccc;
+		  stroke-opacity: .4;
+		  shape-rendering: crispEdges;
+		}
+
+		.pcForeground path {
+		  fill: none;
+		  /*stroke: steelblue;*/
+		  stroke-opacity: .9;
+		}
+
+		.brush .extent {
+		  fill-opacity: .3;
+		  stroke: #fff;
+		  shape-rendering: crispEdges;
+		}
+		.d3-tip {
+		  line-height: 1;
+		  font-weight: bold;
+		  padding: 12px;
+		  background: rgba(0, 0, 0, 0.8);
+		  color: #FFF;
+		  border-radius: 2px;
+		}
+
+		/* Creates a small triangle extender for the tooltip */
+		.d3-tip:after {
+		  box-sizing: border-box;
+		  display: inline;
+		  font-size: 10px;
+		  width: 100%;
+		  line-height: 1;
+		  color: rgba(0, 0, 0, 0.8);
+		  content: "\25BC";
+		  position: absolute;
+		  text-align: center;
+		}
+
+		/* Style northward tooltips differently */
+		.d3-tip.n:after {
+		  margin: -1px 0 0 0;
+		  top: 100%;
+		  left: 0;
+		}
+
+	/*	.tooltip {   
+			  position: absolute;           
+			  text-align: center;           
+			  width: 60px;                  
+			  height: 28px;                 
+			  padding: 2px;             
+			  font: 12px sans-serif;        
+			  background: black;   
+			  border: 0px;    
+			  border-radius: 5px;          
+			  pointer-events: none;         
+			}*/
+		
+/*		.y text {
+			opacity:0.1;
+		}
+		.y path, .y line {
+			opacity: 0.1;
+		}*/
+
+    </style>
+</head>
+<body>
+
+	<header>
+		<div class="logo">
+			<a href="index.html"><img src="img/logo.png" title="Magnetic" alt="Magnetic"/></a>
+		</div><!-- end logo -->
+
+		<!--<div id="menu_icon"></div>
+		<nav>
+			<ul>
+				<li><a href="index.html" class="selected">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">The Team</a></li>
+				<li><a href="#">Journal</a></li>
+				<li><a href="contact.html">Contact Us</a></li>
+			</ul>
+		</nav>end navigation menu -->
+
+		<div> 
+			<h5 style="text-align:center; line-height:160%">This site is a repository for projects completed as part of MSAN's Information Visualization course</h5><h6 style="text-align:center">Code available at https://github.com/decodyng/data-viz-portfolio</h6>
+		</div>
+ 
+		<div class="footer clearfix">
+			<ul class="social clearfix">
+				<li><a href="http://decodyng.com/" target="_blank" class="website" data-title="Website"></a></li>
+				<li><a href="https://twitter.com/decodyng" target="_blank" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="mailto:cody.marie.wild@gmail.com" target="_blank" class="email" data-title="Email"></a></li>
+				<li><a href="#" target="_blank" class="mobile" data-title="814.414.7199"></a></li>
+				<!--<li><a href="#" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="#" class="dribble" data-title="Dribble"></a></li>-->
+				<!--<li><a href="#" class="rss" data-title="RSS"></a></li>-->
+			</ul><!-- end social -->
+
+			<div class="rights">
+				<!--<p>Copyright © 2014 magnetic.</p>-->
+				<p style="font-size:7px; text-align:center;">Template by <a href="">Pixelhint.com</a></p>
+			</div><!-- end rights -->
+		</div ><!-- end footer -->
+	</header><!-- end header -->
+
+	<section class="main clearfix">
+
+		<section class="top">	
+			<div class="wrapper content_header clearfix">
+				<div class="work_nav">
+							
+					<ul class="btn clearfix">
+						<li><a href="#" class="previous" data-title="Previous"></a></li>
+						<li><a href="index.html" class="grid" data-title="Portfolio"></a></li>
+						<li><a href="#" class="next" data-title="Next"></a></li>
+					</ul>							
+					
+				</div><!-- end work_nav -->
+				<h1 class="title">Census Exploration</h1>
+
+
+			</div>		
+		</section><!-- end top -->
+
+		<section class="wrapper">
+			<div class="content">
+				<h2 class="plotTitle">Murders Per 100,000</h2>
+				<h4 class="plotSubtitle">By Region and State Population</h4>
+				<svg class="heatmap"></svg>
+				<hr>
+				<hr>
+				<h2 class="plotTitle">Population vs Illiteracy Rate</h2>
+				<h4 class="plotSubtitle">By Region and Division</h4>
+				<div class="smallmult"></div>
+				<h2>Data Exploration: Indicators of Wellbeing</h2>
+				<svg class="parcoor"></svg>
+
+				
+			</div><!-- end content -->
+		</section>
+	</section><!-- end main -->
+	<script>
+	var margin = {top: 20, right: 90, bottom: 30, left: 90};
+    var width = 750 - margin.left - margin.right;
+    var height = 400 - margin.top - margin.bottom;
+
+    var HMx = d3.scale.ordinal().rangeBands([0, width]);
+    var HMy = d3.scale.ordinal().rangeBands([height, 0]);
+    var HMz = d3.scale.linear().range(["#FFEBEB", "red"]);
+
+    var HMxStep = 800;
+    var HMyStep = 200;
+
+    var smallWidth = 300; 
+    var smallHeight = 240; 
+    var smallRad = 8;
+    var smMargin = {top: 15, right: 10, bottom: 40, left: 35};
+    var hmSvg = d3.select(".heatmap")
+    			.attr("width", width + margin.left + margin.right)
+    			.attr("height", height + margin.top + margin.bottom)
+    			.style("margin-left", "4%")
+    			.append("g")
+    				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    var pcM = [30, 10, 10, 10],
+	    pcW = 960 - pcM[1] - pcM[3],
+	    pcH = 500 - pcM[0] - pcM[2];
+
+	var pcX = d3.scale.ordinal().rangePoints([0, pcW], 1),
+	    pcY = {},
+	    dragging = {};
+
+	var pcLine = d3.svg.line(),
+	    axis = d3.svg.axis().orient("left"),
+	    background,
+	    foreground;
+
+	var pcSvg = d3.select(".parcoor")
+	    .attr("width", pcW + pcM[1] + pcM[3])
+	    .attr("height", pcH + pcM[0] + pcM[2])
+	  .append("g")
+	    .attr("transform", "translate(" + pcM[3] + "," + pcM[0] + ")");
+
+	function position(d) {
+		  var v = dragging[d];
+		  return v == null ? pcX(d) : v;
+		}
+
+	function transition(g) {
+		  return g.transition().duration(500);
+		}
+
+	// Returns the path for a given data point.
+	function path(d) {
+		  return pcLine(dimensions.map(function(p) { return [position(p), pcY[p](d[p])]; }));
+		};
+
+	// When brushing, don’t trigger axis dragging.
+	function brushstart() {
+	  d3.event.sourceEvent.stopPropagation();
+	};
+
+	// Handles a brush event, toggling the display of foreground lines.
+	function brush() {
+	  var actives = dimensions.filter(function(p) { return !pcY[p].brush.empty(); }),
+	      extents = actives.map(function(p) { return pcY[p].brush.extent(); });
+	  foreground.style("display", function(d) {
+	    return actives.every(function(p, i) {
+	      return extents[i][0] <= d[p] && d[p] <= extents[i][1];
+	    }) ? null : "none";
+	  });}
+    
+    d3.json("state77.json", function(data){
+    	data.forEach(function(d){
+    		d.roundPop = d3.round(d.Population, -3);
+    	});
+    	var hmData = d3.nest()
+    	 				.key(function(d) {return d.Region;})
+    	 				.key(function(d) {return d.roundPop;})
+    	 				.rollup(function(d){
+    	 					return d3.mean(d, function(g) {return g.Murder})
+    	 				})
+    	 				.entries(data);
+
+    	
+    	HMz.domain(d3.extent(data, function(d) {return d.Murder}));
+    	var populationBuckets = d3.range(0, 22000, 1000); 
+    	HMy.domain(populationBuckets)
+    	var hmBucketData = [];
+    	var regionObjects = d3.keys(hmData);
+    	var regions = [];
+    	regionObjects.forEach(function(r){
+    		var regionEl = hmData[r];
+    		var region = regionEl["key"];
+    		regions.push(region);
+    		var regionDict= new Object();
+    		regionEl["values"].forEach(function(exP){
+    			regionDict[exP["key"]] = exP["values"];
+    		}); 
+
+    		populationBuckets.forEach(function(p){
+    			if(p in regionDict){
+    				var el = {region: region, population: p, murder: regionDict[p]};
+    			} else {
+    				var el = {region: region, population: p, murder: "NA"};	
+    			}
+    			hmBucketData.push(el);
+    		});
+    	});
+
+    	HMx.domain(regions);
+    	// var heatmap = hmSvg.selectAll("g")
+				 //    .data(hmBucketData)
+				 //  	.enter()
+				 //  	.append("g")
+				 //    	.attr("transform", function(d, i) { return "translate(" + HMx(d.region) + ", 0)"; });
+		
+
+		
+
+    	hmSvg.selectAll(".tile")
+		   .data(hmBucketData)
+		    .enter().append("rect")
+	      .attr("class", "tile")
+	      .attr("x", function(d) { return HMx(d.region); })
+	      .attr("y", function(d) { return HMy(d.population); })
+	      .attr("width", HMx.rangeBand())
+	      .attr("height",  HMy.rangeBand())
+	      .style("fill", function(d) { 
+      			if(d.murder ==="NA"){
+      				return "#FFFFFF";
+      				// return "#696464";
+
+      			} else {
+      				return HMz(d.murder); 
+      			}
+		      	
+			      });
+
+
+	       // .on("mouseover", function(d, i) {      
+	       //      hmTip.transition()        
+	       //          .duration(400)      
+	       //          .style("opacity", .9);      
+	       //      hmTip.html("Rate: " + d.murder)   
+	       //          .attr("x", (90 + HMx(d.region) + HMxStep/2) + "px")
+	       //          .attr("y", (20 + HMy(d.population) - 50) + "px") ;    
+	       //      })                
+	       //  .on("mouseout", function(d) {       
+	       //      hmTip.transition()        
+	       //          .duration(400)      
+	       //          .style("opacity", 0);
+	       //      });
+		
+
+		var legend = hmSvg.selectAll(".legend")
+		      .data(HMz.ticks(6).slice(1).reverse())
+		    .enter().append("g")
+		      .attr("class", "legend")
+		      .attr("transform", function(d, i) { return "translate(" + (width + 20) + "," + (20 + i * 20) + ")"; });
+
+		legend.append("rect")
+	    	.attr("width", 20)
+	      	.attr("height", 20)
+	      	.style("fill", function(d){return HMz(d)});
+
+	  	legend.append("text")
+	      .attr("x", 26)
+	      .attr("y", 10)
+	      .attr("dy", ".35em")
+	      .text(function(d, i){return d3.round(d, 3)});
+
+
+	  	hmSvg.append("text")
+	      .attr("class", "label")
+	      .attr("x", width + 2)
+	      .attr("y", 10)
+	      .attr("dy", ".35em")
+	      .text("Murder Rate");
+
+	    hmSvg.append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0," + (height) + ")")
+	      .call(d3.svg.axis().scale(HMx).ticks(4).orient("bottom"));
+	    // .append("text")
+	    //   .attr("class", "label")
+	    //   .attr("x", width)
+	    //   .attr("y", -6)
+	    //   .attr("text-anchor", "end")
+	    //   .text("Region");
+
+	  // Add a y-axis with label.
+	  hmSvg.append("g")
+	      .attr("class", "y axis")
+	      .call(d3.svg.axis().scale(HMy).ticks(10).orient("left"));
+
+	    // .append("text")
+	    //   .attr("class", "label")
+	    //   .attr("y", 6)
+	    //   .attr("dy", ".71em")
+	    //   .attr("text-anchor", "end")
+	    //   .attr("transform", "rotate(-90)")
+	    //   .text("Population");
+	    divisions = ["East South Central", "South Atlantic", "West South Central", "Pacific", "Mountain", "New England",
+	    "Middle Atlantic", "East North Central", "West North Central"];
+
+	    smX = d3.scale.linear().domain(d3.extent(data, function(d) {return d.Population/1000})).range([0.05*smallWidth,smallWidth*0.95]);
+		smY = d3.scale.linear().domain(d3.extent(data, function(d) {return d.Illiteracy})).range([0.95*smallHeight,0.05*smallHeight]);
+		smZ = d3.scale.ordinal().domain(divisions).range(['rgb(166,206,227)','rgb(31,120,180)','rgb(202,178,214)','rgb(227,26,28)','rgb(251,154,153)','rgb(51,160,44)','rgb(178,223,138)','rgb(255,127,0)','rgb(253,191,111)']); 
+
+	   	smData = d3.nest()
+	    			.key(function(d) {return d.Region})
+	    			.entries(data);
+
+	    console.log(smData);
+	    smChart = d3.select(".smallmult").selectAll(".smChart").data(smData);
+	    smChart.enter().append("div").attr("class", "smChart")
+      			.append("svg").append("g");
+
+      	smallSvgs = smChart.select("svg")
+	      .attr("width", smallWidth + smMargin.left + smMargin.right)
+	      .attr("height", smallHeight + smMargin.top + smMargin.bottom);
+
+	     var smTip = d3.tip()
+			  .attr('class', 'd3-tip')
+			  .offset([-5, 0])
+			  .html(function(d) {
+			    return "<span style='text-align:center'>" + d.Name + "<br>" + d.Division + "<br>" + d.Illiteracy + "%</span>";
+			  }); 
+
+	      
+
+      	g = smallSvgs.select("g")
+      		.attr("transform", "translate(" + (smMargin.left) + "," + (smMargin.top) + ")");
+
+      	g.append("rect")
+	      .attr("class", "smBackground")
+	      // .style("pointer-events", "all")
+	      .attr("width", smallWidth + smMargin.right )
+	      .attr("height", smallHeight);
+
+	    scatter = g.append("g");
+
+
+		scatter.call(smTip);
+
+	    circles = scatter.selectAll(".point")
+	    .data(function(c) {return c.values})
+	    .enter()
+	    .append('circle');
+
+	    circles.attr("cx", function(d) {return smX(d.Population/1000)})
+	    .attr("cy", function(d) {return smY(d.Illiteracy)})
+	    .attr("r", smallRad)
+	    .attr("fill", function(d) {return smZ(d.Division)})
+	    .on('mouseover', smTip.show)
+      	.on('mouseout', smTip.hide)
+	    ;
+
+	    scatter.append("text")
+			  .attr("class", "title")
+			  .attr("text-anchor", "middle")
+			  .attr("y", smallHeight + 14)
+			  .attr("dy", smMargin.bottom / 2 + 5)
+			  .attr("x", smallWidth / 2)
+			  .text(function(c) {return c.key})
+			  .style("font-size", 18);
+
+		scatter.append("g")
+	      .attr("class", "x axis smAx")
+	      .attr("transform", "translate(0," + (smallHeight) + ")")
+	      .call(d3.svg.axis().scale(smX).ticks(4).orient("bottom"))
+		      .append("text")
+		      .attr("class", "label")
+		      .attr("x", smallWidth)
+		      .attr("y", -6)
+		      .attr("text-anchor", "end")
+		      .text("Population (100,000s)")
+		      .style("font-size", 10);
+
+	    scatter.append("g")
+	      .attr("class", "y axis smAx")
+	      .call(d3.svg.axis().scale(smY).ticks(5).orient("left"));
+
+
+	      // parallel coordinates 
+	      // hsgrad, income, frost, lifexp
+	    pcVariables = ["HSGrad", "Income", "LifeExp", "Murder"];
+	    pcZ = d3.scale.ordinal()
+	    .domain(["South", "West", "Northeast", "North Central"])
+	    .range(["rgb(31,120,180)", "rgb(227,26,28)", "rgb(51,160,44)", "rgb(255,127,0)"]);
+	    console.log(d3.keys(data[0]));
+	    pcX.domain(dimensions = d3.keys(data[0]).filter(function(d) {
+		    return pcVariables.indexOf(d) > -1 && (
+
+		    	pcY[d] = d3.scale.linear()
+		        .domain(d3.extent(data, function(p) { return +p[d]; }))
+		        .range([pcH, 0]));
+		  }));
+
+	    background = pcSvg.append("g")
+		      .attr("class", "pcBackground")
+		    .selectAll("path")
+		      .data(data)
+		    .enter().append("path")
+		      .attr("d", path);
+
+	  // Add blue foreground lines for focus.
+	  	foreground = pcSvg.append("g")
+		      .attr("class", "pcForeground")
+		    .selectAll("path")
+		      .data(data)
+		    .enter().append("path")
+		      .style("stroke", function(d) {return pcZ(d.Region)})
+		      .attr("d", path);
+
+		var pcG = pcSvg.selectAll(".pcDimension")
+		      .data(dimensions)
+		    .enter().append("g")
+		      .attr("class", "pcDimension")
+		      .attr("transform", function(d) { return "translate(" + pcX(d) + ")"; })
+		      .call(d3.behavior.drag()
+		        .on("dragstart", function(d) {
+		          dragging[d] = this.__origin__ = pcX(d);
+		          background.attr("visibility", "hidden");
+		        })
+		        .on("drag", function(d) {
+		          dragging[d] = Math.min(pcW, Math.max(0, this.__origin__ += d3.event.dx));
+		          foreground.attr("d", path);
+		          dimensions.sort(function(a, b) { return position(a) - position(b); });
+		          pcX.domain(dimensions);
+		          g.attr("transform", function(d) { return "translate(" + position(d) + ")"; })
+		        })
+		        .on("dragend", function(d) {
+		          delete this.__origin__;
+		          delete dragging[d];
+		          transition(d3.select(this)).attr("transform", "translate(" + pcX(d) + ")");
+		          transition(foreground)
+		              .attr("d", path);
+		          background
+		              .attr("d", path)
+		              .transition()
+		              .delay(500)
+		              .duration(0)
+		              .attr("visibility", null);
+		        }));
+		pcG.append("g")
+	      .attr("class", "axis")
+	      .each(function(d) { d3.select(this).call(axis.scale(pcY[d])); })
+	    .append("text")
+	      .attr("text-anchor", "middle")
+	      .attr("y", -9)
+	      .text(String);
+
+	  // Add and store a brush for each axis.
+	  pcG.append("g")
+	      .attr("class", "brush")
+	      .each(function(d) { d3.select(this).call(pcY[d].brush = d3.svg.brush().y(pcY[d]).on("brushstart", brushstart).on("brush", brush)); })
+	    .selectAll("rect")
+	      .attr("x", -8)
+	      .attr("width", 16);
+
+
+	    });
+
+
+			
+
+			</script>
+</body>
+</html>

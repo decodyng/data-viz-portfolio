@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Project Dataset</title>
+	<meta charset="utf-8">
+	<meta name="author" content="pixelhint.com">
+	<meta name="description" content="Magnetic is a stunning responsive HTML5/CSS3 photography/portfolio website  template"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/d3.parcoords.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript" src="js/d3.parcoords.js"></script>
+    <script type="text/javascript" src="js/d3-tip.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <style>
+    	
+
+    </style>
+</head>
+<body>
+
+	<header>
+		<div class="logo">
+			<a href="index.html"><img src="img/logo.png" title="Magnetic" alt="Magnetic"/></a>
+		</div><!-- end logo -->
+
+		<!--<div id="menu_icon"></div>
+		<nav>
+			<ul>
+				<li><a href="index.html" class="selected">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">The Team</a></li>
+				<li><a href="#">Journal</a></li>
+				<li><a href="contact.html">Contact Us</a></li>
+			</ul>
+		</nav>end navigation menu -->
+
+		<div> 
+			<h5 style="text-align:center; line-height:160%">This site is a repository for projects completed as part of MSAN's Information Visualization course</h5><h6 style="text-align:center">Code available at https://github.com/decodyng/data-viz-portfolio</h6>
+		</div>
+ 
+		<div class="footer clearfix">
+			<ul class="social clearfix">
+				<li><a href="http://decodyng.com/" target="_blank" class="website" data-title="Website"></a></li>
+				<li><a href="https://twitter.com/decodyng" target="_blank" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="mailto:cody.marie.wild@gmail.com" target="_blank" class="email" data-title="Email"></a></li>
+				<li><a href="#" target="_blank" class="mobile" data-title="814.414.7199"></a></li>
+				<!--<li><a href="#" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="#" class="dribble" data-title="Dribble"></a></li>-->
+				<!--<li><a href="#" class="rss" data-title="RSS"></a></li>-->
+			</ul><!-- end social -->
+
+			<div class="rights">
+				<!--<p>Copyright © 2014 magnetic.</p>-->
+				<p style="font-size:7px; text-align:center;">Template by <a href="">Pixelhint.com</a></p>
+			</div><!-- end rights -->
+		</div ><!-- end footer -->
+	</header><!-- end header -->
+
+	<section class="main clearfix">
+
+		<section class="top">	
+			<div class="wrapper content_header clearfix">
+				<div class="work_nav">
+							
+					<ul class="btn clearfix">
+						<li><a href="#" class="previous" data-title="Previous"></a></li>
+						<li><a href="index.html" class="grid" data-title="Portfolio"></a></li>
+						<li><a href="#" class="next" data-title="Next"></a></li>
+					</ul>							
+					
+				</div><!-- end work_nav -->
+				<h1 class="title">Project Dataset: Wikileak State Dep't Cables</h1>
+
+
+			</div>		
+		</section><!-- end top -->
+
+		<section class="wrapper">
+			<div class="content">
+			<p>For this project, I'll be working with the dataset of State Department cables released by Wikileaks in 2011. The data consists of 251,287 cables, which span in time from 1966 to 2010. Each cable consists of the following informative variables:</p><br>
+			<ul>
+				<li>Date</li>
+				<li>Classification Status (Categorical: Secret/Classified/Unclassified)</li>
+				<li>Origin (Categorical: 272 Embassies)</li>
+				<li>Destination (Categorical: 272 Embassies; not always present)</li>
+				<li>Content (Textual data)</li>
+			</ul>
+			<br>
+			<p>Links to the full dataset can be found on Wikileak's release page for the cables <a href="https://wikileaks.org/cablegate.html">here</a>. Though the data was obviously originally not meant for public consumption, it is not effectively in the public domain for the purpose of distributing visualizations, per Wikileak's advice to readers to "Pick out interesting events (in the cables) and tell others about them. Use twitter, reddit, mail whatever suits your audience best." <br>
+			This dataset appealed to me for a few reasons. First, while I'd previously been aware in the abstract of the leaks made by Wikileaks in recent years, I'd lacked the tools to effectively dive into the leaks and extract the kind of information they were intended to provide. Now that I have those tools, I want to try to understand this data for myself. Specifically in the field of visualization, I believe this data has the potential to underwrite a wide variety of potential techniques, including network visualization, map visualization, as well as an underlying time series structure. In addition to potential, this dataset also provides the challenge of finding intelligent and effective ways to summarize textual data in order to visualize it.</p>
+			<p> A column-truncated version of the dataset (with the 'content' column removed, as it will be summarized and not uploaded in its full capacity at visualization time) is available <a href="">here</a></p>
+
+				
+			</div><!-- end content -->
+		</section>
+	</section><!-- end main -->
+</body>
+</html>
