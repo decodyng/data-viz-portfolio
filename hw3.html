@@ -165,6 +165,10 @@
 	    	return d.month.getMonth() + " " + d.month.getFullYear(); 
 	    });
 
+	    var fullDatesArray = data.map(function(d){
+	    	return d.month;
+	    })
+
 		line_x.domain(timedomain);
 		var petExtent = d3.extent(data, function(d){return d.PetrolPrice}); 
 		pet_y.domain(petExtent);
@@ -208,16 +212,20 @@
 	    	petrol_circle.transition().duration(350).attr("opacity", 1.0);
 	    	syear1.transition().duration(350).attr("opacity", 0);
 	    	syear2.transition().duration(350).attr("opacity", 0);
+	    	petrolLabel.transition().duration(350).attr("opacity", 0);
+		  	deathLabel.transition().duration(350).attr("opacity", 0);
 		  	d3.selectAll(".static_year").classed("hidden", true);
-		  	petrol_axistext.transition().duration(350).attr("opacity", 0);
-		  	death_axistext.transition().duration(350).attr("opacity", 0);
+		  	// petrol_axistext.transition().duration(350).attr("opacity", 0);
+		  	// death_axistext.transition().duration(350).attr("opacity", 0);
 		 	mousemove.call(this);
 	    	};
 
 	   	mouseout = function(){
 	   		d3.selectAll(".static_year").classed("hidden", false);
-	   		petrol_axistext.transition().duration(350).attr("opacity", 1);
-		  	death_axistext.transition().duration(350).attr("opacity", 1);
+	   	// 	petrol_axistext.transition().duration(350).attr("opacity", 1);
+		  	// death_axistext.transition().duration(350).attr("opacity", 1);
+		  	petrolLabel.transition().duration(350).attr("opacity", 1.0);
+		  	deathLabel.transition().duration(350).attr("opacity", 1.0);
 		  	syear1.transition().duration(350).attr("opacity", 1.0);
 	    	syear2.transition().duration(350).attr("opacity", 1.0);
 		  death_circle.transition().duration(350).attr("opacity", 0);
@@ -303,30 +311,32 @@
 	    //   .attr("transform", "translate(0," + height + ")")
 	    //   .call(line_xAxis);
 
-	    petrol_axistext = petrol_svg.append("g")
+	    // petrol_axistext = 
+	    petrol_svg.append("g")
 	      .attr("class", "y axis")
-	      .call(pet_yAxis)
-	    .append("text")
-	      .attr("transform", "rotate(-90)")
-	      .attr("y", 6)
-	      .attr("dy", ".71em")
-	      .style("text-anchor", "end")
-	      .text("Petrol Price");
+	      .call(pet_yAxis);
+	    // .append("text")
+	    //   .attr("transform", "rotate(-90)")
+	    //   .attr("y", 6)
+	    //   .attr("dy", ".71em")
+	    //   .style("text-anchor", "end")
+	    //   .text("Petrol Price");
 
 	    // death_svg.append("g")
 	    //   .attr("class", "x axis")
 	    //   .attr("transform", "translate(0," + height + ")")
 	    //   .call(line_xAxis);
 
-	    death_axistext = death_svg.append("g")
+	    // death_axistext = 
+	    death_svg.append("g")
 	      .attr("class", "y axis")
-	      .call(death_yAxis)
-	    .append("text")
-	      .attr("transform", "rotate(-90)")
-	      .attr("y", 6)
-	      .attr("dy", ".71em")
-	      .style("text-anchor", "end")
-	      .text("Driver Deaths");
+	      .call(death_yAxis);
+	    // .append("text")
+	    //   .attr("transform", "rotate(-90)")
+	    //   .attr("y", 6)
+	    //   .attr("dy", ".71em")
+	    //   .style("text-anchor", "end")
+	    //   .text("Driver Deaths");
 
 	      syear1 = death_svg.append("text")
 		  .attr("class", "static_year")
@@ -397,6 +407,28 @@
 		  .attr("opacity", 0)
 		  .style("fill", "#756bb1")
 		  .style("pointer-events", "none");
+
+
+
+		var petrolLabel = petrol_svg.append("text")
+		  .attr("class", "label")
+		  .attr("text-anchor", "start")
+		  .style("pointer-events", "none")
+		  .style("font-size", 12)
+		  .style("fill", "#756bb1")
+		  .attr("x", line_x(fullDatesArray[fullDatesArray.length-1]) + 6)
+		  .attr("y", pet_y(petrol_values[petrol_values.length-1]))
+		  .text("Petrol Price");
+
+		  var deathLabel = death_svg.append("text")
+		  .attr("class", "label")
+		  .attr("text-anchor", "start")
+		  .style("pointer-events", "none")
+		  .style("font-size", 12)
+		  .style("fill", "#de2d26")
+		  .attr("x", line_x(fullDatesArray[fullDatesArray.length-1]) + 3)
+		  .attr("y", death_y(death_values[death_values.length-1]) - 3)
+		  .text("Driver Deaths");
 
 
 //deathred #de2d26
