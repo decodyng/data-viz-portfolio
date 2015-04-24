@@ -108,6 +108,8 @@
 
 		<section class="wrapper">
 			<div class="content">
+			<h1 style="text-align:center">Fuel Prices and Driver Deaths: 1969-1984</h1>
+			<h4 style="margin-bottom:20px; text-align:center">Death rates shown with respect to seasonal average values</h4>
 			<svg id="petrol"></svg>
 			<svg id="drivdeath"></svg>
 
@@ -232,6 +234,8 @@
  			// console.log(monthname + " " + year);
  			// console.log(timearray);
  			timeindex = timearray.indexOf(nearestMonthyear);
+ 			if (timeindex>0) {
+ 			
 
  			console.log(monthAvgs[month]);
 
@@ -243,7 +247,8 @@
  			death_caption.attr("x", line_x(nearestDate))
  			.attr("y", death_y(deathExtent[1]))
  			// .attr("y", death_y(death_yval)-4)
- 			.text("Driver Deaths: " + death_yval);
+ 			.text("(Driver Deaths - " + monthname + ". Avg) : " + (death_yval-Math.round(monthAvgs[month])));
+ 			// .text("Driver Deaths: " + death_yval + ", Diff. From Month Avg: " + (death_yval-Math.round(monthAvgs[month])));
 
  			
  			petrol_circle.attr("cx", line_x(nearestDate))
@@ -255,8 +260,10 @@
  			.text("Petrol Price " + Math.round(100*petrol_yval)/100);
 
  			curYear.attr("x", line_x(nearestDate))
- 			.text(monthname + " " + year);
-
+ 			.text(monthname + " " + year );
+ 			} else {
+ 				mouseout.call(this);
+ 			}
 
 
 
