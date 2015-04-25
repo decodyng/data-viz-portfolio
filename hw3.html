@@ -4,6 +4,8 @@
 	<title>Time Series Visualizations</title>
 	<meta charset="utf-8">
 	<meta name="author" content="pixelhint.com">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<meta name="description" content="Magnetic is a stunning responsive HTML5/CSS3 photography/portfolio website  template"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
@@ -45,9 +47,13 @@
 }
 
 .area {
-  fill: rgb(117, 107, 177);
+  fill: #bcbddc;
   clip-path: url(#clip);
 }
+
+.top {
+			background: url('img/highway.jpg') no-repeat;
+		}
 
 /*.axis path,
 .axis line {
@@ -130,35 +136,37 @@
 			<h4 style="margin-bottom:20px; text-align:center">Death rates shown with respect to seasonal average values</h4>
 			<svg id="petrol"></svg>
 			<svg id="drivdeath"></svg>
-			<br>
+			<p style="text-align:center">This visualization utilizes linked views with tooltip annotation to trace both UK fuel prices and recorded driver deaths throughout time. Since driver death is clearly a highly seasonal phenomenon, values are present both in their absolute form and relative to the average for a given month across the full time period. </p>
+			<br/>
 			<hr>
 			<hr>
-			<br>
-			<h1 style="text-align:center">Driver Deaths vs Injuries</h1>
+			<br/>
+			<h1 style="text-align:center">Driver Casualties Over Time: <span style="color:#fc9272">Deaths</span> vs <span style="color:#bcbddc">Injuries</span></h1>
 			<svg id="deathinj"></svg>
+			<p style="text-align:center">This visualization explores total UK driver casualties, broken down into deaths vs injuries. I chose to show the smaller values (deaths) on the lower part of the stacked area to avoid visual distortion of the shape of the deaths area due to the huge difference in scale between the two values. This visual further allows viewers to use brushing and panning to zoom in onto smaller areas of the time series.</p>
+			<br/>
+			<p><b>Functionality List:</b>
+			<ul>
+				<li>Basic: Line plot(s)</li>
+				<li>Basic: Area plot</li>
+				<li>Moderate: Details on demand (both local and with respect to seasonal average) on line plots</li>
+				<li>Moderate: Panning on area plot</li>
+				<li>Advanced: Linked views on line plots</li>
+				<li>Advanced: Brushing on area plot</li>
 
-
+			</ul>
+			Code available <a href="https://github.com/decodyng/data-viz-portfolio/blob/gh-pages/hw3.html">here</a> 
+			</p>
 				
 			</div><!-- end content -->
 		</section>
 	</section><!-- end main -->
 	<script>
-
-	function brushed() {
-		  area_x.domain(brush.empty() ? area_x2.domain() : brush.extent());
-		  focus.select(".area").attr("d", area);
-		  focus.select(".x.axis").call(area_xAxis);
-		}
-
-	// function type(d) {
-	//   d.date = parseDate(d.date);
-	//   d.price = +d.price;
-	//   return d;
-	// }
-//LOOK AT THAT LATER ^^^ 
+	
+ 
 	var margin = {top: 20, right: 80, bottom: 30, left: 50};
     var width = 900 - margin.left - margin.right; 
-    var height = 250 - margin.top - margin.bottom;
+    var height = 200 - margin.top - margin.bottom;
 
 	var parseDate = d3.time.format("%Y-%m-%d").parse;
 	var line_x = d3.time.scale().range([0, width]);
@@ -203,9 +211,7 @@
     var area_xAxis2 = d3.svg.axis().scale(area_x2).orient("bottom");
     var area_yAxis = d3.svg.axis().scale(area_y).orient("left");
 
-    var brush = d3.svg.brush()
-	    .x(area_x2)
-	    .on("brush", brushed);
+    
 
 	var area = d3.svg.area()
 	    .interpolate("monotone")
@@ -295,12 +301,12 @@
 	    });
 
 	    mouseover = function(){
-	    	death_circle.transition().duration(350).attr("opacity", 1.0);
-	    	petrol_circle.transition().duration(350).attr("opacity", 1.0);
-	    	syear1.transition().duration(350).attr("opacity", 0);
-	    	syear2.transition().duration(350).attr("opacity", 0);
-	    	petrolLabel.transition().duration(350).attr("opacity", 0);
-		  	deathLabel.transition().duration(350).attr("opacity", 0);
+	    	death_circle.transition().duration(300).attr("opacity", 1.0);
+	    	petrol_circle.transition().duration(300).attr("opacity", 1.0);
+	    	syear1.transition().duration(300).attr("opacity", 0);
+	    	syear2.transition().duration(300).attr("opacity", 0);
+	    	petrolLabel.transition().duration(300).attr("opacity", 0);
+		  	deathLabel.transition().duration(300).attr("opacity", 0);
 		  	d3.selectAll(".static_year").classed("hidden", true);
 		  	// petrol_axistext.transition().duration(350).attr("opacity", 0);
 		  	// death_axistext.transition().duration(350).attr("opacity", 0);
@@ -311,15 +317,16 @@
 	   		d3.selectAll(".static_year").classed("hidden", false);
 	   	// 	petrol_axistext.transition().duration(350).attr("opacity", 1);
 		  	// death_axistext.transition().duration(350).attr("opacity", 1);
-		  	petrolLabel.transition().duration(350).attr("opacity", 1.0);
-		  	deathLabel.transition().duration(350).attr("opacity", 1.0);
-		  	syear1.transition().duration(350).attr("opacity", 1.0);
-	    	syear2.transition().duration(350).attr("opacity", 1.0);
-		  death_circle.transition().duration(350).attr("opacity", 0);
-		  petrol_circle.transition().duration(350).attr("opacity", 0);
-		  death_caption.text("");
-		  petrol_caption.text("");
-		  curYear.text("");
+		  	petrolLabel.transition().duration(300).attr("opacity", 1.0);
+		  	deathLabel.transition().duration(300).attr("opacity", 1.0);
+		  	syear1.transition().duration(300).attr("opacity", 1.0);
+	    	syear2.transition().duration(300).attr("opacity", 1.0);
+		  death_circle.transition().duration(300).attr("opacity", 0);
+		  petrol_circle.transition().duration(300).attr("opacity", 0);
+		  death_caption.transition().duration(300).text("");
+		  death_caption2.transition().duration(300).text("");
+		  petrol_caption.transition().duration(300).text("");
+		  curYear.transition().duration(300).text("");
 	   	}; 
 
 
@@ -336,17 +343,33 @@
  			if (timeindex>0) {
  			
 
- 			console.log(monthAvgs[month]);
+ 			
 
  			petrol_yval = petrol_values[timeindex];
  			death_yval = death_values[timeindex];
+ 			var deathLabel = "Driver Deaths: " + death_yval
+ 			var deathDelta = death_yval-Math.round(monthAvgs[month]);
+
+ 			if (deathDelta > 0){
+ 				deathAvgLabel =  Math.abs(deathDelta) + " above " + monthFullName + " average"
+ 			} else {
+ 				deathAvgLabel = Math.abs(deathDelta) + " below " + monthFullName + " average"
+ 			};
+
  			death_circle.attr("cx", line_x(nearestDate))
  			.attr("cy", death_y(death_yval));
 
  			death_caption.attr("x", line_x(nearestDate))
  			.attr("y", death_y(deathExtent[1]))
  			// .attr("y", death_y(death_yval)-4)
- 			.text("(Driver Deaths - " + monthFullName + " Avg) : " + (death_yval-Math.round(monthAvgs[month])));
+ 			.text(deathLabel);
+
+ 			death_caption2.attr("x", line_x(nearestDate))
+ 			.attr("y", death_y(deathExtent[1]))
+ 			// .attr("y", death_y(death_yval)-4)
+ 			.text(deathAvgLabel);
+
+
  			petrol_circle.attr("cx", line_x(nearestDate))
  			.attr("cy", pet_y(petrol_yval)); 
 
@@ -442,6 +465,16 @@
 		  .style("fill","#de2d26")
 		  .attr("dy", -8);
 
+		var death_caption2 = death_svg.append("text")
+		  .attr("class", "caption")
+		  .attr("text-anchor", "middle")
+		  .style("pointer-events", "none")
+		  .style("font-size", 10)
+		  .style("fill","#de2d26")
+		  .attr("dy", 4);
+		  // .attr("dy", -8);
+
+
   		var petrol_caption = petrol_svg.append("text")
 		  .attr("class", "caption")
 		  .attr("text-anchor", "middle")
@@ -485,16 +518,58 @@
 		  .text("Driver Deaths");
 
 		  ///area chart 
-		  area_x.domain(timedomain);
-		  area_y.domain([0, d3.max(data.map(function(d) { return d.driversInjured; }))]);
-		  area_x2.domain(area_x.domain());
-		  area_y2.domain(area_y.domain());
+		var color_scale = d3.scale.ordinal()
+		  		.domain(["DriversKilled", "driversInjured"])
+		  		.range(["#fc9272","#bcbddc"]);
 
+		
 
-		  focus.append("path")
-		      .datum(data)
-		      .attr("class", "area")
-		      .attr("d", area);
+		var stack = d3.layout.stack()
+		    .values(function(d) { return d.values; });
+
+		var casualtyTypes = stack(color_scale.domain().map(function(name) {
+		    return {
+		      name: name,
+		      values: data.map(function(d) {
+		        return {date: d.month, y: d[name]};
+		      })
+		    };
+		  }));
+
+	  area_x.domain(timedomain);
+	  area_y.domain([0, d3.max(data.map(function(d) { return d.driversInjured; }))]);
+	  area_x2.domain(area_x.domain());
+	  area_y2.domain(area_y.domain());
+
+	  	var casualty = focus.selectAll(".casualty")
+		      .data(casualtyTypes)
+		    .enter().append("g")
+		      .attr("class", "casualty");
+
+		var stacked_area = d3.svg.area()
+		    .x(function(d) { return area_x(d.date); })
+		    .y0(function(d) { return area_y(d.y0); })
+		    .y1(function(d) { return area_y(d.y0 + d.y); });
+
+		function brushed() {
+			  area_x.domain(brush.empty() ? area_x2.domain() : brush.extent());
+			  focus.selectAll(".casualty").select(".area").attr("d", function(d) { return stacked_area(d.values); });
+			  focus.select(".x.axis").call(area_xAxis);
+			};
+
+		var brush = d3.svg.brush()
+	    .x(area_x2)
+	    .on("brush", brushed);
+
+		casualty.append("path")
+	      .attr("class", "area")
+	      .attr("d", function(d) { return stacked_area(d.values); })
+	      .style("fill", function(d) { return color_scale(d.name); });
+
+		  // focus.append("path")
+		  //     .datum(data)
+		  //     .attr("class", "area")
+		  //     .attr("d", area);
 
 		  focus.append("g")
 		      .attr("class", "x axis")
