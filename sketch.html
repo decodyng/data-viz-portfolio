@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Project Sketch</title>
+	<meta charset="utf-8">
+	<meta name="author" content="pixelhint.com">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+	<meta name="description" content="Magnetic is a stunning responsive HTML5/CSS3 photography/portfolio website  template"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/d3.parcoords.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript" src="js/d3.parcoords.js"></script>
+    <script type="text/javascript" src="js/d3-tip.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <style>
+    .prototype {
+    	background:gold;
+    }
+    </style>
+</head>
+<body>
+
+	<header>
+		<div class="logo">
+			<a href="index.html"><img src="img/logo.png" title="Magnetic" alt="Magnetic"/></a>
+		</div><!-- end logo -->
+
+
+		<div> 
+			<h5 style="text-align:center; line-height:160%">This site is a repository for projects completed as part of MSAN's Information Visualization course</h5><h6 style="text-align:center">Code available at https://github.com/decodyng/data-viz-portfolio</h6>
+		</div>
+ 
+		<div class="footer clearfix">
+			<ul class="social clearfix">
+				<li><a href="http://decodyng.com/" target="_blank" class="website" data-title="Website"></a></li>
+				<li><a href="https://twitter.com/decodyng" target="_blank" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="mailto:cody.marie.wild@gmail.com" target="_blank" class="email" data-title="Email"></a></li>
+				<li><a href="#" target="_blank" class="mobile" data-title="814.414.7199"></a></li>
+				<!--<li><a href="#" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="#" class="dribble" data-title="Dribble"></a></li>-->
+				<!--<li><a href="#" class="rss" data-title="RSS"></a></li>-->
+			</ul><!-- end social -->
+
+			<div class="rights">
+				<!--<p>Copyright © 2014 magnetic.</p>-->
+				<p style="font-size:7px; text-align:center;">Template by <a href="">Pixelhint.com</a></p>
+			</div><!-- end rights -->
+		</div ><!-- end footer -->
+	</header><!-- end header -->
+
+	<section class="main clearfix">
+
+		<section class="top">	
+			<div class="wrapper content_header clearfix">
+				<div class="work_nav">
+							
+					<ul class="btn clearfix">
+						<li><a href="#" class="previous" data-title="Previous"></a></li>
+						<li><a href="index.html" class="grid" data-title="Portfolio"></a></li>
+						<li><a href="#" class="next" data-title="Next"></a></li>
+					</ul>							
+					
+				</div><!-- end work_nav -->
+				<h1 class="title">Wikileaks Visualization: Project Sketch</h1>
+				
+
+			</div>		
+		</section><!-- end top -->
+
+		<section class="wrapper">
+			<div class="content">
+			<h1 style="text-align:center">Animated State Dep't Cable Network Over Time</h1>
+			<img width=80%, style="margin-left:10%" src="img/network_map.jpg"/>
+			<ul>
+				<li>By default show all messages leaving State (i.e. DC), but allow user to filter for other embassies by clicking on country.</li>
+				<li>Animate chosen embassy throughout 40-year timespan to show change in communication patterns over time</li>
+			</ul>
+			<br/>
+			<hr>
+			<hr>
+			<br/>
+			<h1 style="text-align:center">Shh: Patterns of Cable Classification Over Time</h1>
+			<img src="img/vertical_classifed.jpg"/>
+			<img width=80%, style="margin-left:10%" style="margin-left:auto, margin-right:auto", src="img/horizontal_bar.jpg"/>
+			<ul>
+				<li>Stacked-to-100% bar chart</li>
+				<li>Bucketed by year -> ~40 small buckets to show continuity while respecting discrete data</li>
+				<li>When bar is selected, year is shown and horizontal bars below change to reflect that year</li>
+				
+			</ul>
+			<br/>
+			<hr>
+			<hr>
+			<br/>
+
+			<h1 style="text-align:center">Cable Exploration: Geographic & Topical</h1>
+			<img width=80%, style="margin-left:10%"style="margin-left:auto, margin-right:auto", src="img/choropleth.png"/>
+			<ul>
+			<li>Choropleth colored according to relative density of cables sent from that embassy during the time period</li>
+			<li>Brushing to allow filtering of specific spans up to 5 years</li>
+			<li>Ability to zoom</li>
+			<li>When user clicks on a country, acts as filter on treemap below (State displayed in treemap by default)</li>
+
+			<img width=70%, style="margin-left:15%", src="img/treemap.jpg"/>
+			<ul>
+				<li>Will be populated using LDA topic modeling of ~100 distinct topics, associating each cable with its 3 most common topics</li>
+				<li>Topics will be aggregated thematically, allow user to 'click into' to get to core topics</li>
+
+			</ul>
+
+
+			</div><!-- end content -->
+		</section>
+	</section><!-- end main -->
+	<script>
+
+
+	</script>
+</body>
+</html>
