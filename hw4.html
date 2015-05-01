@@ -30,19 +30,20 @@
 	#genrebar {
 		float:left;
 		background:white;
-/*		border-style:solid;
-		border-width:1px;*/
+		border-style:solid;
+		border-width:1px;
 	}
 	#hist {
 		float:left;
 		background:white;
-/*		border-style:solid;
-		border-width:1px;*/
+		border-style:solid;
+		border-width:1px;
 	}
 
 
 	.maincircle{
-		fill:none;
+		fill:white;
+		fill-opacity:0.1;
 		stroke-width:3px;
 	}
 	.content {
@@ -146,7 +147,7 @@
 	    .attr("height", small_height + small_margin.top + small_margin.bottom);
 
 	var hist_x = d3.scale.linear().domain([0, 10]).range([small_width*.02, small_width*.95]);
-	var hist_y = d3.scale.linear().range([small_height*.94, small_height*.06]);
+	var hist_y = d3.scale.linear().range([small_height*.90, small_height*.1]);
 	var hist_xAxis = d3.svg.axis()
 	    .scale(hist_x)
 	    .orient("bottom");
@@ -181,7 +182,7 @@
 
                 return d.year != year;
             })
-            .style("opacity", 0.15);
+            .style("opacity", 0.2);
 
         main_svg.selectAll(".maincircle")
             .filter(function (d) {
@@ -192,10 +193,6 @@
 	    };
 
 
-	function circlefadeOut() {
-	    main_svg.selectAll("circle")
-	    .style("opacity", function (d) { opacity(d.murder); });
-	};
 
 
 
@@ -228,6 +225,18 @@
 		    .attr("r", function(d) {return main_radius(d.nMovies)})
 		    .style("stroke", function(d) {return main_color(d.avgRating)});
 
+		main_svg.append("text")
+			.attr("y", 30)
+			.attr("x", 10)
+			.style("font-size", 30)
+			.text("Avg Votes Per Movie Over Time"); 
+
+		main_svg.append("text")
+			.attr("y", 50)
+			.attr("x", 10)
+			.style("font-size", 12)
+			.text("Colored by average rating across all movies, sized by number of movies"); 
+
 		
 
 		//draw histogram 
@@ -239,6 +248,10 @@
 			hist_data = hist_gen(filter_data);
 			//filter_data
 			//hist_data = hist_gen(filter_data);
+			hist_svg.selectAll('.bar').remove();
+			hist_svg.select('#histtitle').remove();
+			hist_svg.selectAll('.axis').remove();
+
 			hist_y.domain([0, d3.max(hist_data, function(d) { return d.y; })]);
 
 			
@@ -260,10 +273,11 @@
 			    .call(hist_xAxis);
 
 			hist_svg.append("text")
-				.attr("x", 10)
-				.attr("y", 10)
-				.style("font-size", 11)
-				.text("Distribution of Movies Average Ratings in " + yr)
+				.attr("x", 15)
+				.attr("y", 15)
+				.attr("id", "histtitle")
+				.style("font-size", 12)
+				.text("Distribution of Average Ratings in " + yr)
 
 		}
 		
@@ -273,6 +287,9 @@
 			genrebar_data = year_data['genres']; 
 			genre_y.domain(d3.extent(genrebar_data, function(d){return d.freq}));
 
+			genre_svg.selectAll('.bar').remove(); 
+			genre_svg.select('#genretitle').remove();
+			genre_svg.selectAll('.axis').remove();
 
 			var genre_bar = genre_svg.selectAll(".bar")
 				.data(genrebar_data)
@@ -283,7 +300,10 @@
 			genre_bar.append("rect")
 			    .attr("width", genre_x.rangeBand())
 			    .attr("height", function(d) { return small_height - genre_y(d.freq); })
-			    .style("fill", function(d){return genre_color(d.genre)});
+			    .style("fill", function(d){return genre_color(d.genre)})
+			    .on('click', function(d){
+			    	draw_histogram(yr, d.genre);
+			    });
 
 			genre_svg.append("g")
 			    .attr("class", "x axis genreaxis")
@@ -300,20 +320,23 @@
 		            ;
 
 			genre_svg.append("text")
-				.attr("x", 10)
-				.attr("y", 10)
-				.style("font-size", 11)
-				.text("Number of Movies in Each Genre in " + yr)
+				.attr("x", 20)
+				.attr("y", 15)
+				.attr("id", "genretitle")
+				.style("font-size", 12)
+				.text("Number of Movies by Genre in " + yr)
 
 		}
+
+
 		circles.on('click', function(d) {
 			circlefade(d.year); 
-			draw_genrebars(d.year);
-			draw_histogram(d.year, 'all'); 
+			draw_genrebars(d.year.getFullYear());
+			draw_histogram(d.year.getFullYear(), 'all'); 
 
 		});
-		draw_histogram('1990', 'all');
-		draw_genrebars('1990');
+		draw_histogram('2005', 'all');
+		draw_genrebars('2005');
 
 
 
