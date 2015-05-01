@@ -147,7 +147,7 @@
 	    .attr("height", small_height + small_margin.top + small_margin.bottom);
 
 	var hist_x = d3.scale.linear().domain([0, 10]).range([small_width*.02, small_width*.95]);
-	var hist_y = d3.scale.linear().range([small_height*.90, small_height*.1]);
+	var hist_y = d3.scale.linear().range([small_height*.90, small_height*.12]);
 	var hist_xAxis = d3.svg.axis()
 	    .scale(hist_x)
 	    .orient("bottom");
@@ -250,6 +250,7 @@
 			//.bins(Math.max(Math.min(filter_data.length/5.0, 100), 1))
 			year_data = data.filter(function(d){return d.year.getFullYear() == yr})[0];
 			filter_data = year_data.ratings.filter(function(d){return d.filter == filter})[0]['arr']; 
+			var nMovies = filter_data.length;
 			hist_gen = d3.layout.histogram().bins(Math.max(Math.min(filter_data.length, 100), 1));
 			hist_data = hist_gen(filter_data);
 			//filter_data
@@ -289,8 +290,15 @@
 				.attr("x", 15)
 				.attr("y", 28)
 				.attr("class", "histtitle")
-				.style("font-size", 12)
+				.style("font-size", 10)
 				.text("Genre: " + filter)
+
+			hist_svg.append("text")
+				.attr("x", 15)
+				.attr("y", 38)
+				.attr("class", "histtitle")
+				.style("font-size", 10)
+				.text("Num. Movies: " + nMovies)
 		}
 		
 
@@ -350,6 +358,7 @@
 
 
 		circles.on('click', function(d) {
+			// console.log(d.ratings.filter(function(el){return el.filter == 'all'})[0].arr.length);
 			circlefade(d.year); 
 			draw_genrebars(d.year.getFullYear());
 			draw_histogram(d.year.getFullYear(), 'all'); 
