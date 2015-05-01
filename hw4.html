@@ -122,17 +122,21 @@
 	var parseDate = d3.time.format("%Y").parse;
 	var radiusLimits = [4, 22]
 
-	var main_margin = {top: 15, right: 5, bottom: 5, left: 25};
+	var main_margin = {top: 15, right: 10, bottom: 5, left: 25};
 	var main_width =  650 - main_margin.left - main_margin.right; 
 	var main_height = 500 - main_margin.top - main_margin.bottom;
 
 
 
-	var main_x = d3.time.scale().range([main_width*.03, main_width*.97]);
-	var main_y = d3.scale.linear().range([main_height*.97, main_height*.05]);
+	var main_x = d3.time.scale().range([main_width*.03, main_width*.95]);
+	var main_y = d3.scale.linear().range([main_height*.97, main_height*.07]);
 	var main_xAxis = d3.svg.axis()
 	    .scale(main_x)
 	    .orient("bottom");
+
+	var main_yAxis = d3.svg.axis()
+	    .scale(main_y)
+	    .orient("right");
 
 	var main_radius = d3.scale.sqrt().range(radiusLimits) 
 	var main_color = d3.scale.linear().range(['#d7191c', '#fee391', '#1a9641'])
@@ -251,6 +255,11 @@
 			    .attr("class", "x axis")
 			    .attr("transform", "translate(0," + main_height + ")")
 			    .call(main_xAxis);
+
+		main_svg.append("g")
+			    .attr("class", "y axis")
+			    .attr("transform", "translate(" +main_width + ")")
+			    .call(main_yAxis);
 
 		
 
