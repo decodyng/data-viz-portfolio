@@ -182,7 +182,7 @@
 
                 return d.year != year;
             })
-            .style("opacity", 0.2);
+            .style("opacity", 0.18);
 
         main_svg.selectAll(".maincircle")
             .filter(function (d) {
@@ -229,7 +229,7 @@
 			.attr("y", 30)
 			.attr("x", 10)
 			.style("font-size", 30)
-			.text("Avg Votes Per Movie Over Time"); 
+			.text("Avg IMDB Votes Per Movie By Year"); 
 
 		main_svg.append("text")
 			.attr("y", 47)
