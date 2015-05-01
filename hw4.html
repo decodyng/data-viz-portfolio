@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Dashboarding</title>
+	<meta charset="utf-8">
+	<meta name="author" content="pixelhint.com">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+	<meta name="description" content="Magnetic is a stunning responsive HTML5/CSS3 photography/portfolio website  template"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/d3.parcoords.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript" src="js/d3.parcoords.js"></script>
+    <script type="text/javascript" src="js/d3-tip.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <style>
+    .top {
+			background: url('img/black.jpg');
+		}
+
+	#mainscatter {
+		background: white;
+		border-style:solid;
+		border-width:2px;
+		float:left;
+	}
+	#genrebar {
+		float:left;
+		background:white;
+/*		border-style:solid;
+		border-width:1px;*/
+	}
+	#hist {
+		float:left;
+		background:white;
+/*		border-style:solid;
+		border-width:1px;*/
+	}
+
+
+	.maincircle{
+		fill:none;
+		stroke-width:3px;
+	}
+	.content {
+		background: white;
+	}
+
+	.axis path, .axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+	.axis text{
+		font-size:10px;
+	}
+	.genreaxis text{
+		font-size: 8px;
+	}
+
+    </style>
+</head>
+<body>
+
+	<header>
+		<div class="logo">
+			<a href="index.html"><img src="img/logo.png" title="Magnetic" alt="Magnetic"/></a>
+		</div>
+
+		<div> 
+			<h5 style="text-align:center; line-height:160%">This site is a repository for projects completed as part of MSAN's Information Visualization course</h5><h6 style="text-align:center">Code available at https://github.com/decodyng/data-viz-portfolio</h6>
+		</div>
+ 
+		<div class="footer clearfix">
+			<ul class="social clearfix">
+				<li><a href="http://decodyng.com/" target="_blank" class="website" data-title="Website"></a></li>
+				<li><a href="https://twitter.com/decodyng" target="_blank" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="mailto:cody.marie.wild@gmail.com" target="_blank" class="email" data-title="Email"></a></li>
+				<li><a href="#" target="_blank" class="mobile" data-title="814.414.7199"></a></li>
+			</ul><!-- end social -->
+
+			<div class="rights">
+				<!--<p>Copyright © 2014 magnetic.</p>-->
+				<p style="font-size:7px; text-align:center;">Template by <a href="">Pixelhint.com</a></p>
+			</div><!-- end rights -->
+		</div ><!-- end footer -->
+	</header><!-- end header -->
+
+	<section class="main clearfix">
+
+		<section class="top">	
+			<div class="wrapper content_header clearfix">
+				<div class="work_nav">
+							
+					<ul class="btn clearfix">
+						<li><a href="#" class="previous" data-title="Previous"></a></li>
+						<li><a href="index.html" class="grid" data-title="Portfolio"></a></li>
+						<li><a href="#" class="next" data-title="Next"></a></li>
+					</ul>							
+					
+				</div><!-- end work_nav -->
+				<h1 class="title">Dashboarding</h1>
+
+
+			</div>		
+		</section><!-- end top , width="650px", height="500px" -->
+
+		<section class="wrapper">
+			<div class="content">
+			<svg id="mainscatter"></svg>
+			<svg id="genrebar"></svg>
+			<svg id="hist"></svg>
+			
+			</div><!-- end content -->
+		</section>
+	</section><!-- end main -->
+	<script>
+	var parseDate = d3.time.format("%Y").parse;
+	var radiusLimits = [4, 22]
+
+	var main_margin = {top: 15, right: 5, bottom: 0, left: 25};
+	var main_width =  650 - main_margin.left - main_margin.right; 
+	var main_height = 500 - main_margin.top - main_margin.bottom;
+
+
+
+	var main_x = d3.time.scale().range([main_width*.03, main_width*.97]);
+	var main_y = d3.scale.linear().range([main_height*.97, main_height*.05]);
+	var main_radius = d3.scale.sqrt().range(radiusLimits) 
+	var main_color = d3.scale.linear().range(['#d7191c', '#ffffbf', '#1a9641'])
+
+	var main_svg = d3.select("#mainscatter")
+	    .attr("width", main_width + main_margin.left + main_margin.right)
+	    .attr("height", main_height + main_margin.top + main_margin.bottom);
+
+	
+	var small_margin = {top: 5, right: 5, bottom: 18, left: 5}; 
+	var small_height = 250 - small_margin.top - small_margin.bottom; 
+	var small_width = 250 - small_margin.left - small_margin.right; 
+
+	var hist_svg = d3.select("#hist")
+	    .attr("width", small_width + small_margin.left + small_margin.right)
+	    .attr("height", small_height + small_margin.top + small_margin.bottom);
+
+	var hist_x = d3.scale.linear().domain([0, 10]).range([small_width*.02, small_width*.95]);
+	var hist_y = d3.scale.linear().range([small_height*.94, small_height*.06]);
+	var hist_xAxis = d3.svg.axis()
+	    .scale(hist_x)
+	    .orient("bottom");
+
+
+
+	var genre_x = d3.scale.ordinal()
+		.domain(['Action', 'Animation', 'Comedy', 'Documentary', 'Drama', 'Romance', 'Short'])
+		.rangeBands([small_width*.05, small_width*.95]);
+
+	var genre_y = d3.scale.linear().range([small_height*.9, small_height*.1]);
+	var genre_color = d3.scale.ordinal()
+		.domain(['Action', 'Animation', 'Comedy', 'Documentary', 'Drama', 'Romance', 'Short', 'all'])
+		.range(['rgb(141,211,199)','rgb(255,255,179)','rgb(190,186,218)','rgb(251,128,114)','rgb(128,177,211)','rgb(253,180,98)','rgb(179,222,105)', '#969696']); 
+
+	var genre_xAxis = d3.svg.axis()
+	    .scale(genre_x)
+	    .orient("bottom");
+
+	//histgen(values)
+	//histgen.bins(num)
+
+
+	var genre_svg = d3.select("#genrebar")
+	    .attr("width", small_width + small_margin.left + small_margin.right)
+	    .attr("height", small_height + small_margin.top + small_margin.bottom);
+
+	function circlefade(year) {
+		console.log(year);
+        main_svg.selectAll(".maincircle")
+            .filter(function (d) {
+
+                return d.year != year;
+            })
+            .style("opacity", 0.15);
+
+        main_svg.selectAll(".maincircle")
+            .filter(function (d) {
+
+                return d.year == year;
+            })
+            .style("opacity", 1);
+	    };
+
+
+	function circlefadeOut() {
+	    main_svg.selectAll("circle")
+	    .style("opacity", function (d) { opacity(d.murder); });
+	};
+
+
+
+	d3.json("data/movies.json", function(error, data){
+		data.forEach(function(d){
+				d.year = parseDate(d.year);
+				d.avgNVotes = +d.avgNVotes;
+				d.nMovies= +d.nMovies;
+			});
+
+		//draw main plot 
+		main_x.domain(d3.extent(data, function(d) {return d.year}));
+		main_y.domain(d3.extent(data, function(d) {return d.avgNVotes}));
+		main_radius.domain(d3.extent(data, function(d) {return d.nMovies}));
+		ratingExtent = d3.extent(data, function(d) {return d.avgRating});
+		ratingMean = d3.mean(data, function(d) {return d.avgRating});
+		main_color.domain([ratingExtent[0], ratingMean, ratingExtent[1]])
+
+		circlegroup = main_svg.append('g');
+
+		circles = circlegroup
+		.selectAll('.maincircle')
+		.data(data)
+		.enter()
+		.append('circle')
+		.attr('class', 'maincircle');
+
+		circles.attr("cx", function(d) {return main_x(d.year)})
+		    .attr("cy", function(d) {return main_y(d.avgNVotes)})
+		    .attr("r", function(d) {return main_radius(d.nMovies)})
+		    .style("stroke", function(d) {return main_color(d.avgRating)});
+
+		
+
+		//draw histogram 
+		function draw_histogram(yr, filter){
+			//.bins(Math.max(Math.min(filter_data.length/5.0, 100), 1))
+			year_data = data.filter(function(d){return d.year.getFullYear() == yr})[0];
+			filter_data = year_data.ratings.filter(function(d){return d.filter == filter})[0]['arr']; 
+			hist_gen = d3.layout.histogram().bins(Math.max(Math.min(filter_data.length, 100), 1));
+			hist_data = hist_gen(filter_data);
+			//filter_data
+			//hist_data = hist_gen(filter_data);
+			hist_y.domain([0, d3.max(hist_data, function(d) { return d.y; })]);
+
+			
+			var hist_bar = hist_svg.selectAll(".bar")
+				.data(hist_data)
+			  	.enter().append("g")
+			    .attr("class", "bar")
+			    .attr("transform", function(d) { return "translate(" + hist_x(d.x) + "," + hist_y(d.y) + ")"; });
+
+			hist_bar.append("rect")
+			    .attr("x", 1)
+			    .attr("width", hist_x(hist_data[0].dx) - 1)
+			    .attr("height", function(d) { return small_height - hist_y(d.y); })
+			    .style("fill", function(d){return genre_color(filter)});
+
+			hist_svg.append("g")
+			    .attr("class", "x axis")
+			    .attr("transform", "translate(0," + small_height + ")")
+			    .call(hist_xAxis);
+
+			hist_svg.append("text")
+				.attr("x", 10)
+				.attr("y", 10)
+				.style("font-size", 11)
+				.text("Distribution of Movies Average Ratings in " + yr)
+
+		}
+		
+
+		function draw_genrebars(yr){
+			year_data = data.filter(function(d){return d.year.getFullYear() == yr})[0];
+			genrebar_data = year_data['genres']; 
+			genre_y.domain(d3.extent(genrebar_data, function(d){return d.freq}));
+
+
+			var genre_bar = genre_svg.selectAll(".bar")
+				.data(genrebar_data)
+			  	.enter().append("g")
+			    .attr("class", "bar")
+			    .attr("transform", function(d) { return "translate(" + genre_x(d.genre) + "," + genre_y(d.freq) + ")"; });
+
+			genre_bar.append("rect")
+			    .attr("width", genre_x.rangeBand())
+			    .attr("height", function(d) { return small_height - genre_y(d.freq); })
+			    .style("fill", function(d){return genre_color(d.genre)});
+
+			genre_svg.append("g")
+			    .attr("class", "x axis genreaxis")
+			    .attr("transform", "translate(0," + small_height + ")")
+			    .call(genre_xAxis)
+			    .selectAll('text')
+			    	.style("text-anchor", "middle")
+		            .attr("dx", "-.8em")
+		            .attr("dy", ".15em")
+		            .attr("transform", function(d){return "translate(20)"})
+		            .attr("transform", function(d) {
+		                return "rotate(-20)" 
+		                })
+		            ;
+
+			genre_svg.append("text")
+				.attr("x", 10)
+				.attr("y", 10)
+				.style("font-size", 11)
+				.text("Number of Movies in Each Genre in " + yr)
+
+		}
+		circles.on('click', function(d) {
+			circlefade(d.year); 
+			draw_genrebars(d.year);
+			draw_histogram(d.year, 'all'); 
+
+		});
+		draw_histogram('1990', 'all');
+		draw_genrebars('1990');
+
+
+
+
+		
+
+
+})
+	</script>
+
+</body>
+</html>

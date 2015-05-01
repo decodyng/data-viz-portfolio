@@ -505,7 +505,7 @@
 	    circles.attr("cx", function(d) {return smX(d.Population/1000)})
 	    .attr("cy", function(d) {return smY(d.Illiteracy/100)})
 	    .attr("r", smallRad)
-	    .attr("fill", function(d) {return smZ(d.Division)})
+	    .attr("stroke", function(d) {return smZ(d.Division)})
 	    .on('mouseover', smTip.show)
       	.on('mouseout', smTip.hide)
 	    ;
