@@ -187,7 +187,6 @@
 	    .attr("height", small_height + small_margin.top + small_margin.bottom);
 
 	function circlefade(year) {
-		console.log(year);
         main_svg.selectAll(".maincircle")
             .filter(function (d) {
 
@@ -203,6 +202,18 @@
             .style("opacity", 1);
 	    };
 
+	function circleRestore(){
+		main_svg.select('.maintext').text("Click on circles to filter adjacent graphs by year");
+		main_svg.selectAll('.maincircle')
+		.style("opacity", 1);
+	};
+
+	main_svg
+	.append('rect')
+	.attr("width", main_width)
+	.attr("height", main_height)
+	.style("fill", "white")
+	.on('click', circleRestore);
 
 
 
@@ -252,6 +263,7 @@
 			.attr("y", 60)
 			.attr("x", 10)
 			.style("font-size", 11)
+			.attr("class", "maintext")
 			.text("Click on circles to filter adjacent graphs by year");
 
 		main_svg.append("g")
@@ -380,6 +392,8 @@
 
 		circles.on('click', function(d) {
 			// console.log(d.ratings.filter(function(el){return el.filter == 'all'})[0].arr.length);
+			main_svg.select('.maintext')
+			.text("Year: " + d.year.getFullYear() + ", Average Rating: " + Math.round(d.avgRating*10)/10 + ", Average Votes Per Movie: " + Math.round(d.avgNVotes*10)/10 );
 			circlefade(d.year); 
 			draw_genrebars(d.year.getFullYear());
 			draw_histogram(d.year.getFullYear(), 'all'); 
