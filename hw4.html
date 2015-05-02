@@ -117,7 +117,7 @@
 			<svg id="mainscatter"></svg>
 			<svg id="genrebar"></svg>
 			<svg id="hist"></svg>
-			<p>This visualization seeks to allow users to explore and drill down into the data along two primary dimensions: time and genre. One note about the Tableau functionality is that MPAA was visualized on the prototype barchart instead of genre, because of issues surrounding Tableau crashing when multiple variables (i.e. multiple genre counts, each mapped to a bar) were added. To achieve moderate functionality, I've constructed three plots. The main visualization on the left acts as a summary and primary filter on the rest of the data, with the Y axis showing average number of votes submitted for videos in a given year, represented on the X axis. Additional dimensions, number of movies and average rating, are encoded in size and color respectively. The design choice was made to encode datapoints as unfilled circles because it accounts for users to see distinct points despite the overlap between them.</p> 
+			<p>This visualization seeks to allow users to explore and drill down into the data along two primary dimensions: time and genre. One note about the Tableau functionality is that MPAA was visualized on the prototype barchart instead of genre, because of issues surrounding Tableau crashing when multiple variables (i.e. multiple genre counts, each mapped to a bar) were added.To achieve moderate functionality, I've constructed three plots. The main visualization on the left acts as a summary and primary filter on the rest of the data, with the Y axis showing average number of votes submitted for videos in a given year, represented on the X axis. Additional dimensions, number of movies and average rating, are encoded in size and color respectively. The design choice was made to encode datapoints as unfilled circles because it accounts for users to see distinct points despite the overlap between them.</p> 
 			<p>The genre bar plot and histogram on the right are each executed for a single year. The genre plot shows the relative proportions of films within that year that are non-uniquely tagged as each of these seven genres. The genre of a given bar is dual-encoded by both color on a categorical scale and a label on the X axis. This color encoding allows for the use of signalling to show the group being displayed in the below histogram, which shows the empirical distribution over average viewer rating for all movies in a given grouping.</p>
 			<p>The advanced-functionality interactions implemented in this plot are: 
 			<ul>
@@ -168,7 +168,7 @@
 	    .attr("height", small_height + small_margin.top + small_margin.bottom);
 
 	var hist_x = d3.scale.linear().domain([0, 10]).range([small_width*.02, small_width*.95]);
-	var hist_y = d3.scale.linear().range([small_height*.90, small_height*.12]);
+	var hist_y = d3.scale.linear().range([small_height, small_height*.12]);
 	var hist_xAxis = d3.svg.axis()
 	    .scale(hist_x)
 	    .orient("bottom");
@@ -179,7 +179,7 @@
 		.domain(['Action', 'Animation', 'Comedy', 'Documentary', 'Drama', 'Romance', 'Short'])
 		.rangeBands([small_width*.05, small_width*.95]);
 
-	var genre_y = d3.scale.linear().range([small_height*.9, small_height*.15]);
+	var genre_y = d3.scale.linear().range([small_height, small_height*.15]);
 	var genre_color = d3.scale.ordinal()
 		.domain(['Action', 'Animation', 'Comedy', 'Documentary', 'Drama', 'Romance', 'Short', 'all'])
 		.range(['rgb(141,211,199)','#fed976','rgb(190,186,218)','rgb(251,128,114)','rgb(128,177,211)','rgb(253,180,98)','rgb(179,222,105)', '#969696']); 
