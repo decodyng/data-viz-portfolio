@@ -117,6 +117,16 @@
 			<svg id="mainscatter"></svg>
 			<svg id="genrebar"></svg>
 			<svg id="hist"></svg>
+			<p>This visualization seeks to allow users to explore and drill down into the data along two primary dimensions: time and genre. One note about the Tableau functionality is that MPAA was visualized on the prototype barchart instead of genre, because of issues surrounding Tableau crashing when multiple variables (i.e. multiple genre counts, each mapped to a bar) were added. To achieve moderate functionality, I've constructed three plots. The main visualization on the left acts as a summary and primary filter on the rest of the data, with the Y axis showing average number of votes submitted for videos in a given year, represented on the X axis. Additional dimensions, number of movies and average rating, are encoded in size and color respectively. The design choice was made to encode datapoints as unfilled circles because it accounts for users to see distinct points despite the overlap between them.</p> 
+			<p>The genre bar plot and histogram on the right are each executed for a single year. The genre plot shows the relative proportions of films within that year that are non-uniquely tagged as each of these seven genres. The genre of a given bar is dual-encoded by both color on a categorical scale and a label on the X axis. This color encoding allows for the use of signalling to show the group being displayed in the below histogram, which shows the empirical distribution over average viewer rating for all movies in a given grouping.</p>
+			<p>The advanced-functionality interactions implemented in this plot are: 
+			<ul>
+				<li>When a ring in the main plot is clicked, it brushes all other rings to the background, and redraws the genre plot (which defaults to displaying 2005, the latest year in the dataset) to display the selected year. When space in the plot not occupied by a ring is clicked, the brushing-selection returned to default behavior</li>
+				<li>Clicking a ring in the main plot also redraws the histogram to include only the selected year. By default, this histogram is drawn across all genres</li>
+				<li>Clicking on a bar in the genre plot filters the histogram below to only include movies tagged as belonging to that genre</li>
+			</ul></p>
+			<p style="text-align:center">Code available <a href="https://github.com/decodyng/data-viz-portfolio/blob/gh-pages/hw4.html">here</a></p>
+
 			
 			</div><!-- end content -->
 		</section>
