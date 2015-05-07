@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Dashboarding</title>
+	<meta charset="utf-8">
+	<meta name="author" content="pixelhint.com">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+	<meta name="description" content="Magnetic is a stunning responsive HTML5/CSS3 photography/portfolio website  template"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/d3.parcoords.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript" src="js/d3.parcoords.js"></script>
+    <script type="text/javascript" src="js/d3-tip.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <style>
+    .top {
+	body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path {
+  display: none;
+}
+
+
+.legend line {
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+    </style>
+</head>
+<body>
+
+	<header>
+		<div class="logo">
+			<a href="index.html"><img src="img/logo.png" title="Magnetic" alt="Magnetic"/></a>
+		</div>
+
+		<div> 
+			<h5 style="text-align:center; line-height:160%">This site is a repository for projects completed as part of MSAN's Information Visualization course</h5><h6 style="text-align:center">Code available at https://github.com/decodyng/data-viz-portfolio</h6>
+		</div>
+ 
+		<div class="footer clearfix">
+			<ul class="social clearfix">
+				<li><a href="http://decodyng.com/" target="_blank" class="website" data-title="Website"></a></li>
+				<li><a href="https://twitter.com/decodyng" target="_blank" class="twitter" data-title="Twitter"></a></li>
+				<li><a href="mailto:cody.marie.wild@gmail.com" target="_blank" class="email" data-title="Email"></a></li>
+				<li><a href="#" target="_blank" class="mobile" data-title="814.414.7199"></a></li>
+			</ul><!-- end social -->
+
+			<div class="rights">
+				<!--<p>Copyright © 2014 magnetic.</p>-->
+				<p style="font-size:7px; text-align:center;">Template by <a href="">Pixelhint.com</a></p>
+			</div><!-- end rights -->
+		</div ><!-- end footer -->
+	</header><!-- end header -->
+
+	<section class="main clearfix">
+
+		<section class="top">	
+			<div class="wrapper content_header clearfix">
+				<div class="work_nav">
+							
+					<ul class="btn clearfix">
+						<li><a href="#" class="previous" data-title="Previous"></a></li>
+						<li><a href="index.html" class="grid" data-title="Portfolio"></a></li>
+						<li><a href="#" class="next" data-title="Next"></a></li>
+					</ul>							
+					
+				</div><!-- end work_nav -->
+				<h1 class="title">Project Prototype</h1>
+
+
+			</div>		
+		</section><!-- end top , width="650px", height="500px" -->
+
+		<section class="wrapper">
+			<div class="content">
+
+			<div id="prototype">
+				<svg id="classifications"></svg>
+				<p><ul>
+					<li>Try to make the charts stacked but sized according to total amount</li>
+				</ul></p>
+				<svg id="continents"></svg>
+			</div>
+
+
+			
+			</div><!-- end content -->
+		</section>
+	</section><!-- end main -->
+	<script>
+var margin = {top: 25, right: 15, bottom: 25, left: 45},
+    width = 900 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var color = d3.scale.ordinal()
+    .range(["#e41a1c", "#a6cee3", "#b2df8a", "#bdbdbd"]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(d3.format(".0%"));
+
+var svg = d3.select("#classifications")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.json("classifiedCountsByYear.json", function(error, data) {
+
+		color.domain(['secret', 'confidential', 'unclassified', 'unknown']);
+		yearArray = data.map(function(d){return d.year}).sort();
+		x.domain(yearArray);
+
+		// delete this. return to percentages. return to linear scale 
+		y.domain([0, d3.max(data, function(d){return +d.nCables})]);
+		console.log(y.domain());
+		console.log(y(50));
+
+		data.forEach(function(d) {
+   			var y0 = 0;
+    		d.classifications = color.domain().map(function(status) { return {name: status, 
+    																			y0: y0, 
+    																			y1: y0 += +d['stackedData'][status]}; });
+    		// console.log(d.classifications);
+    		// console.log(d.classifications[0].y0);
+    		// console.log(y(d.classifications[0].y0));
+ 			 });
+		console.log(data[0]); 
+		console.log()
+		svg.append("g")
+      		.attr("class", "x axis")
+      		.attr("transform", "translate(0," + height + ")")
+      		.call(xAxis)
+      		.style("font-size", 11);
+
+  		svg.append("g")
+      		.attr("class", "y axis")
+      		.call(yAxis)
+      		.style("font-size", 11);
+
+      	var years = svg.selectAll(".years")
+      		.data(data)
+		    .enter().append("g")
+		      .attr("class", "years")
+		      .attr("transform", function(d) { return "translate(" + x(d.year) + ",0)"; });
+
+		console.log(data[0]);
+
+
+		years.selectAll("rect")
+	      .data(function(d) { return d.classifications; })
+	    .enter().append("rect")
+	      .attr("width", x.rangeBand())
+	      .attr("y", function(d) { return y(d.y1); })
+	      .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+	      .style("fill", function(d) { return color(d.name); });
+
+
+
+
+	});
+	</script>
+
+</body>
+</html>
