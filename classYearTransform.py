@@ -8,9 +8,7 @@ def generateFakeContinents():
 	remainder = 1 - firstCont
 	secondCont = round(uniform(0, remainder), 3)
 	thirdCont = round(1 - (firstCont + secondCont), 3)
-	return [{'continent': 'MENA', 'percentage': firstCont},
-			{'continent': 'Asia', 'percentage': secondCont},
-			{'continent': 'Latin America', 'percentage': thirdCont}]
+	return {'MENA': firstCont, 'Asia': secondCont, 'Latin America': thirdCont}
 
 if __name__ == "__main__":
 	df = pd.read_csv("classificationPercentByYear.csv")

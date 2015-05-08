@@ -17,10 +17,11 @@
     <script type="text/javascript" src="js/d3-tip.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <style>
-    .top {
-	body {
-  font: 10px sans-serif;
-}
+.top {
+			background: url('img/black.jpg');
+		}
+
+
 #number {
 	float:left;
 }
@@ -31,11 +32,14 @@
 	float: left;
 }
 
+.domain {
+  opacity:0;
+}
+
 .axis path,
 .axis line {
   fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+  stroke: none;
 }
 
 .bar {
@@ -102,8 +106,11 @@
 			<div class="content">
 
 			<div id="prototype">
+				<h1>State Department Cables By Classification Status: 2000-2010</h1>
 				<svg id="classifications"></svg>
 				<svg id="right"></svg>
+				<p>This prototype will eventually include an interaction between the lefthand and righthand charts, where 
+				a user can click on a year bar and change the by-continent breakdowns to be filtered to only that year</p>
 			</div>
 
 
@@ -122,7 +129,11 @@ var x = d3.scale.ordinal()
 var y = d3.scale.linear()
     .range([height, 0]);
 
+
+var commaFormat = d3.format("0,000");
+
 var color = d3.scale.ordinal()
+	.domain(['secret', 'confidential', 'unclassified', 'unknown'])
     .range(["#e41a1c", "#a6cee3", "#b2df8a", "#bdbdbd"]);
 
 var xAxis = d3.svg.axis()
@@ -141,12 +152,72 @@ var svg = d3.select("#classifications")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var rightSvg = d3.select("#right")
-	    .attr("width", width + margin.left + margin.right)
+	    .attr("width", width + margin.left + margin.right + 10)
 	    .attr("height", height + margin.top + margin.bottom);
+
+var classHeight = 250; 
+var classY  = d3.scale.ordinal()
+	.domain([""])
+    .rangeBands([classHeight, 0], .5);
+
+var classX = d3.scale.linear()
+    .range([0, width]);
+
+var classYAxis = d3.svg.axis()
+    .scale(classY)
+    .orient("right");
+
+var classScaleDict = {
+	"secret": d3.scale.ordinal().domain(["MENA", "Asia", "Latin America"]).range(["#e41a1c", "#fb6a4a", "#fee5d9"]),
+	"confidential": d3.scale.ordinal().domain(["MENA", "Asia", "Latin America"]).range(["#084594", "#6baed6", "#a6cee3"]),
+	"unclassified": d3.scale.ordinal().domain(["MENA", "Asia", "Latin America"]).range(["#277335", "#41ab5d", "#b2df8a"]),
+};
 
 d3.json("classifiedCountsByYear.json", function(error, data) {
 
-		color.domain(['secret', 'confidential', 'unclassified', 'unknown']);
+		function draw_classifications(yr){
+			year_data = data.filter(function(d) {return d.year == yr})[0].continentData;
+			console.log(year_data);
+
+			year_data.forEach(function(d) {
+   			var x0 = 0;
+    		d.contentValues = ["MENA", "Asia", "Latin America"].map(function(cont) { return {name: cont, 
+    																			classif: d['classification'],
+    																			x0: x0, 
+    																			x1: x0 += +d['continents'][cont]}; });
+ 			 });
+
+
+			var classificationBars = classificationGroup.selectAll('.classifications')
+			.data(year_data)
+		    .enter().append("g")
+		      .attr("class", "classifications")
+		      .attr("transform", function(d) { return "translate(0," + (300 + classY(d.classification)) + ")"; });
+
+
+		    classificationBars.selectAll("rect")
+
+		    .data(function(d){return d.contentValues})
+		    .enter().append("rect")
+		      .attr("height", classY.rangeBand())
+		      .attr("x", function(d) { return classX(d.x0); })
+		      .attr("width", function(d) { return classX(d.x1) - classX(d.x0); })
+		      .style("fill", function(d){
+		      	scale = classScaleDict[d.classif]; 
+		      	return scale(d.name);
+		      });
+
+		  	classificationGroup.append("g")
+      		.attr("class", "cont_y axis")
+      		.attr("transform", "translate(" + width + ",300)")
+      		.call(classYAxis)
+      		.style("font-size", 11);
+
+
+		};
+
+		classY.domain(['secret', 'confidential', 'unclassified']);
+		
 		yearArray = data.map(function(d){return d.year}).sort();
 		x.domain(yearArray);
 
@@ -160,21 +231,19 @@ d3.json("classifiedCountsByYear.json", function(error, data) {
     		d.classifications = color.domain().map(function(status) { return {name: status, 
     																			y0: y0, 
     																			y1: y0 += +d['stackedData'][status]}; });
-    		// console.log(d.classifications);
-    		// console.log(d.classifications[0].y0);
-    		// console.log(y(d.classifications[0].y0));
  			 });
+
+
 		console.log(data); 
 		svg.append("g")
       		.attr("class", "x axis")
       		.attr("transform", "translate(0," + height + ")")
       		.call(xAxis)
-      		.style("font-size", 11);
-
+      		.style("font-size", 12);
   		svg.append("g")
       		.attr("class", "y axis")
       		.call(yAxis)
-      		.style("font-size", 11);
+      		.style("font-size", 12);
 
       	var years = svg.selectAll(".years")
       		.data(data)
@@ -213,22 +282,50 @@ d3.json("classifiedCountsByYear.json", function(error, data) {
 	    .attr("class", "numberText")
 	    .attr("transform", "translate(70,92)")
 	    .append("text")
-	    .text(Math.round(sumCables))
-	    .style("stroke", "#b2df8a")
-	    .style("fill", "#b2df8a")
+	    .text(commaFormat(Math.round(sumCables)))
+	    .style("stroke", "black")
+	    .style("fill", "black")
 	    .style("font-size", 50);
 
 
 	    rightSvg.append("g")
 	    .attr("class", "numberText")
-	    .attr("transform", "translate(240,92)")
+	    .attr("transform", "translate(250,92)")
 	    .append("text")
 	    .text("cables")
 	    .style("stroke", "#bdbdbd")
 	    .style("fill", "#bdbdbd")
 	    .style("font-size", 15);
 
-	    classificationGroup = rightSvg.append("g"); 
+	    rightSvg.append("g")
+	    .attr("class", "plotLegend")
+	    .attr("transform", "translate(30,325)")
+	    .append("text")
+	    .text("MENA")
+	    .style("stroke", "#636363")
+	    .style("fill", "#636363")
+	    .style("font-size", 13);
+
+	    rightSvg.append("g")
+	    .attr("class", "plotLegend")
+	    .attr("transform", "translate(140,325)")
+	    .append("text")
+	    .text("Asia")
+	    .style("stroke", "#969696")
+	    .style("fill", "#969696")
+	    .style("font-size", 13);
+
+	    rightSvg.append("g")
+	    .attr("class", "plotLegend")
+	    .attr("transform", "translate(240,325)")
+	    .append("text")
+	    .text("Latin America")
+	    .style("stroke", "#d9d9d9")
+	    .style("fill", "#d9d9d9")
+	    .style("font-size", 13);
+
+	    var classificationGroup = rightSvg.append("g"); 
+	    draw_classifications("2001");
 
 	    //
 
