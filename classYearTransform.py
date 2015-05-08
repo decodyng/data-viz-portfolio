@@ -18,7 +18,7 @@ if __name__ == "__main__":
 	for ind, row in df.iterrows(): 
 		rowDict = {}
 		print ind, row
-		if int(row['year']) < 1986: 
+		if int(row['year']) < 2000: 
 			continue 
 		rowDict['year'] = int(row['year'])
 		ncables = int(row['totalcables'])

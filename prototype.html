@@ -21,6 +21,15 @@
 	body {
   font: 10px sans-serif;
 }
+#number {
+	float:left;
+}
+#classifications {
+	float: left;
+}
+#continents { 
+	float: left;
+}
 
 .axis path,
 .axis line {
@@ -94,8 +103,7 @@
 
 			<div id="prototype">
 				<svg id="classifications"></svg>
-				<svg id="number"></svg>
-				<svg id="continents"></svg>
+				<svg id="right"></svg>
 			</div>
 
 
@@ -131,6 +139,10 @@ var svg = d3.select("#classifications")
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var rightSvg = d3.select("#right")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom);
 
 d3.json("classifiedCountsByYear.json", function(error, data) {
 
@@ -181,9 +193,44 @@ d3.json("classifiedCountsByYear.json", function(error, data) {
 	      .attr("height", function(d) { return y(d.y0) - y(d.y1); })
 	      .style("fill", function(d) { return color(d.name); });
 
-	    numberSvg = d3.select("#number")
+	    var sumCables = d3.sum(data, 
+	    	function(d){return d.stackedData.unclassified + d.stackedData.secret + d.stackedData.unknown + d.stackedData.confidential});
+
+	    console.log(sumCables); 
+
+	     
+
+	    rightSvg.append("g")
+	    .attr("class", "numberText")
+	    .attr("transform", "translate(0,92)")
 	    .append("text")
-	    .text("All Years": d3.sum(data, function(d){return d.stackedData}))
+	    .text("All Years: ")
+	    .style("stroke", "#bdbdbd")
+	    .style("fill", "#bdbdbd")
+	    .style("font-size", 15);
+
+	    rightSvg.append("g")
+	    .attr("class", "numberText")
+	    .attr("transform", "translate(70,92)")
+	    .append("text")
+	    .text(Math.round(sumCables))
+	    .style("stroke", "#b2df8a")
+	    .style("fill", "#b2df8a")
+	    .style("font-size", 50);
+
+
+	    rightSvg.append("g")
+	    .attr("class", "numberText")
+	    .attr("transform", "translate(240,92)")
+	    .append("text")
+	    .text("cables")
+	    .style("stroke", "#bdbdbd")
+	    .style("fill", "#bdbdbd")
+	    .style("font-size", 15);
+
+	    classificationGroup = rightSvg.append("g"); 
+
+	    //
 
 
 
