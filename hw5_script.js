@@ -57,8 +57,8 @@ function symbolMap() {
     var value = function(d) { return d.value; };
 
     var color = d3.scale.threshold()
-    .domain([10, 60, 120, 320])
-    .range(["#ffffb2","#fecc5c","#fd8d3c","#f03b20"]);
+    .domain([10, 60, 120, 300, 700])
+    .range(["#ffffb2","#fecc5c","#fd8d3c","#f03b20", "#bd0026"]);
 
     function chart(id) {
         if (map === null || values === null) {
