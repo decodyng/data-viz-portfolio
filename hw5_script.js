@@ -69,15 +69,23 @@ function symbolMap() {
     var prev_x = 0;
     var prev_a = 0;
 
+    // var zoom = d3.behavior.zoom()
+    //     .scaleExtent([1, 8])
+    //     .on("zoom", zoomed);
+
     function chart(id) {
         if (map === null || values === null) {
             console.warn("Unable to draw symbol map: missing data.");
             return;
         }
 
-        updateLog("Drawing map... please wait.");
 
         var svg = d3.select("svg#" + id);
+
+
+        // svg.call(zoom);
+
+
         var bbox = svg.node().getBoundingClientRect();
 
         // update project scale
@@ -344,6 +352,13 @@ function symbolMap() {
         .attr("cy", function(d) {
             return projection([d.longitude, d.latitude])[1];
         })}
+
+    // function zoomed() {
+    //     var country = d3.select("#country");
+    //     var symbols = d3.select("#dots");
+    //     country.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+    //     symbols.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+    //     }
 
 
     return chart;
