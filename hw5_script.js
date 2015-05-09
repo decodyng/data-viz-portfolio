@@ -45,7 +45,7 @@ function symbolMap() {
         // .translate([width/2, height/2])
         // .precision(.15);
 
-    var radius = d3.scale.sqrt().range([4, 25]);
+    var radius = d3.scale.sqrt().range([5, 25]);
 
     var log = d3.select("#log");
 
@@ -278,7 +278,7 @@ function symbolMap() {
             });
 
         updateLog(d.place +
-            " received an earthquake of magnitude " + d.mag + " and depth " + d.depth);
+            " received an earthquake of magnitude " + d.mag + " and a depth of " + d.depth);
     }
 
     // called on mouseout
