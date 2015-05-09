@@ -38,8 +38,8 @@ function parseStateName(row) {
 function symbolMap() {
 
     var lookup = {};
-    // var width = 940; 
-    // var height = 480; 
+    var width = 1250; 
+    var height = 600; 
     var projection = d3.geo.equirectangular();
         // .scale((width + 1)/2/Math.pi)
         // .translate([width/2, height/2])
@@ -57,8 +57,17 @@ function symbolMap() {
     var value = function(d) { return d.value; };
 
     var color = d3.scale.threshold()
-    .domain([10, 60, 120, 300, 700])
-    .range(["#ffffb2","#fecc5c","#fd8d3c","#f03b20", "#bd0026"]);
+        .domain([10, 60, 120, 300, 700])
+        .range(["#ffffb2","#fecc5c","#fd8d3c","#f03b20", "#bd0026"]);
+
+
+    var drag = false;
+    var scale_angle = d3.scale.linear()
+        .domain([-width, width])
+        .range([-180, 180]);
+
+    var prev_x = 0;
+    var prev_a = 0;
 
     function chart(id) {
         if (map === null || values === null) {
@@ -78,7 +87,7 @@ function symbolMap() {
 
         // update projection translation
         projection = projection.translate([
-            bbox.width / 2 - 50,
+            bbox.width / 2,
             bbox.height / 2
         ]);
 
@@ -140,6 +149,29 @@ function symbolMap() {
             .classed({"symbol": true})
             .on("mouseover", showHighlight)
             .on("mouseout", hideHighlight);
+
+        //pan and drag interaction 
+
+        svg.on("mousedown", function() {
+            drag = true;
+            prev_x = d3.mouse(this)[0];
+        });
+
+        svg.on("mouseup", function() {
+            drag = false;
+        });
+
+        svg.on("mousemove", function() {
+            if (drag) {
+                curr_x = d3.mouse(this)[0];
+                curr_a = prev_a + scale_angle(curr_x - prev_x);
+                prev_x = curr_x;
+                prev_a = curr_a;
+
+                projection.rotate([curr_a, 0]);
+                update();
+            }
+        });
     }
 
     /*
@@ -300,6 +332,19 @@ function symbolMap() {
         // reset log message
         updateLog();
     }
+
+    function update() {
+    var path = d3.geo.path().projection(projection);
+    var svg = d3.select("svg")
+    svg.selectAll("path").attr("d", path);
+    svg.selectAll("circle")
+        .attr("cx", function(d) {
+            return projection([d.longitude, d.latitude])[0];
+        })
+        .attr("cy", function(d) {
+            return projection([d.longitude, d.latitude])[1];
+        })}
+
 
     return chart;
 }
