@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Magnetic - Stunning Responsive HTML5/CSS3 Photography Template</title>
+	<meta charset="utf-8">
+	<meta name="author" content="pixelhint.com">
+	<meta name="description" content="Magnetic is a stunning responsive HTML5/CSS3 photography/portfolio website  template"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <style>
+    #number {
+		float:left;
+	}
+	#classifications {
+		float: left;
+	}
+	#continents { 
+		float: left;
+	}
+
+	.domain {
+	  opacity:0;
+	}
+
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: none;
+	}
+
+	.bar {
+	  fill: steelblue;
+	}
+
+	.x.axis path {
+	  display: none;
+	}
+
+
+	.legend line {
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+    </style>
+</head>
+<body>
+
+
+
+	<section class="main clearfix">
+
+		<section class="top">	
+			<div class="wrapper content_header clearfix">
+				<div class="work_nav">
+							
+					<ul class="btn clearfix">
+						<li><a href="#" class="previous" data-title="Previous"></a></li>
+						<li><a href="index.html" class="grid" data-title="Portfolio"></a></li>
+						<li><a href="#" class="next" data-title="Next"></a></li>
+					</ul>							
+					
+				</div><!-- end work_nav -->
+				<h1 class="title">Uncovering Secrets: Visualizing Wikileaks</h1>
+			</div>		
+		</section><!-- end top -->
+
+		<section class="wrapper">
+			<div class="content">
+			<div id="prototype">
+				<h1>State Department Cables By Classification Status: 2000-2010</h1>
+				<svg id="classifications"></svg>
+				<svg id="right"></svg>
+			</div>
+
+
+			</div><!-- end content -->
+		</section>
+	</section><!-- end main -->
+	
+	<script>
+var margin = {top: 25, right: 15, bottom: 25, left: 45},
+    width = 400 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+
+var commaFormat = d3.format("0,000");
+
+var color = d3.scale.ordinal()
+	.domain(['secret', 'confidential', 'unclassified', 'unknown'])
+    .range(["#e41a1c", "#a6cee3", "#b2df8a", "#bdbdbd"]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+    // .tickFormat(d3.format(".0%"));
+
+var svg = d3.select("#classifications")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var rightSvg = d3.select("#right")
+	    .attr("width", width + margin.left + margin.right + 22)
+	    .attr("height", height + margin.top + margin.bottom);
+
+var classHeight = 250; 
+var classY  = d3.scale.ordinal()
+	.domain([""])
+    .rangeBands([classHeight, 0], .5);
+
+var classX = d3.scale.linear()
+    .range([0, width]);
+
+var classYAxis = d3.svg.axis()
+    .scale(classY)
+    .orient("right");
+
+var continentColor = d3.scale.ordinal()
+		.domain(["Africa", "Latin America", "North America", "Northwest Asia", "Northwest Europe", "Southeast Asia & Pacific", "Southeast Europe"])
+		.range(['rgb(141,211,199)','rgb(255,255,179)','rgb(190,186,218)','rgb(251,128,114)','rgb(128,177,211)','rgb(253,180,98)','rgb(179,222,105)']);
+
+var continentX = {
+	"secret": d3.scale.linear().range([0, width]), 
+	"confidential": d3.scale.linear().range([0, width]), 
+	"unclassified": d3.scale.linear().range([0, width]), 
+}
+
+d3.json("data/updatedClassCounts.json", function(error, data) {
+
+		function draw_classifications(yr){
+			year_data = data.filter(function(d) {return d.year == yr})[0].continentData;
+			console.log(year_data);
+
+			year_data.forEach(function(d) {
+   			var x0 = 0;
+    		d.contentValues = ["Africa", "Latin America", "North America", "Northwest Asia", "Northwest Europe", "Southeast Asia & Pacific", "Southeast Europe"].map(function(cont) { 
+		    			if (isNaN(+d['continents'][cont])){
+		    				barWidth = 0;
+		    			}
+		    			else {
+		    				barWidth = +d['continents'][cont];
+		    			}
+		    	if (cont == "Southeast Europe"){
+		    		continentX[d['classification']].domain([0, x0]);
+		    	};
+    			return {name: cont, classif: d['classification'], x0: x0, x1: x0 += barWidth }; });
+    		console.log(d.contentValues);
+ 			 });
+
+
+			var classificationBars = classificationGroup.selectAll('.classifications')
+			.data(year_data)
+		    .enter().append("g")
+		      .attr("class", "classifications")
+		      .attr("transform", function(d) { return "translate(0," + (300 + classY(d.classification)) + ")"; });
+
+
+		    classificationBars.selectAll("rect")
+		    .data(function(d){return d.contentValues})
+		    .enter().append("rect")
+		      .attr("height", classY.rangeBand())
+		      .attr("x", function(d) { 
+		      	console.log(d.classif)
+		      	scale = continentX[d.classif];
+		      	return scale(d.x0); })
+		      .attr("width", function(d) { 
+		      	scale = continentX[d.classif];
+		      	return scale(d.x1) - scale(d.x0); })
+		      .style("fill", function(d){
+		      	return continentColor(d.name);
+		      });
+
+		  	classificationGroup.append("g")
+      		.attr("class", "cont_y axis")
+      		.attr("transform", "translate(" + (width + 12) + ",300)")
+      		.call(classYAxis)
+      		.style("font-size", 11);
+
+
+		};
+
+		classY.domain(['secret', 'confidential', 'unclassified']);
+		
+		yearArray = data.map(function(d){return d.year}).sort();
+		x.domain(yearArray);
+
+		// delete this. return to percentages. return to linear scale 
+		y.domain([0, d3.max(data, function(d){return +d.nCables})]);
+		console.log(y.domain());
+		console.log(y(50));
+
+		data.forEach(function(d) {
+   			var y0 = 0;
+    		d.classifications = color.domain().map(function(status) { return {name: status, 
+    																			y0: y0, 
+    																			y1: y0 += +d['stackedData'][status]}; });
+ 			 });
+
+
+		console.log(data); 
+		svg.append("g")
+      		.attr("class", "x axis")
+      		.attr("transform", "translate(0," + height + ")")
+      		.call(xAxis)
+      		.style("font-size", 12);
+  		svg.append("g")
+      		.attr("class", "y axis")
+      		.call(yAxis)
+      		.style("font-size", 12);
+
+      	var years = svg.selectAll(".years")
+      		.data(data)
+		    .enter().append("g")
+		      .attr("class", "years")
+		      .attr("transform", function(d) { return "translate(" + x(d.year) + ",0)"; });
+
+		console.log(data[0]);
+
+
+		years.selectAll("rect")
+	      .data(function(d) { return d.classifications; })
+	    .enter().append("rect")
+	      .attr("width", x.rangeBand())
+	      .attr("y", function(d) { return y(d.y1); })
+	      .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+	      .style("fill", function(d) { return color(d.name); });
+
+	    var sumCables = d3.sum(data, 
+	    	function(d){return d.stackedData.unclassified + d.stackedData.secret + d.stackedData.unknown + d.stackedData.confidential});
+
+	    console.log(sumCables); 
+
+	     
+
+	    rightSvg.append("g")
+	    .attr("class", "numberText")
+	    .attr("transform", "translate(0,92)")
+	    .append("text")
+	    .text("All Years: ")
+	    .style("stroke", "#bdbdbd")
+	    .style("fill", "#bdbdbd")
+	    .style("font-size", 15);
+
+	    rightSvg.append("g")
+	    .attr("class", "numberText")
+	    .attr("transform", "translate(70,92)")
+	    .append("text")
+	    .text(commaFormat(Math.round(sumCables)))
+	    .style("stroke", "black")
+	    .style("fill", "black")
+	    .style("font-size", 50);
+
+
+	    rightSvg.append("g")
+	    .attr("class", "numberText")
+	    .attr("transform", "translate(250,92)")
+	    .append("text")
+	    .text("cables")
+	    .style("stroke", "#bdbdbd")
+	    .style("fill", "#bdbdbd")
+	    .style("font-size", 15);
+
+	    rightSvg.append("g")
+	    .attr("class", "numberText")
+	    .attr("transform", "translate(0,270)")
+	    .append("text")
+	    .text("Cable Density By Region, Divided By Status")
+	    .style("stroke", "#bdbdbd")
+	    .style("fill", "#bdbdbd")
+	    .style("font-size", 19);
+
+	    
+
+	    var classificationGroup = rightSvg.append("g"); 
+	    draw_classifications("2001");
+
+	    //
+
+
+
+	});
+	</script>
+</body>
+</html>

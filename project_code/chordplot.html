@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Magnetic - Stunning Responsive HTML5/CSS3 Photography Template</title>
+  <meta charset="utf-8">
+  <meta name="author" content="pixelhint.com">
+  <meta name="description" content="Magnetic is a stunning responsive HTML5/CSS3 photography/portfolio website  template"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <style>
+    
+    .group text {
+      font: 11px sans-serif;
+      pointer-events: none;
+    }
+
+    .group path {
+      stroke: #000;
+    }
+
+    path.chord {
+      stroke-width: .75;
+      fill-opacity: .75;
+    }
+    #chords {
+      margin-left:15%;
+    }
+
+    </style>
+</head>
+<body>
+
+
+
+  <section class="main clearfix">
+
+    <section class="top"> 
+      <div class="wrapper content_header clearfix">
+        <div class="work_nav">
+              
+          <ul class="btn clearfix">
+            <li><a href="#" class="previous" data-title="Previous"></a></li>
+            <li><a href="index.html" class="grid" data-title="Portfolio"></a></li>
+            <li><a href="#" class="next" data-title="Next"></a></li>
+          </ul>             
+          
+        </div><!-- end work_nav -->
+        <h1 class="title">Uncovering Secrets: Visualizing Wikileaks</h1>
+      </div>    
+    </section><!-- end top -->
+
+    <section class="wrapper">
+      <div class="content">
+      <div id="prototype">
+        <h1>Chordplot Showing Transfer of Cables</h1>
+        <svg id="chords">
+      </div>
+
+
+      </div><!-- end content -->
+    </section>
+  </section><!-- end main -->
+  
+  <script>
+    var w = 600,
+    h = 600,
+    r1 = Math.min(w, h) / 2 - 4,
+    r0 = r1 - 20,
+    format = d3.format(",.3r");
+
+// Square matrices, asynchronously loaded; credits is the transpose of debits.
+var cables = [];
+
+
+// The chord layout, for computing the angles of chords and groups.
+var layout = d3.layout.chord()
+    .sortGroups(d3.descending)
+    .sortSubgroups(d3.descending)
+    .sortChords(d3.descending)
+    .padding(.04);
+var regions = ["Africa", "Latin America", "North America", "Northwest Asia", "Northwest Europe", "Southeast Asia & Pacific", "Southeast Europe"]
+// The color scale, for different categories of "worrisome" risk.
+var color = d3.scale.ordinal()
+    .domain(regions)
+    .range(['rgb(141,211,199)','rgb(255,255,179)','rgb(190,186,218)','rgb(251,128,114)','rgb(128,177,211)','rgb(253,180,98)','rgb(179,222,105)']);
+
+// The arc generator, for the groups.
+var arc = d3.svg.arc()
+    .innerRadius(r0)
+    .outerRadius(r1);
+
+// The chord generator (quadratic Bézier), for the chords.
+var chord = d3.svg.chord()
+    .radius(r0);
+
+// Add an SVG element for each diagram, and translate the origin to the center.
+var svg = d3.select("#chords")
+    .attr("width", w)
+    .attr("height", h)
+  .append("g")
+    .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+
+function value() {
+    return +this.count;
+  }
+// Load our data file…
+d3.csv("data/chordAggregations.csv", function(data) {
+  
+ 
+
+  function drawChordplot(yr){
+          var regions = ["Africa", "Latin America", "North America", "Northwest Asia", "Northwest Europe", "Southeast Asia & Pacific", "Southeast Europe"];
+        n = regions.length;
+
+
+
+        for (var i = 0; i < n; i++) {
+          cables[i] = [];
+          for (var j = 0; j < n; j++) {
+            cables[i][j] = 0;
+          }
+        };
+        yearData = data.filter(function(d){ return d.year == yr});
+
+
+         yearData.forEach(function(d) {
+          console.log(d)
+          d.count = +d.count;
+          d.year = +d.year;
+          d.valueOf = value; 
+          console.log(regions.indexOf(d.originAggRegion));
+          console.log(regions);
+          console.log(d.originAggRegion);
+          cables[regions.indexOf(d.originAggRegion)][regions.indexOf(d.destinationAggRegion)] = d;
+        });
+
+      
+        
+
+
+      // Compute the chord layout.
+      layout.matrix(cables);
+      console.log(cables);
+      console.log(layout.groups());
+      // Add chords.
+      svg.selectAll("path.chord")
+          .data(layout.chords)
+        .enter().append("svg:path")
+          .attr("class", "chord")
+          .style("fill", function(d) { return color(d.source.value.originAggRegion); })
+          .style("stroke", function(d) { return d3.rgb(color(d.source.value.originAggRegion)).darker(); })
+          .attr("d", chord)
+        .append("svg:title")
+          .text(function(d) { return d.source.value.originAggRegion + " sent " + d.source.value.count + " cables to " + d.source.value.destinationAggRegion; });
+
+      // Add groups.
+      var g = svg.selectAll("g.group")
+          .data(layout.groups)
+        .enter().append("svg:g")
+          .attr("class", "group");
+
+      // Add the group arc.
+      g.append("svg:path")
+          .style("fill", function(d) { return color(regions[d.index]); })
+          .attr("id", function(d, i) { return "group_" + regions[d.index]; })
+          .attr("d", arc)
+        .append("svg:title")
+          .text(function(d) { return regions[d.index]+ " sent "  + format(Math.round(d.value)) + " cables total"; });
+
+      // Add the group label (but only for large groups, where it will fit).
+      // An alternative labeling mechanism would be nice for the small groups.
+      g.append("svg:text")
+          .attr("x", 6)
+          .attr("dy", 15)
+          .filter(function(d) { return d.value > 110; })
+        .append("svg:textPath")
+          .attr("xlink:href", function(d) { return "#group_" + regions[d.index]; })
+          .text(function(d) { return regions[d.index]; });
+  };
+    drawChordplot(2010);
+
+    });
+
+
+
+
+  </script>
+</body>
+</html>
