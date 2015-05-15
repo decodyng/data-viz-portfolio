@@ -154,10 +154,10 @@ d3.csv("data/chordAggregations.csv", function(data) {
       console.log(cables);
       console.log(layout.groups());
       // Add chords.
-      svg.selectAll("path.chord").transition().duration(500).style("opacity", "0");
+      // svg.selectAll("path.chord").transition().duration(350).style("opacity", "0");
       svg.selectAll("path.chord").remove();
 
-      svg.selectAll("g.group").transition().duration(500).style("opacity", "0");
+      // svg.selectAll("g.group").transition().duration(350).style("opacity", "0");
       svg.selectAll("g.group").remove();
 
 
@@ -167,6 +167,7 @@ d3.csv("data/chordAggregations.csv", function(data) {
           .attr("class", "chord")
           .style("fill", function(d) { return color(d.source.value.originAggRegion); })
           .style("stroke", function(d) { return d3.rgb(color(d.source.value.originAggRegion)).darker(); })
+          .style("opacity", 1)
           .attr("d", chord)
         .append("svg:title")
           .text(function(d) { return d.source.value.originAggRegion + " sent " + d.source.value.count + " cables to " + d.source.value.destinationAggRegion; });
@@ -180,6 +181,7 @@ d3.csv("data/chordAggregations.csv", function(data) {
       // Add the group arc.
       g.append("svg:path")
           .style("fill", function(d) { return color(regions[d.index]); })
+          .style("opacity", 1)
           .attr("id", function(d, i) { return "group_" + regions[d.index]; })
           .attr("d", arc)
         .append("svg:title")
@@ -194,10 +196,13 @@ d3.csv("data/chordAggregations.csv", function(data) {
         .append("svg:textPath")
           .attr("xlink:href", function(d) { return "#group_" + regions[d.index]; })
           .text(function(d) { return regions[d.index]; });
+
+      // svg.selectAll("path.chord").transition().duration(10).style("opacity", "1");
+      // svg.selectAll("g.group").transition().duration(10).style("opacity", "1");
   };
 
 
-  
+
     drawChordplot(2010);
     var years = [];
     for (var i = 1985; i != 2011; ++i) years.push(i)
