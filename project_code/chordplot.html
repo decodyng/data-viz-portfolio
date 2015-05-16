@@ -30,7 +30,7 @@
       fill-opacity: .75;
     }
     #chords {
-      margin-left:15%;
+      margin-left:24%;
     }
 
     </style>
@@ -52,14 +52,13 @@
           </ul>             
           
         </div><!-- end work_nav -->
-        <h1 class="title">Uncovering Secrets: Visualizing Wikileaks</h1>
+        <h1 class="title">Chordplot Showing Transfer of Cables</h1>
       </div>    
     </section><!-- end top -->
 
     <section class="wrapper">
       <div class="content">
       <div id="prototype">
-        <h1>Chordplot Showing Transfer of Cables</h1>
         <svg id="chords">
         <div id="year_slider">
           
@@ -72,8 +71,8 @@
   </section><!-- end main -->
   
   <script>
-    var w = 600,
-    h = 600,
+    var w = 550,
+    h = 550,
     r1 = Math.min(w, h) / 2 - 4,
     r0 = r1 - 20,
     format = d3.format(",.3r");
@@ -89,7 +88,7 @@ var layout = d3.layout.chord()
     .sortSubgroups(d3.descending)
     .sortChords(d3.descending)
     .padding(.04);
-var regions = ["Africa", "Latin America", "North America", "Northwest Asia", "Northwest Europe", "Southeast Asia & Pacific", "Southeast Europe"]
+var regions = ["Africa", "Latin America", "North America", "NW Asia", "NW Europe", "SE Asia & Pacific", "SE Europe"];
 // The color scale, for different categories of "worrisome" risk.
 var color = d3.scale.ordinal()
     .domain(regions)
@@ -107,20 +106,22 @@ var chord = d3.svg.chord()
 // Add an SVG element for each diagram, and translate the origin to the center.
 var svg = d3.select("#chords")
     .attr("width", w)
-    .attr("height", h)
+    .attr("height", h + 10)
   .append("g")
     .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
 
 function value() {
     return +this.count;
   }
+
+
 // Load our data file…
 d3.csv("data/chordAggregations.csv", function(data) {
   
  
 
   function drawChordplot(yr){
-          var regions = ["Africa", "Latin America", "North America", "Northwest Asia", "Northwest Europe", "Southeast Asia & Pacific", "Southeast Europe"];
+          var regions = ["Africa", "Latin America", "North America", "NW Asia", "NW Europe", "SE Asia & Pacific", "SE Europe"];
         n = regions.length;
 
 
@@ -168,6 +169,8 @@ d3.csv("data/chordAggregations.csv", function(data) {
           .style("fill", function(d) { return color(d.source.value.originAggRegion); })
           .style("stroke", function(d) { return d3.rgb(color(d.source.value.originAggRegion)).darker(); })
           .style("opacity", 1)
+          .on("mouseover", function(d, i){mouseoverChord(d, i)})
+          .on("mouseout", function(d){mouseout()})
           .attr("d", chord)
         .append("svg:title")
           .text(function(d) { return d.source.value.originAggRegion + " sent " + d.source.value.count + " cables to " + d.source.value.destinationAggRegion; });
@@ -183,6 +186,8 @@ d3.csv("data/chordAggregations.csv", function(data) {
           .style("fill", function(d) { return color(regions[d.index]); })
           .style("opacity", 1)
           .attr("id", function(d, i) { return "group_" + regions[d.index]; })
+          .on("mouseover", function(d, i){mouseover(d, i)})
+          .on("mouseout", function(d){mouseout()})
           .attr("d", arc)
         .append("svg:title")
           .text(function(d) { return regions[d.index]+ " sent "  + format(Math.round(d.value)) + " cables total"; });
@@ -195,7 +200,9 @@ d3.csv("data/chordAggregations.csv", function(data) {
           .filter(function(d) { return d.value > 110; })
         .append("svg:textPath")
           .attr("xlink:href", function(d) { return "#group_" + regions[d.index]; })
-          .text(function(d) { return regions[d.index]; });
+          .text(function(d) { return regions[d.index]; })
+          .style("font-size", "14");
+         
 
       // svg.selectAll("path.chord").transition().duration(10).style("opacity", "1");
       // svg.selectAll("g.group").transition().duration(10).style("opacity", "1");
@@ -216,8 +223,43 @@ d3.csv("data/chordAggregations.csv", function(data) {
     d3.select('#year_slider').call(yearScale);
 
     });
+function mouseover(d, i){
+  d3.selectAll("path.chord")
+  .filter(function(otherD){
+    return otherD.source.index != i && otherD.target.index != i; 
+  })
+  .transition()
+  .duration(200).style("opacity", "0.25")
+
+  d3.selectAll("g.group")
+  .filter(function(otherD){
+    return otherD.index != i;
+  })
+  .transition()
+  .duration(200).style("opacity", "0.25")
+}
+
+function mouseoverChord(d, i){
+  d3.selectAll("path.chord")
+  .filter(function(otherD){
+    return otherD.source.index != d.source.index && otherD.target.index != d.source.index; 
+  })
+  .transition()
+  .duration(200).style("opacity", "0.25")
+
+  d3.selectAll("g.group")
+  .filter(function(otherD){
+    return otherD.index != d.source.index;
+  })
+  .transition()
+  .duration(200).style("opacity", "0.25")
+}
 
 
+function mouseout(){
+  d3.selectAll("path.chord").transition().duration(200).style("opacity", "1");
+  d3.selectAll("g.group").transition().duration(200).style("opacity", "1");
+}
 
 
   </script>

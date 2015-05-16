@@ -1,928 +1,1 @@
-originAggRegion,destinationAggRegion,year,count
-Africa,Africa,1975,1
-Africa,Africa,1985,65
-Africa,Africa,1986,32
-Africa,Africa,1987,27
-Africa,Africa,1988,42
-Africa,Africa,1989,27
-Africa,Africa,1990,133
-Africa,Africa,1991,71
-Africa,Africa,1992,56
-Africa,Africa,1993,6
-Africa,Africa,1994,38
-Africa,Africa,1995,52
-Africa,Africa,1996,80
-Africa,Africa,1997,36
-Africa,Africa,1998,25
-Africa,Africa,1999,15
-Africa,Africa,2000,602
-Africa,Africa,2001,1019
-Africa,Africa,2002,499
-Africa,Africa,2003,308
-Africa,Africa,2004,691
-Africa,Africa,2005,2347
-Africa,Africa,2006,13538
-Africa,Africa,2007,14542
-Africa,Africa,2008,17932
-Africa,Africa,2009,18206
-Africa,Africa,2010,2793
-Africa,Latin America,2000,1
-Africa,Latin America,2004,1
-Africa,Latin America,2005,11
-Africa,Latin America,2006,225
-Africa,Latin America,2007,716
-Africa,Latin America,2008,88
-Africa,Latin America,2009,88
-Africa,Latin America,2010,34
-Africa,North America,1975,1
-Africa,North America,1985,5
-Africa,North America,1986,3
-Africa,North America,1988,11
-Africa,North America,1989,4
-Africa,North America,1990,8
-Africa,North America,1991,6
-Africa,North America,1992,5
-Africa,North America,1993,2
-Africa,North America,1994,3
-Africa,North America,1995,2
-Africa,North America,1996,7
-Africa,North America,1997,4
-Africa,North America,1998,4
-Africa,North America,1999,4
-Africa,North America,2000,47
-Africa,North America,2001,94
-Africa,North America,2002,68
-Africa,North America,2003,61
-Africa,North America,2004,312
-Africa,North America,2005,677
-Africa,North America,2006,1207
-Africa,North America,2007,1282
-Africa,North America,2008,1629
-Africa,North America,2009,1897
-Africa,North America,2010,426
-Africa,Northwest Asia,1985,9
-Africa,Northwest Asia,1986,7
-Africa,Northwest Asia,1987,2
-Africa,Northwest Asia,1988,7
-Africa,Northwest Asia,1989,6
-Africa,Northwest Asia,1990,15
-Africa,Northwest Asia,1991,6
-Africa,Northwest Asia,1994,4
-Africa,Northwest Asia,1996,3
-Africa,Northwest Asia,1997,3
-Africa,Northwest Asia,2000,1
-Africa,Northwest Asia,2001,5
-Africa,Northwest Asia,2002,10
-Africa,Northwest Asia,2003,7
-Africa,Northwest Asia,2004,2
-Africa,Northwest Asia,2005,21
-Africa,Northwest Asia,2006,418
-Africa,Northwest Asia,2007,759
-Africa,Northwest Asia,2008,671
-Africa,Northwest Asia,2009,833
-Africa,Northwest Asia,2010,107
-Africa,Northwest Europe,1975,1
-Africa,Northwest Europe,1985,11
-Africa,Northwest Europe,1986,4
-Africa,Northwest Europe,1987,7
-Africa,Northwest Europe,1988,9
-Africa,Northwest Europe,1989,9
-Africa,Northwest Europe,1990,37
-Africa,Northwest Europe,1991,14
-Africa,Northwest Europe,1992,6
-Africa,Northwest Europe,1993,1
-Africa,Northwest Europe,1994,14
-Africa,Northwest Europe,1995,11
-Africa,Northwest Europe,1996,10
-Africa,Northwest Europe,1997,5
-Africa,Northwest Europe,1998,5
-Africa,Northwest Europe,1999,6
-Africa,Northwest Europe,2000,124
-Africa,Northwest Europe,2001,151
-Africa,Northwest Europe,2002,54
-Africa,Northwest Europe,2003,6
-Africa,Northwest Europe,2004,8
-Africa,Northwest Europe,2005,360
-Africa,Northwest Europe,2006,2381
-Africa,Northwest Europe,2007,2588
-Africa,Northwest Europe,2008,3060
-Africa,Northwest Europe,2009,3095
-Africa,Northwest Europe,2010,243
-Africa,Southeast Asia & Pacific,1975,1
-Africa,Southeast Asia & Pacific,1988,1
-Africa,Southeast Asia & Pacific,1995,1
-Africa,Southeast Asia & Pacific,2000,1
-Africa,Southeast Asia & Pacific,2001,26
-Africa,Southeast Asia & Pacific,2002,18
-Africa,Southeast Asia & Pacific,2003,1
-Africa,Southeast Asia & Pacific,2004,7
-Africa,Southeast Asia & Pacific,2005,25
-Africa,Southeast Asia & Pacific,2006,664
-Africa,Southeast Asia & Pacific,2007,591
-Africa,Southeast Asia & Pacific,2008,710
-Africa,Southeast Asia & Pacific,2009,712
-Africa,Southeast Asia & Pacific,2010,102
-Africa,Southeast Europe,1985,9
-Africa,Southeast Europe,1986,2
-Africa,Southeast Europe,1987,2
-Africa,Southeast Europe,1988,11
-Africa,Southeast Europe,1990,12
-Africa,Southeast Europe,1991,2
-Africa,Southeast Europe,1994,1
-Africa,Southeast Europe,1995,1
-Africa,Southeast Europe,1997,1
-Africa,Southeast Europe,1998,1
-Africa,Southeast Europe,1999,2
-Africa,Southeast Europe,2000,21
-Africa,Southeast Europe,2001,10
-Africa,Southeast Europe,2002,7
-Africa,Southeast Europe,2003,2
-Africa,Southeast Europe,2004,2
-Africa,Southeast Europe,2005,51
-Africa,Southeast Europe,2006,710
-Africa,Southeast Europe,2007,1134
-Africa,Southeast Europe,2008,701
-Africa,Southeast Europe,2009,890
-Africa,Southeast Europe,2010,65
-Latin America,Africa,1995,1
-Latin America,Africa,2005,1
-Latin America,Africa,2006,404
-Latin America,Africa,2007,357
-Latin America,Africa,2008,271
-Latin America,Africa,2009,288
-Latin America,Africa,2010,15
-Latin America,Latin America,1966,7
-Latin America,Latin America,1985,7
-Latin America,Latin America,1986,19
-Latin America,Latin America,1987,12
-Latin America,Latin America,1988,25
-Latin America,Latin America,1989,33
-Latin America,Latin America,1990,6
-Latin America,Latin America,1991,15
-Latin America,Latin America,1992,29
-Latin America,Latin America,1993,5
-Latin America,Latin America,1994,16
-Latin America,Latin America,1995,6
-Latin America,Latin America,1996,16
-Latin America,Latin America,1997,9
-Latin America,Latin America,1998,46
-Latin America,Latin America,1999,89
-Latin America,Latin America,2000,16
-Latin America,Latin America,2001,77
-Latin America,Latin America,2002,78
-Latin America,Latin America,2003,255
-Latin America,Latin America,2004,656
-Latin America,Latin America,2005,1529
-Latin America,Latin America,2006,23085
-Latin America,Latin America,2007,20434
-Latin America,Latin America,2008,18839
-Latin America,Latin America,2009,20077
-Latin America,Latin America,2010,3270
-Latin America,North America,1966,2
-Latin America,North America,1985,1
-Latin America,North America,1988,4
-Latin America,North America,1989,4
-Latin America,North America,1990,2
-Latin America,North America,1992,2
-Latin America,North America,1993,2
-Latin America,North America,1994,2
-Latin America,North America,1996,3
-Latin America,North America,1998,12
-Latin America,North America,1999,20
-Latin America,North America,2000,3
-Latin America,North America,2001,11
-Latin America,North America,2002,48
-Latin America,North America,2003,194
-Latin America,North America,2004,380
-Latin America,North America,2005,931
-Latin America,North America,2006,2574
-Latin America,North America,2007,2458
-Latin America,North America,2008,2230
-Latin America,North America,2009,2004
-Latin America,North America,2010,331
-Latin America,Northwest Asia,1995,2
-Latin America,Northwest Asia,2003,1
-Latin America,Northwest Asia,2004,1
-Latin America,Northwest Asia,2005,3
-Latin America,Northwest Asia,2006,92
-Latin America,Northwest Asia,2007,103
-Latin America,Northwest Asia,2008,96
-Latin America,Northwest Asia,2009,161
-Latin America,Northwest Asia,2010,10
-Latin America,Northwest Europe,1966,1
-Latin America,Northwest Europe,1989,2
-Latin America,Northwest Europe,2001,4
-Latin America,Northwest Europe,2003,6
-Latin America,Northwest Europe,2004,8
-Latin America,Northwest Europe,2005,38
-Latin America,Northwest Europe,2006,775
-Latin America,Northwest Europe,2007,560
-Latin America,Northwest Europe,2008,402
-Latin America,Northwest Europe,2009,403
-Latin America,Northwest Europe,2010,44
-Latin America,Southeast Asia & Pacific,1986,1
-Latin America,Southeast Asia & Pacific,1993,1
-Latin America,Southeast Asia & Pacific,2001,3
-Latin America,Southeast Asia & Pacific,2004,4
-Latin America,Southeast Asia & Pacific,2005,22
-Latin America,Southeast Asia & Pacific,2006,346
-Latin America,Southeast Asia & Pacific,2007,518
-Latin America,Southeast Asia & Pacific,2008,320
-Latin America,Southeast Asia & Pacific,2009,426
-Latin America,Southeast Asia & Pacific,2010,54
-Latin America,Southeast Europe,1989,2
-Latin America,Southeast Europe,1992,2
-Latin America,Southeast Europe,1994,1
-Latin America,Southeast Europe,1995,2
-Latin America,Southeast Europe,1999,2
-Latin America,Southeast Europe,2000,1
-Latin America,Southeast Europe,2001,4
-Latin America,Southeast Europe,2002,2
-Latin America,Southeast Europe,2003,7
-Latin America,Southeast Europe,2004,5
-Latin America,Southeast Europe,2005,22
-Latin America,Southeast Europe,2006,527
-Latin America,Southeast Europe,2007,594
-Latin America,Southeast Europe,2008,464
-Latin America,Southeast Europe,2009,348
-Latin America,Southeast Europe,2010,40
-North America,Africa,1985,16
-North America,Africa,1986,3
-North America,Africa,1987,4
-North America,Africa,1988,2
-North America,Africa,1989,16
-North America,Africa,1990,15
-North America,Africa,1991,1
-North America,Africa,1992,2
-North America,Africa,1993,10
-North America,Africa,1995,10
-North America,Africa,1996,21
-North America,Africa,1997,3
-North America,Africa,1998,11
-North America,Africa,1999,6
-North America,Africa,2000,25
-North America,Africa,2001,10
-North America,Africa,2002,2
-North America,Africa,2003,12
-North America,Africa,2004,9
-North America,Africa,2005,14
-North America,Africa,2006,99
-North America,Africa,2007,375
-North America,Africa,2008,1620
-North America,Africa,2009,3182
-North America,Africa,2010,576
-North America,Latin America,1987,1
-North America,Latin America,1989,4
-North America,Latin America,1990,1
-North America,Latin America,1991,1
-North America,Latin America,2000,2
-North America,Latin America,2001,1
-North America,Latin America,2004,2
-North America,Latin America,2005,23
-North America,Latin America,2006,305
-North America,Latin America,2007,433
-North America,Latin America,2008,964
-North America,Latin America,2009,1488
-North America,Latin America,2010,302
-North America,North America,1985,16
-North America,North America,1986,3
-North America,North America,1987,3
-North America,North America,1989,7
-North America,North America,1990,2
-North America,North America,1992,2
-North America,North America,1993,3
-North America,North America,1994,1
-North America,North America,1996,3
-North America,North America,1998,2
-North America,North America,1999,1
-North America,North America,2000,11
-North America,North America,2001,7
-North America,North America,2002,2
-North America,North America,2003,211
-North America,North America,2004,52
-North America,North America,2005,695
-North America,North America,2006,1088
-North America,North America,2007,1261
-North America,North America,2008,2275
-North America,North America,2009,2857
-North America,North America,2010,422
-North America,Northwest Asia,1985,34
-North America,Northwest Asia,1986,4
-North America,Northwest Asia,1987,18
-North America,Northwest Asia,1989,2
-North America,Northwest Asia,1990,27
-North America,Northwest Asia,1992,4
-North America,Northwest Asia,1993,5
-North America,Northwest Asia,1994,6
-North America,Northwest Asia,1996,22
-North America,Northwest Asia,1997,8
-North America,Northwest Asia,1998,7
-North America,Northwest Asia,1999,15
-North America,Northwest Asia,2000,19
-North America,Northwest Asia,2001,26
-North America,Northwest Asia,2002,2
-North America,Northwest Asia,2003,11
-North America,Northwest Asia,2004,16
-North America,Northwest Asia,2005,25
-North America,Northwest Asia,2006,129
-North America,Northwest Asia,2007,476
-North America,Northwest Asia,2008,1875
-North America,Northwest Asia,2009,2706
-North America,Northwest Asia,2010,478
-North America,Northwest Europe,1985,21
-North America,Northwest Europe,1987,2
-North America,Northwest Europe,1988,1
-North America,Northwest Europe,1989,5
-North America,Northwest Europe,1990,9
-North America,Northwest Europe,1992,8
-North America,Northwest Europe,1993,4
-North America,Northwest Europe,1994,2
-North America,Northwest Europe,1995,2
-North America,Northwest Europe,1996,8
-North America,Northwest Europe,1997,4
-North America,Northwest Europe,1998,2
-North America,Northwest Europe,1999,10
-North America,Northwest Europe,2000,6
-North America,Northwest Europe,2001,8
-North America,Northwest Europe,2002,1
-North America,Northwest Europe,2003,7
-North America,Northwest Europe,2004,2
-North America,Northwest Europe,2005,23
-North America,Northwest Europe,2006,233
-North America,Northwest Europe,2007,468
-North America,Northwest Europe,2008,1673
-North America,Northwest Europe,2009,2039
-North America,Northwest Europe,2010,324
-North America,Southeast Asia & Pacific,1985,14
-North America,Southeast Asia & Pacific,1986,3
-North America,Southeast Asia & Pacific,1989,4
-North America,Southeast Asia & Pacific,1990,3
-North America,Southeast Asia & Pacific,1993,2
-North America,Southeast Asia & Pacific,1994,4
-North America,Southeast Asia & Pacific,1995,7
-North America,Southeast Asia & Pacific,1996,15
-North America,Southeast Asia & Pacific,1997,6
-North America,Southeast Asia & Pacific,1998,16
-North America,Southeast Asia & Pacific,1999,16
-North America,Southeast Asia & Pacific,2000,8
-North America,Southeast Asia & Pacific,2001,23
-North America,Southeast Asia & Pacific,2002,3
-North America,Southeast Asia & Pacific,2003,21
-North America,Southeast Asia & Pacific,2004,7
-North America,Southeast Asia & Pacific,2005,22
-North America,Southeast Asia & Pacific,2006,272
-North America,Southeast Asia & Pacific,2007,684
-North America,Southeast Asia & Pacific,2008,2413
-North America,Southeast Asia & Pacific,2009,2939
-North America,Southeast Asia & Pacific,2010,559
-North America,Southeast Europe,1985,14
-North America,Southeast Europe,1986,3
-North America,Southeast Europe,1989,5
-North America,Southeast Europe,1990,5
-North America,Southeast Europe,1991,1
-North America,Southeast Europe,1992,5
-North America,Southeast Europe,1993,2
-North America,Southeast Europe,1994,1
-North America,Southeast Europe,1995,2
-North America,Southeast Europe,1996,4
-North America,Southeast Europe,1997,4
-North America,Southeast Europe,1998,2
-North America,Southeast Europe,1999,3
-North America,Southeast Europe,2000,19
-North America,Southeast Europe,2001,12
-North America,Southeast Europe,2003,17
-North America,Southeast Europe,2004,3
-North America,Southeast Europe,2005,16
-North America,Southeast Europe,2006,131
-North America,Southeast Europe,2007,384
-North America,Southeast Europe,2008,1466
-North America,Southeast Europe,2009,1805
-North America,Southeast Europe,2010,414
-Northwest Asia,Africa,1985,20
-Northwest Asia,Africa,1986,6
-Northwest Asia,Africa,1987,2
-Northwest Asia,Africa,1988,4
-Northwest Asia,Africa,1989,2
-Northwest Asia,Africa,1990,11
-Northwest Asia,Africa,1991,4
-Northwest Asia,Africa,1992,10
-Northwest Asia,Africa,1994,1
-Northwest Asia,Africa,1995,14
-Northwest Asia,Africa,1996,8
-Northwest Asia,Africa,1997,2
-Northwest Asia,Africa,1998,6
-Northwest Asia,Africa,1999,1
-Northwest Asia,Africa,2002,1
-Northwest Asia,Africa,2003,50
-Northwest Asia,Africa,2004,28
-Northwest Asia,Africa,2005,41
-Northwest Asia,Africa,2006,629
-Northwest Asia,Africa,2007,1547
-Northwest Asia,Africa,2008,1822
-Northwest Asia,Africa,2009,1809
-Northwest Asia,Africa,2010,308
-Northwest Asia,Latin America,1991,1
-Northwest Asia,Latin America,2003,4
-Northwest Asia,Latin America,2004,4
-Northwest Asia,Latin America,2006,71
-Northwest Asia,Latin America,2007,60
-Northwest Asia,Latin America,2008,54
-Northwest Asia,Latin America,2009,109
-Northwest Asia,Latin America,2010,20
-Northwest Asia,North America,1985,4
-Northwest Asia,North America,1986,3
-Northwest Asia,North America,1987,1
-Northwest Asia,North America,1988,5
-Northwest Asia,North America,1989,5
-Northwest Asia,North America,1990,6
-Northwest Asia,North America,1991,1
-Northwest Asia,North America,1992,1
-Northwest Asia,North America,1993,3
-Northwest Asia,North America,1994,3
-Northwest Asia,North America,1995,3
-Northwest Asia,North America,1997,2
-Northwest Asia,North America,1998,5
-Northwest Asia,North America,1999,3
-Northwest Asia,North America,2000,3
-Northwest Asia,North America,2001,7
-Northwest Asia,North America,2002,151
-Northwest Asia,North America,2003,631
-Northwest Asia,North America,2004,797
-Northwest Asia,North America,2005,1181
-Northwest Asia,North America,2006,1481
-Northwest Asia,North America,2007,1664
-Northwest Asia,North America,2008,1625
-Northwest Asia,North America,2009,1663
-Northwest Asia,North America,2010,274
-Northwest Asia,Northwest Asia,1979,4
-Northwest Asia,Northwest Asia,1985,209
-Northwest Asia,Northwest Asia,1986,68
-Northwest Asia,Northwest Asia,1987,27
-Northwest Asia,Northwest Asia,1988,80
-Northwest Asia,Northwest Asia,1989,72
-Northwest Asia,Northwest Asia,1990,95
-Northwest Asia,Northwest Asia,1991,48
-Northwest Asia,Northwest Asia,1992,33
-Northwest Asia,Northwest Asia,1993,19
-Northwest Asia,Northwest Asia,1994,28
-Northwest Asia,Northwest Asia,1995,69
-Northwest Asia,Northwest Asia,1996,46
-Northwest Asia,Northwest Asia,1997,27
-Northwest Asia,Northwest Asia,1998,40
-Northwest Asia,Northwest Asia,1999,19
-Northwest Asia,Northwest Asia,2000,18
-Northwest Asia,Northwest Asia,2001,34
-Northwest Asia,Northwest Asia,2002,159
-Northwest Asia,Northwest Asia,2003,2162
-Northwest Asia,Northwest Asia,2004,1939
-Northwest Asia,Northwest Asia,2005,3068
-Northwest Asia,Northwest Asia,2006,15562
-Northwest Asia,Northwest Asia,2007,18520
-Northwest Asia,Northwest Asia,2008,19843
-Northwest Asia,Northwest Asia,2009,19679
-Northwest Asia,Northwest Asia,2010,3325
-Northwest Asia,Northwest Europe,1985,20
-Northwest Asia,Northwest Europe,1986,18
-Northwest Asia,Northwest Europe,1988,13
-Northwest Asia,Northwest Europe,1989,9
-Northwest Asia,Northwest Europe,1990,9
-Northwest Asia,Northwest Europe,1991,2
-Northwest Asia,Northwest Europe,1992,7
-Northwest Asia,Northwest Europe,1993,1
-Northwest Asia,Northwest Europe,1994,2
-Northwest Asia,Northwest Europe,1995,16
-Northwest Asia,Northwest Europe,1996,14
-Northwest Asia,Northwest Europe,1997,6
-Northwest Asia,Northwest Europe,1998,9
-Northwest Asia,Northwest Europe,2000,1
-Northwest Asia,Northwest Europe,2001,5
-Northwest Asia,Northwest Europe,2002,8
-Northwest Asia,Northwest Europe,2003,220
-Northwest Asia,Northwest Europe,2004,165
-Northwest Asia,Northwest Europe,2005,188
-Northwest Asia,Northwest Europe,2006,2036
-Northwest Asia,Northwest Europe,2007,1648
-Northwest Asia,Northwest Europe,2008,1811
-Northwest Asia,Northwest Europe,2009,2475
-Northwest Asia,Northwest Europe,2010,341
-Northwest Asia,Southeast Asia & Pacific,1979,1
-Northwest Asia,Southeast Asia & Pacific,1985,3
-Northwest Asia,Southeast Asia & Pacific,1986,3
-Northwest Asia,Southeast Asia & Pacific,1989,5
-Northwest Asia,Southeast Asia & Pacific,1990,1
-Northwest Asia,Southeast Asia & Pacific,1993,2
-Northwest Asia,Southeast Asia & Pacific,1994,3
-Northwest Asia,Southeast Asia & Pacific,1996,2
-Northwest Asia,Southeast Asia & Pacific,1997,2
-Northwest Asia,Southeast Asia & Pacific,1998,2
-Northwest Asia,Southeast Asia & Pacific,2001,9
-Northwest Asia,Southeast Asia & Pacific,2002,1
-Northwest Asia,Southeast Asia & Pacific,2003,49
-Northwest Asia,Southeast Asia & Pacific,2004,62
-Northwest Asia,Southeast Asia & Pacific,2005,106
-Northwest Asia,Southeast Asia & Pacific,2006,2289
-Northwest Asia,Southeast Asia & Pacific,2007,3991
-Northwest Asia,Southeast Asia & Pacific,2008,5101
-Northwest Asia,Southeast Asia & Pacific,2009,4808
-Northwest Asia,Southeast Asia & Pacific,2010,661
-Northwest Asia,Southeast Europe,1985,12
-Northwest Asia,Southeast Europe,1986,7
-Northwest Asia,Southeast Europe,1988,7
-Northwest Asia,Southeast Europe,1990,4
-Northwest Asia,Southeast Europe,1992,2
-Northwest Asia,Southeast Europe,1993,1
-Northwest Asia,Southeast Europe,1994,4
-Northwest Asia,Southeast Europe,1995,1
-Northwest Asia,Southeast Europe,1996,1
-Northwest Asia,Southeast Europe,1997,3
-Northwest Asia,Southeast Europe,2001,2
-Northwest Asia,Southeast Europe,2002,4
-Northwest Asia,Southeast Europe,2003,40
-Northwest Asia,Southeast Europe,2004,21
-Northwest Asia,Southeast Europe,2005,83
-Northwest Asia,Southeast Europe,2006,1076
-Northwest Asia,Southeast Europe,2007,1276
-Northwest Asia,Southeast Europe,2008,1398
-Northwest Asia,Southeast Europe,2009,1365
-Northwest Asia,Southeast Europe,2010,191
-Northwest Europe,Africa,1985,2
-Northwest Europe,Africa,1986,4
-Northwest Europe,Africa,1987,1
-Northwest Europe,Africa,1994,7
-Northwest Europe,Africa,1995,7
-Northwest Europe,Africa,2004,10
-Northwest Europe,Africa,2005,22
-Northwest Europe,Africa,2006,693
-Northwest Europe,Africa,2007,749
-Northwest Europe,Africa,2008,823
-Northwest Europe,Africa,2009,882
-Northwest Europe,Africa,2010,130
-Northwest Europe,Latin America,2003,5
-Northwest Europe,Latin America,2004,47
-Northwest Europe,Latin America,2005,10
-Northwest Europe,Latin America,2006,401
-Northwest Europe,Latin America,2007,445
-Northwest Europe,Latin America,2008,308
-Northwest Europe,Latin America,2009,330
-Northwest Europe,Latin America,2010,85
-Northwest Europe,North America,1985,4
-Northwest Europe,North America,1986,1
-Northwest Europe,North America,1988,1
-Northwest Europe,North America,1990,1
-Northwest Europe,North America,1992,2
-Northwest Europe,North America,1993,2
-Northwest Europe,North America,1994,2
-Northwest Europe,North America,1995,1
-Northwest Europe,North America,1998,1
-Northwest Europe,North America,1999,1
-Northwest Europe,North America,2000,20
-Northwest Europe,North America,2001,3
-Northwest Europe,North America,2002,1
-Northwest Europe,North America,2003,167
-Northwest Europe,North America,2004,524
-Northwest Europe,North America,2005,1071
-Northwest Europe,North America,2006,1848
-Northwest Europe,North America,2007,1883
-Northwest Europe,North America,2008,1831
-Northwest Europe,North America,2009,1831
-Northwest Europe,North America,2010,375
-Northwest Europe,Northwest Asia,1985,6
-Northwest Europe,Northwest Asia,1987,2
-Northwest Europe,Northwest Asia,1993,2
-Northwest Europe,Northwest Asia,1994,3
-Northwest Europe,Northwest Asia,1995,5
-Northwest Europe,Northwest Asia,1998,2
-Northwest Europe,Northwest Asia,2001,9
-Northwest Europe,Northwest Asia,2004,27
-Northwest Europe,Northwest Asia,2005,27
-Northwest Europe,Northwest Asia,2006,760
-Northwest Europe,Northwest Asia,2007,961
-Northwest Europe,Northwest Asia,2008,1291
-Northwest Europe,Northwest Asia,2009,1043
-Northwest Europe,Northwest Asia,2010,136
-Northwest Europe,Northwest Europe,1985,11
-Northwest Europe,Northwest Europe,1986,1
-Northwest Europe,Northwest Europe,1987,1
-Northwest Europe,Northwest Europe,1988,7
-Northwest Europe,Northwest Europe,1989,1
-Northwest Europe,Northwest Europe,1990,1
-Northwest Europe,Northwest Europe,1991,4
-Northwest Europe,Northwest Europe,1992,2
-Northwest Europe,Northwest Europe,1993,5
-Northwest Europe,Northwest Europe,1994,2
-Northwest Europe,Northwest Europe,1995,7
-Northwest Europe,Northwest Europe,1998,5
-Northwest Europe,Northwest Europe,1999,6
-Northwest Europe,Northwest Europe,2000,11
-Northwest Europe,Northwest Europe,2001,6
-Northwest Europe,Northwest Europe,2002,3
-Northwest Europe,Northwest Europe,2003,79
-Northwest Europe,Northwest Europe,2004,324
-Northwest Europe,Northwest Europe,2005,656
-Northwest Europe,Northwest Europe,2006,5576
-Northwest Europe,Northwest Europe,2007,5518
-Northwest Europe,Northwest Europe,2008,5337
-Northwest Europe,Northwest Europe,2009,6681
-Northwest Europe,Northwest Europe,2010,1216
-Northwest Europe,Southeast Asia & Pacific,1985,2
-Northwest Europe,Southeast Asia & Pacific,1987,4
-Northwest Europe,Southeast Asia & Pacific,1998,6
-Northwest Europe,Southeast Asia & Pacific,2001,8
-Northwest Europe,Southeast Asia & Pacific,2003,1
-Northwest Europe,Southeast Asia & Pacific,2004,18
-Northwest Europe,Southeast Asia & Pacific,2005,21
-Northwest Europe,Southeast Asia & Pacific,2006,1032
-Northwest Europe,Southeast Asia & Pacific,2007,1383
-Northwest Europe,Southeast Asia & Pacific,2008,1298
-Northwest Europe,Southeast Asia & Pacific,2009,1637
-Northwest Europe,Southeast Asia & Pacific,2010,237
-Northwest Europe,Southeast Europe,1985,1
-Northwest Europe,Southeast Europe,1993,2
-Northwest Europe,Southeast Europe,1995,2
-Northwest Europe,Southeast Europe,1998,2
-Northwest Europe,Southeast Europe,2000,1
-Northwest Europe,Southeast Europe,2001,2
-Northwest Europe,Southeast Europe,2003,11
-Northwest Europe,Southeast Europe,2004,33
-Northwest Europe,Southeast Europe,2005,37
-Northwest Europe,Southeast Europe,2006,986
-Northwest Europe,Southeast Europe,2007,1287
-Northwest Europe,Southeast Europe,2008,1020
-Northwest Europe,Southeast Europe,2009,1106
-Northwest Europe,Southeast Europe,2010,233
-Southeast Asia & Pacific,Africa,1992,1
-Southeast Asia & Pacific,Africa,1997,3
-Southeast Asia & Pacific,Africa,1998,2
-Southeast Asia & Pacific,Africa,2000,1
-Southeast Asia & Pacific,Africa,2001,7
-Southeast Asia & Pacific,Africa,2002,6
-Southeast Asia & Pacific,Africa,2003,25
-Southeast Asia & Pacific,Africa,2004,13
-Southeast Asia & Pacific,Africa,2005,25
-Southeast Asia & Pacific,Africa,2006,312
-Southeast Asia & Pacific,Africa,2007,433
-Southeast Asia & Pacific,Africa,2008,581
-Southeast Asia & Pacific,Africa,2009,456
-Southeast Asia & Pacific,Africa,2010,27
-Southeast Asia & Pacific,Latin America,1985,1
-Southeast Asia & Pacific,Latin America,1989,1
-Southeast Asia & Pacific,Latin America,1997,2
-Southeast Asia & Pacific,Latin America,1999,1
-Southeast Asia & Pacific,Latin America,2001,1
-Southeast Asia & Pacific,Latin America,2002,2
-Southeast Asia & Pacific,Latin America,2005,5
-Southeast Asia & Pacific,Latin America,2006,783
-Southeast Asia & Pacific,Latin America,2007,571
-Southeast Asia & Pacific,Latin America,2008,498
-Southeast Asia & Pacific,Latin America,2009,609
-Southeast Asia & Pacific,Latin America,2010,78
-Southeast Asia & Pacific,North America,1973,1
-Southeast Asia & Pacific,North America,1985,1
-Southeast Asia & Pacific,North America,1986,1
-Southeast Asia & Pacific,North America,1988,7
-Southeast Asia & Pacific,North America,1989,1
-Southeast Asia & Pacific,North America,1990,5
-Southeast Asia & Pacific,North America,1991,3
-Southeast Asia & Pacific,North America,1992,8
-Southeast Asia & Pacific,North America,1993,3
-Southeast Asia & Pacific,North America,1994,6
-Southeast Asia & Pacific,North America,1995,6
-Southeast Asia & Pacific,North America,1996,1
-Southeast Asia & Pacific,North America,1997,5
-Southeast Asia & Pacific,North America,1998,5
-Southeast Asia & Pacific,North America,1999,4
-Southeast Asia & Pacific,North America,2000,8
-Southeast Asia & Pacific,North America,2001,12
-Southeast Asia & Pacific,North America,2002,44
-Southeast Asia & Pacific,North America,2003,181
-Southeast Asia & Pacific,North America,2004,223
-Southeast Asia & Pacific,North America,2005,815
-Southeast Asia & Pacific,North America,2006,2207
-Southeast Asia & Pacific,North America,2007,2408
-Southeast Asia & Pacific,North America,2008,2748
-Southeast Asia & Pacific,North America,2009,3300
-Southeast Asia & Pacific,North America,2010,560
-Southeast Asia & Pacific,Northwest Asia,1972,3
-Southeast Asia & Pacific,Northwest Asia,1978,1
-Southeast Asia & Pacific,Northwest Asia,1979,14
-Southeast Asia & Pacific,Northwest Asia,1985,2
-Southeast Asia & Pacific,Northwest Asia,1986,4
-Southeast Asia & Pacific,Northwest Asia,1992,1
-Southeast Asia & Pacific,Northwest Asia,1996,32
-Southeast Asia & Pacific,Northwest Asia,1997,24
-Southeast Asia & Pacific,Northwest Asia,1998,13
-Southeast Asia & Pacific,Northwest Asia,1999,1
-Southeast Asia & Pacific,Northwest Asia,2001,9
-Southeast Asia & Pacific,Northwest Asia,2003,4
-Southeast Asia & Pacific,Northwest Asia,2004,11
-Southeast Asia & Pacific,Northwest Asia,2005,28
-Southeast Asia & Pacific,Northwest Asia,2006,1894
-Southeast Asia & Pacific,Northwest Asia,2007,2326
-Southeast Asia & Pacific,Northwest Asia,2008,1232
-Southeast Asia & Pacific,Northwest Asia,2009,855
-Southeast Asia & Pacific,Northwest Asia,2010,142
-Southeast Asia & Pacific,Northwest Europe,1972,3
-Southeast Asia & Pacific,Northwest Europe,1978,1
-Southeast Asia & Pacific,Northwest Europe,1979,3
-Southeast Asia & Pacific,Northwest Europe,1985,1
-Southeast Asia & Pacific,Northwest Europe,1986,1
-Southeast Asia & Pacific,Northwest Europe,1987,1
-Southeast Asia & Pacific,Northwest Europe,1989,16
-Southeast Asia & Pacific,Northwest Europe,1990,2
-Southeast Asia & Pacific,Northwest Europe,1992,2
-Southeast Asia & Pacific,Northwest Europe,1993,1
-Southeast Asia & Pacific,Northwest Europe,1994,7
-Southeast Asia & Pacific,Northwest Europe,1995,7
-Southeast Asia & Pacific,Northwest Europe,1996,12
-Southeast Asia & Pacific,Northwest Europe,1997,11
-Southeast Asia & Pacific,Northwest Europe,1998,27
-Southeast Asia & Pacific,Northwest Europe,1999,5
-Southeast Asia & Pacific,Northwest Europe,2000,11
-Southeast Asia & Pacific,Northwest Europe,2001,15
-Southeast Asia & Pacific,Northwest Europe,2002,13
-Southeast Asia & Pacific,Northwest Europe,2003,18
-Southeast Asia & Pacific,Northwest Europe,2004,14
-Southeast Asia & Pacific,Northwest Europe,2005,137
-Southeast Asia & Pacific,Northwest Europe,2006,3353
-Southeast Asia & Pacific,Northwest Europe,2007,3146
-Southeast Asia & Pacific,Northwest Europe,2008,3141
-Southeast Asia & Pacific,Northwest Europe,2009,5121
-Southeast Asia & Pacific,Northwest Europe,2010,753
-Southeast Asia & Pacific,Southeast Asia & Pacific,1972,4
-Southeast Asia & Pacific,Southeast Asia & Pacific,1973,4
-Southeast Asia & Pacific,Southeast Asia & Pacific,1975,1
-Southeast Asia & Pacific,Southeast Asia & Pacific,1978,5
-Southeast Asia & Pacific,Southeast Asia & Pacific,1979,8
-Southeast Asia & Pacific,Southeast Asia & Pacific,1985,14
-Southeast Asia & Pacific,Southeast Asia & Pacific,1986,10
-Southeast Asia & Pacific,Southeast Asia & Pacific,1987,35
-Southeast Asia & Pacific,Southeast Asia & Pacific,1988,18
-Southeast Asia & Pacific,Southeast Asia & Pacific,1989,124
-Southeast Asia & Pacific,Southeast Asia & Pacific,1990,31
-Southeast Asia & Pacific,Southeast Asia & Pacific,1991,12
-Southeast Asia & Pacific,Southeast Asia & Pacific,1992,38
-Southeast Asia & Pacific,Southeast Asia & Pacific,1993,22
-Southeast Asia & Pacific,Southeast Asia & Pacific,1994,39
-Southeast Asia & Pacific,Southeast Asia & Pacific,1995,41
-Southeast Asia & Pacific,Southeast Asia & Pacific,1996,20
-Southeast Asia & Pacific,Southeast Asia & Pacific,1997,102
-Southeast Asia & Pacific,Southeast Asia & Pacific,1998,95
-Southeast Asia & Pacific,Southeast Asia & Pacific,1999,38
-Southeast Asia & Pacific,Southeast Asia & Pacific,2000,147
-Southeast Asia & Pacific,Southeast Asia & Pacific,2001,394
-Southeast Asia & Pacific,Southeast Asia & Pacific,2002,671
-Southeast Asia & Pacific,Southeast Asia & Pacific,2003,594
-Southeast Asia & Pacific,Southeast Asia & Pacific,2004,684
-Southeast Asia & Pacific,Southeast Asia & Pacific,2005,2519
-Southeast Asia & Pacific,Southeast Asia & Pacific,2006,38641
-Southeast Asia & Pacific,Southeast Asia & Pacific,2007,41537
-Southeast Asia & Pacific,Southeast Asia & Pacific,2008,45416
-Southeast Asia & Pacific,Southeast Asia & Pacific,2009,46157
-Southeast Asia & Pacific,Southeast Asia & Pacific,2010,6458
-Southeast Asia & Pacific,Southeast Europe,1972,1
-Southeast Asia & Pacific,Southeast Europe,1978,1
-Southeast Asia & Pacific,Southeast Europe,1979,3
-Southeast Asia & Pacific,Southeast Europe,1985,2
-Southeast Asia & Pacific,Southeast Europe,1988,1
-Southeast Asia & Pacific,Southeast Europe,1989,11
-Southeast Asia & Pacific,Southeast Europe,1990,1
-Southeast Asia & Pacific,Southeast Europe,1992,2
-Southeast Asia & Pacific,Southeast Europe,1993,1
-Southeast Asia & Pacific,Southeast Europe,1994,1
-Southeast Asia & Pacific,Southeast Europe,1996,7
-Southeast Asia & Pacific,Southeast Europe,1997,7
-Southeast Asia & Pacific,Southeast Europe,1998,7
-Southeast Asia & Pacific,Southeast Europe,1999,4
-Southeast Asia & Pacific,Southeast Europe,2000,1
-Southeast Asia & Pacific,Southeast Europe,2001,13
-Southeast Asia & Pacific,Southeast Europe,2002,8
-Southeast Asia & Pacific,Southeast Europe,2003,6
-Southeast Asia & Pacific,Southeast Europe,2004,3
-Southeast Asia & Pacific,Southeast Europe,2005,38
-Southeast Asia & Pacific,Southeast Europe,2006,1505
-Southeast Asia & Pacific,Southeast Europe,2007,1568
-Southeast Asia & Pacific,Southeast Europe,2008,1603
-Southeast Asia & Pacific,Southeast Europe,2009,1989
-Southeast Asia & Pacific,Southeast Europe,2010,287
-Southeast Europe,Africa,1986,7
-Southeast Europe,Africa,1990,5
-Southeast Europe,Africa,1996,3
-Southeast Europe,Africa,1997,12
-Southeast Europe,Africa,2000,1
-Southeast Europe,Africa,2001,1
-Southeast Europe,Africa,2002,13
-Southeast Europe,Africa,2003,8
-Southeast Europe,Africa,2004,8
-Southeast Europe,Africa,2005,8
-Southeast Europe,Africa,2006,230
-Southeast Europe,Africa,2007,500
-Southeast Europe,Africa,2008,391
-Southeast Europe,Africa,2009,336
-Southeast Europe,Africa,2010,35
-Southeast Europe,Latin America,2001,1
-Southeast Europe,Latin America,2002,2
-Southeast Europe,Latin America,2003,4
-Southeast Europe,Latin America,2004,2
-Southeast Europe,Latin America,2005,12
-Southeast Europe,Latin America,2006,318
-Southeast Europe,Latin America,2007,395
-Southeast Europe,Latin America,2008,212
-Southeast Europe,Latin America,2009,207
-Southeast Europe,Latin America,2010,81
-Southeast Europe,North America,1985,1
-Southeast Europe,North America,1988,3
-Southeast Europe,North America,1989,1
-Southeast Europe,North America,1990,1
-Southeast Europe,North America,1991,3
-Southeast Europe,North America,1992,3
-Southeast Europe,North America,1994,6
-Southeast Europe,North America,1995,4
-Southeast Europe,North America,1997,5
-Southeast Europe,North America,1998,1
-Southeast Europe,North America,1999,1
-Southeast Europe,North America,2000,2
-Southeast Europe,North America,2001,11
-Southeast Europe,North America,2002,117
-Southeast Europe,North America,2003,206
-Southeast Europe,North America,2004,755
-Southeast Europe,North America,2005,1120
-Southeast Europe,North America,2006,1616
-Southeast Europe,North America,2007,2574
-Southeast Europe,North America,2008,2316
-Southeast Europe,North America,2009,2034
-Southeast Europe,North America,2010,340
-Southeast Europe,Northwest Asia,1985,5
-Southeast Europe,Northwest Asia,1986,4
-Southeast Europe,Northwest Asia,1988,1
-Southeast Europe,Northwest Asia,1993,1
-Southeast Europe,Northwest Asia,1994,6
-Southeast Europe,Northwest Asia,1996,1
-Southeast Europe,Northwest Asia,2000,1
-Southeast Europe,Northwest Asia,2002,1
-Southeast Europe,Northwest Asia,2003,6
-Southeast Europe,Northwest Asia,2004,15
-Southeast Europe,Northwest Asia,2005,19
-Southeast Europe,Northwest Asia,2006,631
-Southeast Europe,Northwest Asia,2007,765
-Southeast Europe,Northwest Asia,2008,760
-Southeast Europe,Northwest Asia,2009,710
-Southeast Europe,Northwest Asia,2010,86
-Southeast Europe,Northwest Europe,1985,2
-Southeast Europe,Northwest Europe,1989,3
-Southeast Europe,Northwest Europe,1990,1
-Southeast Europe,Northwest Europe,1992,34
-Southeast Europe,Northwest Europe,1994,12
-Southeast Europe,Northwest Europe,1995,1
-Southeast Europe,Northwest Europe,1997,4
-Southeast Europe,Northwest Europe,2000,1
-Southeast Europe,Northwest Europe,2002,8
-Southeast Europe,Northwest Europe,2003,15
-Southeast Europe,Northwest Europe,2004,14
-Southeast Europe,Northwest Europe,2005,119
-Southeast Europe,Northwest Europe,2006,825
-Southeast Europe,Northwest Europe,2007,1023
-Southeast Europe,Northwest Europe,2008,601
-Southeast Europe,Northwest Europe,2009,752
-Southeast Europe,Northwest Europe,2010,75
-Southeast Europe,Southeast Asia & Pacific,1985,1
-Southeast Europe,Southeast Asia & Pacific,1989,2
-Southeast Europe,Southeast Asia & Pacific,1990,5
-Southeast Europe,Southeast Asia & Pacific,1992,1
-Southeast Europe,Southeast Asia & Pacific,1993,1
-Southeast Europe,Southeast Asia & Pacific,1997,1
-Southeast Europe,Southeast Asia & Pacific,2000,2
-Southeast Europe,Southeast Asia & Pacific,2001,3
-Southeast Europe,Southeast Asia & Pacific,2002,6
-Southeast Europe,Southeast Asia & Pacific,2003,4
-Southeast Europe,Southeast Asia & Pacific,2004,3
-Southeast Europe,Southeast Asia & Pacific,2005,17
-Southeast Europe,Southeast Asia & Pacific,2006,431
-Southeast Europe,Southeast Asia & Pacific,2007,912
-Southeast Europe,Southeast Asia & Pacific,2008,633
-Southeast Europe,Southeast Asia & Pacific,2009,732
-Southeast Europe,Southeast Asia & Pacific,2010,78
-Southeast Europe,Southeast Europe,1985,3
-Southeast Europe,Southeast Europe,1986,9
-Southeast Europe,Southeast Europe,1988,5
-Southeast Europe,Southeast Europe,1989,7
-Southeast Europe,Southeast Europe,1990,10
-Southeast Europe,Southeast Europe,1991,19
-Southeast Europe,Southeast Europe,1992,24
-Southeast Europe,Southeast Europe,1993,1
-Southeast Europe,Southeast Europe,1994,31
-Southeast Europe,Southeast Europe,1995,16
-Southeast Europe,Southeast Europe,1996,1
-Southeast Europe,Southeast Europe,1997,24
-Southeast Europe,Southeast Europe,1998,4
-Southeast Europe,Southeast Europe,1999,3
-Southeast Europe,Southeast Europe,2000,6
-Southeast Europe,Southeast Europe,2001,25
-Southeast Europe,Southeast Europe,2002,173
-Southeast Europe,Southeast Europe,2003,408
-Southeast Europe,Southeast Europe,2004,454
-Southeast Europe,Southeast Europe,2005,1008
-Southeast Europe,Southeast Europe,2006,6268
-Southeast Europe,Southeast Europe,2007,8568
-Southeast Europe,Southeast Europe,2008,7956
-Southeast Europe,Southeast Europe,2009,7991
-Southeast Europe,Southeast Europe,2010,1154
+originAggRegion,destinationAggRegion,year,countAfrica,Africa,1975,1Africa,Africa,1985,65Africa,Africa,1986,32Africa,Africa,1987,27Africa,Africa,1988,42Africa,Africa,1989,27Africa,Africa,1990,133Africa,Africa,1991,71Africa,Africa,1992,56Africa,Africa,1993,6Africa,Africa,1994,38Africa,Africa,1995,52Africa,Africa,1996,80Africa,Africa,1997,36Africa,Africa,1998,25Africa,Africa,1999,15Africa,Africa,2000,602Africa,Africa,2001,1019Africa,Africa,2002,499Africa,Africa,2003,308Africa,Africa,2004,691Africa,Africa,2005,2347Africa,Africa,2006,13538Africa,Africa,2007,14542Africa,Africa,2008,17932Africa,Africa,2009,18206Africa,Africa,2010,2793Africa,Latin America,2000,1Africa,Latin America,2004,1Africa,Latin America,2005,11Africa,Latin America,2006,225Africa,Latin America,2007,716Africa,Latin America,2008,88Africa,Latin America,2009,88Africa,Latin America,2010,34Africa,North America,1975,1Africa,North America,1985,5Africa,North America,1986,3Africa,North America,1988,11Africa,North America,1989,4Africa,North America,1990,8Africa,North America,1991,6Africa,North America,1992,5Africa,North America,1993,2Africa,North America,1994,3Africa,North America,1995,2Africa,North America,1996,7Africa,North America,1997,4Africa,North America,1998,4Africa,North America,1999,4Africa,North America,2000,47Africa,North America,2001,94Africa,North America,2002,68Africa,North America,2003,61Africa,North America,2004,312Africa,North America,2005,677Africa,North America,2006,1207Africa,North America,2007,1282Africa,North America,2008,1629Africa,North America,2009,1897Africa,North America,2010,426Africa,NW Asia,1985,9Africa,NW Asia,1986,7Africa,NW Asia,1987,2Africa,NW Asia,1988,7Africa,NW Asia,1989,6Africa,NW Asia,1990,15Africa,NW Asia,1991,6Africa,NW Asia,1994,4Africa,NW Asia,1996,3Africa,NW Asia,1997,3Africa,NW Asia,2000,1Africa,NW Asia,2001,5Africa,NW Asia,2002,10Africa,NW Asia,2003,7Africa,NW B77,2004,2Africa,NW Asia,2005,21Africa,NW Asia,2006,418Africa,NW Asia,2007,759Africa,NW Asia,2008,671Africa,NW Asia,2009,833Africa,NW Asia,2010,107Africa,NW Europe,1975,1Africa,NW Europe,1985,11Africa,NW Europe,1986,4Africa,NW Europe,1987,7Africa,NW Europe,1988,9Africa,NW Europe,1989,9Africa,NW Europe,1990,37Africa,NW Europe,1991,14Africa,NW Europe,1992,6Africa,NW Europe,1993,1Africa,NW Europe,1994,14Africa,NW Europe,1995,11Africa,NW Europe,1996,10Africa,NW Europe,1997,5Africa,NW Europe,1998,5Africa,NW Europe,1999,6Africa,NW Europe,2000,124Africa,NW Europe,2001,151Africa,NW Europe,2002,54Africa,NW Europe,2003,6Africa,NW Europe,2004,8Africa,NW Europe,2005,360Africa,NW Europe,2006,2381Africa,NW Europe,2007,2588Africa,NW Europe,2008,3060Africa,NW Europe,2009,3095Africa,NW Europe,2010,243Africa,SE Asia & Pacific,1975,1Africa,SE Asia & Pacific,1988,1Africa,SE Asia & Pacific,1995,1Africa,SE Asia & Pacific,2000,1Africa,SE Asia & Pacific,2001,26Africa,SE Asia & Pacific,2002,18Africa,SE Asia & Pacific,2003,1Africa,SE Asia & Pacific,2004,7Africa,SE Asia & Pacific,2005,25Africa,SE Asia & Pacific,2006,664Africa,SE Asia & Pacific,2007,591Africa,SE Asia & Pacific,2008,710Africa,SE Asia & Pacific,2009,712Africa,SE Asia & Pacific,2010,102Africa,SE Europe,1985,9Africa,SE Europe,1986,2Africa,SE Europe,1987,2Africa,SE Europe,1988,11Africa,SE Europe,1990,12Africa,SE Europe,1991,2Africa,SE Europe,1994,1Africa,SE Europe,1995,1Africa,SE Europe,1997,1Africa,SE Europe,1998,1Africa,SE Europe,1999,2Africa,SE Europe,2000,21Africa,SE Europe,2001,10Africa,SE Europe,2002,7Africa,SE Europe,2003,2Africa,SE Europe,2004,2Africa,SE Europe,2005,51Africa,SE Europe,2006,710Africa,SE Europe,2007,1134Africa,SE Europe,2008,701Africa,SE Europe,2009,890Africa,SE Europe,2010,65Latin America,Africa,1995,1Latin America,Africa,2005,1Latin America,Africa,2006,404Latin America,Africa,2007,357Latin America,Africa,2008,271Latin America,Africa,2009,288Latin America,Africa,2010,15Latin America,Latin America,1966,7Latin America,Latin America,1985,7Latin America,Latin America,1986,19Latin America,Latin America,1987,12Latin America,Latin America,1988,25Latin America,Latin America,1989,33Latin America,Latin America,1990,6Latin America,Latin America,1991,15Latin America,Latin America,1992,29Latin America,Latin America,1993,5Latin America,Latin America,1994,16Latin America,Latin America,1995,6Latin America,Latin America,1996,16Latin America,Latin America,1997,9Latin America,Latin America,1998,46Latin America,Latin America,1999,89Latin America,Latin America,2000,16Latin America,Latin America,2001,77Latin America,Latin America,2002,78Latin America,Latin America,2003,255Latin America,Latin America,2004,656Latin America,Latin America,2005,1529Latin America,Latin America,2006,23085Latin America,Latin America,2007,20434Latin America,Latin America,2008,18839Latin America,Latin America,2009,20077Latin America,Latin America,2010,3270Latin America,North America,1966,2Latin America,North America,1985,1Latin America,North America,1988,4Latin America,North America,1989,4Latin America,North America,1990,2Latin America,North America,1992,2Latin America,North America,1993,2Latin America,North America,1994,2Latin America,North America,1996,3Latin America,North America,1998,12Latin America,North America,1999,20Latin America,North America,2000,3Latin America,North America,2001,11Latin America,North America,2002,48Latin America,North America,2003,194Latin America,North America,2004,380Latin America,North America,2005,931Latin America,North America,2006,2574Latin America,North America,2007,2458Latin America,North America,2008,2230Latin America,North America,2009,2004Latin America,North America,2010,331Latin America,NW Asia,1995,2Latin America,NW Asia,2003,1Latin America,NW Asia,2004,1Latin America,NW Asia,2005,3Latin America,NW Asia,2006,92Latin America,NW Asia,2007,103Latin America,NW Asia,2008,96Latin America,NW Asia,2009,161Latin America,NW Asia,2010,10Latin America,NW Europe,1966,1Latin America,NW Europe,1989,2Latin America,NW Europe,2001,4Latin America,NW Europe,2003,6Latin America,NW Europe,2004,8Latin America,NW Europe,2005,38Latin America,NW Europe,2006,775Latin America,NW Europe,2007,560Latin America,NW Europe,2008,402Latin America,NW Europe,2009,403Latin America,NW Europe,2010,44Latin America,SE Asia & Pacific,1986,1Latin America,SE Asia & Pacific,1993,1Latin America,SE Asia & Pacific,2001,3Latin America,SE Asia & Pacific,2004,4Latin America,SE Asia & Pacific,2005,22Latin America,SE Asia & Pacific,2006,346Latin America,SE Asia & Pacific,2007,518Latin America,SE Asia & Pacific,2008,320Latin America,SE Asia & Pacific,2009,426Latin America,SE Asia & Pacific,2010,54Latin America,SE Europe,1989,2Latin America,SE Europe,1992,2Latin America,SE Europe,1994,1Latin America,SE Europe,1995,2Latin America,SE Europe,1999,2Latin America,SE Europe,2000,1Latin America,SE Europe,2001,4Latin America,SE Europe,2002,2Latin America,SE Europe,2003,7Latin America,SE Europe,2004,5Latin America,SE Europe,2005,22Latin America,SE Europe,2006,527Latin America,SE Europe,2007,594Latin America,SE Europe,2008,464Latin America,SE Europe,2009,348Latin America,SE Europe,2010,40North America,Africa,1985,16North America,Africa,1986,3North America,Africa,1987,4North America,Africa,1988,2North America,Africa,1989,16North America,Africa,1990,15North America,Africa,1991,1North America,Africa,1992,2North America,Africa,1993,10North America,Africa,1995,10North America,Africa,1996,21North America,Africa,1997,3North America,Africa,1998,11North America,Africa,1999,6North America,Africa,2000,25North America,Africa,2001,10North America,Africa,2002,2North America,Africa,2003,12North America,Africa,2004,9North America,Africa,2005,14North America,Africa,2006,99North America,Africa,2007,375North America,Africa,2008,1620North America,Africa,2009,3182North America,Africa,2010,576North America,Latin America,1987,1North America,Latin America,1989,4North America,Latin America,1990,1North America,Latin America,1991,1North America,Latin America,2000,2North America,Latin America,2001,1North America,Latin America,2004,2North America,Latin America,2005,23North America,Latin America,2006,305North America,Latin America,2007,433North America,Latin America,2008,964North America,Latin America,2009,1488North America,Latin America,2010,302North America,North America,1985,16North America,North America,1986,3North America,North America,1987,3North America,North America,1989,7North America,North America,1990,2North America,North America,1992,2North America,North America,1993,3North America,North America,1994,1North America,North America,1996,3North America,North America,1998,2North America,North America,1999,1North America,North America,2000,11North America,North America,2001,7North America,North America,2002,2North America,North America,2003,211North America,North America,2004,52North America,North America,2005,695North America,North America,2006,1088North America,North America,2007,1261North America,North America,2008,2275North America,North America,2009,2857North America,North America,2010,422North America,NW Asia,1985,34North America,NW Asia,1986,4North America,NW Asia,1987,18North America,NW Asia,1989,2North America,NW Asia,1990,27North America,NW Asia,1992,4North America,NW Asia,1993,5North America,NW Asia,1994,6North America,NW Asia,1996,22North America,NW Asia,1997,8North America,NW Asia,1998,7North America,NW Asia,1999,15North America,NW Asia,2000,19North America,NW Asia,2001,26North America,NW Asia,2002,2North America,NW Asia,2003,11North America,NW Asia,2004,16North America,NW Asia,2005,25North America,NW Asia,2006,129North America,NW Asia,2007,476North America,NW Asia,2008,1875North America,NW Asia,2009,2706North America,NW Asia,2010,478North America,NW Europe,1985,21North America,NW Europe,1987,2North America,NW Europe,1988,1North America,NW Europe,1989,5North America,NW Europe,1990,9North America,NW Europe,1992,8North America,NW Europe,1993,4North America,NW Europe,1994,2North America,NW Europe,1995,2North America,NW Europe,1996,8North America,NW Europe,1997,4North America,NW Europe,1998,2North America,NW Europe,1999,10North America,NW Europe,2000,6North America,NW Europe,2001,8North America,NW Europe,2002,1North America,NW Europe,2003,7North America,NW Europe,2004,2North America,NW Europe,2005,23North America,NW Europe,2006,233North America,NW Europe,2007,468North America,NW Europe,2008,1673North America,NW Europe,2009,2039North America,NW Europe,2010,324North America,SE Asia & Pacific,1985,14North America,SE Asia & Pacific,1986,3North America,SE Asia & Pacific,1989,4North America,SE Asia & Pacific,1990,3North America,SE Asia & Pacific,1993,2North America,SE Asia & Pacific,1994,4North America,SE Asia & Pacific,1995,7North America,SE Asia & Pacific,1996,15North America,SE Asia & Pacific,1997,6North America,SE Asia & Pacific,1998,16North America,SE Asia & Pacific,1999,16North America,SE Asia & Pacific,2000,8North America,SE Asia & Pacific,2001,23North America,SE Asia & Pacific,2002,3North America,SE Asia & Pacific,2003,21North America,SE Asia & Pacific,2004,7North America,SE Asia & Pacific,2005,22North America,SE Asia & Pacific,2006,272North America,SE Asia & Pacific,2007,684North America,SE Asia & Pacific,2008,2413North America,SE Asia & Pacific,2009,2939North America,SE Asia & Pacific,2010,559North America,SE Europe,1985,14North America,SE Europe,1986,3North America,SE Europe,1989,5North America,SE Europe,1990,5North America,SE Europe,1991,1North America,SE Europe,1992,5North America,SE Europe,1993,2North America,SE Europe,1994,1North America,SE Europe,1995,2North America,SE Europe,1996,4North America,SE Europe,1997,4North America,SE Europe,1998,2North America,SE Europe,1999,3North America,SE Europe,2000,19North America,SE Europe,2001,12North America,SE Europe,2003,17North America,SE Europe,2004,3North America,SE Europe,2005,16North America,SE Europe,2006,131North America,SE Europe,2007,384North America,SE Europe,2008,1466North America,SE Europe,2009,1805North America,SE Europe,2010,414NW Asia,Africa,1985,20NW Asia,Africa,1986,6NW Asia,Africa,1987,2NW Asia,Africa,1988,4NW Asia,Africa,1989,2NW Asia,Africa,1990,11NW Asia,Africa,1991,4NW Asia,Africa,1992,10NW Asia,Africa,1994,1NW Asia,Africa,1995,14NW Asia,Africa,1996,8NW Asia,Africa,1997,2NW Asia,Africa,1998,6NW Asia,Africa,1999,1NW Asia,Africa,2002,1NW Asia,Africa,2003,50NW Asia,Africa,2004,28NW Asia,Africa,2005,41NW Asia,Africa,2006,629NW Asia,Africa,2007,1547NW Asia,Africa,2008,1822NW Asia,Africa,2009,1809NW Asia,Africa,2010,308NW Asia,Latin America,1991,1NW Asia,Latin America,2003,4NW Asia,Latin America,2004,4NW Asia,Latin America,2006,71NW Asia,Latin America,2007,60NW Asia,Latin America,2008,54NW Asia,Latin America,2009,109NW Asia,Latin America,2010,20NW Asia,North America,1985,4NW Asia,North America,1986,3NW Asia,North America,1987,1NW Asia,North America,1988,5NW Asia,North America,1989,5NW Asia,North America,1990,6NW Asia,North America,1991,1NW Asia,North America,1992,1NW Asia,North America,1993,3NW Asia,North America,1994,3NW Asia,North America,1995,3NW Asia,North America,1997,2NW Asia,North America,1998,5NW Asia,North America,1999,3NW Asia,North America,2000,3NW Asia,North America,2001,7NW Asia,North America,2002,151NW Asia,North America,2003,631NW Asia,North America,2004,797NW Asia,North America,2005,1181NW Asia,North America,2006,1481NW Asia,North America,2007,1664NW Asia,North America,2008,1625NW Asia,North America,2009,1663NW Asia,North America,2010,274NW Asia,NW Asia,1979,4NW Asia,NW Asia,1985,209NW Asia,NW Asia,1986,68NW Asia,NW Asia,1987,27NW Asia,NW Asia,1988,80NW Asia,NW Asia,1989,72NW Asia,NW Asia,1990,95NW Asia,NW Asia,1991,48NW Asia,NW Asia,1992,33NW Asia,NW Asia,1993,19NW Asia,NW Asia,1994,28NW Asia,NW Asia,1995,69NW Asia,NW Asia,1996,46NW Asia,NW Asia,1997,27NW Asia,NW Asia,1998,40NW Asia,NW Asia,1999,19NW Asia,NW Asia,2000,18NW Asia,NW Asia,2001,34NW Asia,NW Asia,2002,159NW Asia,NW Asia,2003,2162NW Asia,NW Asia,2004,1939NW Asia,NW Asia,2005,3068NW Asia,NW Asia,2006,15562NW Asia,NW Asia,2007,18520NW Asia,NW Asia,2008,19843NW Asia,NW Asia,2009,19679NW Asia,NW Asia,2010,3325NW Asia,NW Europe,1985,20NW Asia,NW Europe,1986,18NW Asia,NW Europe,1988,13NW Asia,NW Europe,1989,9NW Asia,NW Europe,1990,9NW Asia,NW Europe,1991,2NW Asia,NW Europe,1992,7NW Asia,NW Europe,1993,1NW Asia,NW Europe,1994,2NW Asia,NW Europe,1995,16NW Asia,NW Europe,1996,14NW Asia,NW Europe,1997,6NW Asia,NW Europe,1998,9NW Asia,NW Europe,2000,1NW Asia,NW Europe,2001,5NW Asia,NW Europe,2002,8NW Asia,NW Europe,2003,220NW Asia,NW Europe,2004,165NW Asia,NW Europe,2005,188NW Asia,NW Europe,2006,2036NW Asia,NW Europe,2007,1648NW Asia,NW Europe,2008,1811NW Asia,NW Europe,2009,2475NW Asia,NW Europe,2010,341NW Asia,SE Asia & Pacific,1979,1NW Asia,SE Asia & Pacific,1985,3NW Asia,SE Asia & Pacific,1986,3NW Asia,SE Asia & Pacific,1989,5NW Asia,SE Asia & Pacific,1990,1NW Asia,SE Asia & Pacific,1993,2NW Asia,SE Asia & Pacific,1994,3NW Asia,SE Asia & Pacific,1996,2NW Asia,SE Asia & Pacific,1997,2NW Asia,SE Asia & Pacific,1998,2NW Asia,SE Asia & Pacific,2001,9NW Asia,SE Asia & Pacific,2002,1NW Asia,SE Asia & Pacific,2003,49NW Asia,SE Asia & Pacific,2004,62NW Asia,SE Asia & Pacific,2005,106NW Asia,SE Asia & Pacific,2006,2289NW Asia,SE Asia & Pacific,2007,3991NW Asia,SE Asia & Pacific,2008,5101NW Asia,SE Asia & Pacific,2009,4808NW Asia,SE Asia & Pacific,2010,661NW Asia,SE Europe,1985,12NW Asia,SE Europe,1986,7NW Asia,SE Europe,1988,7NW Asia,SE Europe,1990,4NW Asia,SE Europe,1992,2NW Asia,SE Europe,1993,1NW Asia,SE Europe,1994,4NW Asia,SE Europe,1995,1NW Asia,SE Europe,1996,1NW Asia,SE Europe,1997,3NW Asia,SE Europe,2001,2NW Asia,SE Europe,2002,4NW Asia,SE Europe,2003,40NW Asia,SE Europe,2004,21NW Asia,SE Europe,2005,83NW Asia,SE Europe,2006,1076NW Asia,SE Europe,2007,1276NW Asia,SE Europe,2008,1398NW Asia,SE Europe,2009,1365NW Asia,SE Europe,2010,191NW Europe,Africa,1985,2NW Europe,Africa,1986,4NW Europe,Africa,1987,1NW Europe,Africa,1994,7NW Europe,Africa,1995,7NW Europe,Africa,2004,10NW Europe,Africa,2005,22NW Europe,Africa,2006,693NW Europe,Africa,2007,749NW Europe,Africa,2008,823NW Europe,Africa,2009,882NW Europe,Africa,2010,130NW Europe,Latin America,2003,5NW Europe,Latin America,2004,47NW Europe,Latin America,2005,10NW Europe,Latin America,2006,401NW Europe,Latin America,2007,445NW Europe,Latin America,2008,308NW Europe,Latin America,2009,330NW Europe,Latin America,2010,85NW Europe,North America,1985,4NW Europe,North America,1986,1NW Europe,North America,1988,1NW Europe,North America,1990,1NW Europe,North America,1992,2NW Europe,North America,1993,2NW Europe,North America,1994,2NW Europe,North America,1995,1NW Europe,North America,1998,1NW Europe,North America,1999,1NW Europe,North America,2000,20NW Europe,North America,2001,3NW Europe,North America,2002,1NW Europe,North America,2003,167NW Europe,North America,2004,524NW Europe,North America,2005,1071NW Europe,North America,2006,1848NW Europe,North America,2007,1883NW Europe,North America,2008,1831NW Europe,North America,2009,1831NW Europe,North America,2010,375NW Europe,NW Asia,1985,6NW Europe,NW Asia,1987,2NW Europe,NW Asia,1993,2NW Europe,NW Asia,1994,3NW Europe,NW Asia,1995,5NW Europe,NW Asia,1998,2NW Europe,NW Asia,2001,9NW Europe,NW Asia,2004,27NW Europe,NW Asia,2005,27NW Europe,NW Asia,2006,760NW Europe,NW Asia,2007,961NW Europe,NW Asia,2008,1291NW Europe,NW Asia,2009,1043NW Europe,NW Asia,2010,136NW Europe,NW Europe,1985,11NW Europe,NW Europe,1986,1NW Europe,NW Europe,1987,1NW Europe,NW Europe,1988,7NW Europe,NW Europe,1989,1NW Europe,NW Europe,1990,1NW Europe,NW Europe,1991,4NW Europe,NW Europe,1992,2NW Europe,NW Europe,1993,5NW Europe,NW Europe,1994,2NW Europe,NW Europe,1995,7NW Europe,NW Europe,1998,5NW Europe,NW Europe,1999,6NW Europe,NW Europe,2000,11NW Europe,NW Europe,2001,6NW Europe,NW Europe,2002,3NW Europe,NW Europe,2003,79NW Europe,NW Europe,2004,324NW Europe,NW Europe,2005,656NW Europe,NW Europe,2006,5576NW Europe,NW Europe,2007,5518NW Europe,NW Europe,2008,5337NW Europe,NW Europe,2009,6681NW Europe,NW Europe,2010,1216NW Europe,SE Asia & Pacific,1985,2NW Europe,SE Asia & Pacific,1987,4NW Europe,SE Asia & Pacific,1998,6NW Europe,SE Asia & Pacific,2001,8NW Europe,SE Asia & Pacific,2003,1NW Europe,SE Asia & Pacific,2004,18NW Europe,SE Asia & Pacific,2005,21NW Europe,SE Asia & Pacific,2006,1032NW Europe,SE Asia & Pacific,2007,1383NW Europe,SE Asia & Pacific,2008,1298NW Europe,SE Asia & Pacific,2009,1637NW Europe,SE Asia & Pacific,2010,237NW Europe,SE Europe,1985,1NW Europe,SE Europe,1993,2NW Europe,SE Europe,1995,2NW Europe,SE Europe,1998,2NW Europe,SE Europe,2000,1NW Europe,SE Europe,2001,2NW Europe,SE Europe,2003,11NW Europe,SE Europe,2004,33NW Europe,SE Europe,2005,37NW Europe,SE Europe,2006,986NW Europe,SE Europe,2007,1287NW Europe,SE Europe,2008,1020NW Europe,SE Europe,2009,1106NW Europe,SE Europe,2010,233SE Asia & Pacific,Africa,1992,1SE Asia & Pacific,Africa,1997,3SE Asia & Pacific,Africa,1998,2SE Asia & Pacific,Africa,2000,1SE Asia & Pacific,Africa,2001,7SE Asia & Pacific,Africa,2002,6SE Asia & Pacific,Africa,2003,25SE Asia & Pacific,Africa,2004,13SE Asia & Pacific,Africa,2005,25SE Asia & Pacific,Africa,2006,312SE Asia & Pacific,Africa,2007,433SE Asia & Pacific,Africa,2008,581SE Asia & Pacific,Africa,2009,456SE Asia & Pacific,Africa,2010,27SE Asia & Pacific,Latin America,1985,1SE Asia & Pacific,Latin America,1989,1SE Asia & Pacific,Latin America,1997,2SE Asia & Pacific,Latin America,1999,1SE Asia & Pacific,Latin America,2001,1SE Asia & Pacific,Latin America,2002,2SE Asia & Pacific,Latin America,2005,5SE Asia & Pacific,Latin America,2006,783SE Asia & Pacific,Latin America,2007,571SE Asia & Pacific,Latin America,2008,498SE Asia & Pacific,Latin America,2009,609SE Asia & Pacific,Latin America,2010,78SE Asia & Pacific,North America,1973,1SE Asia & Pacific,North America,1985,1SE Asia & Pacific,North America,1986,1SE Asia & Pacific,North America,1988,7SE Asia & Pacific,North America,1989,1SE Asia & Pacific,North America,1990,5SE Asia & Pacific,North America,1991,3SE Asia & Pacific,North America,1992,8SE Asia & Pacific,North America,1993,3SE Asia & Pacific,North America,1994,6SE Asia & Pacific,North America,1995,6SE Asia & Pacific,North America,1996,1SE Asia & Pacific,North America,1997,5SE Asia & Pacific,North America,1998,5SE Asia & Pacific,North America,1999,4SE Asia & Pacific,North America,2000,8SE Asia & Pacific,North America,2001,12SE Asia & Pacific,North America,2002,44SE Asia & Pacific,North America,2003,181SE Asia & Pacific,North America,2004,223SE Asia & Pacific,North America,2005,815SE Asia & Pacific,North America,2006,2207SE Asia & Pacific,North America,2007,2408SE Asia & Pacific,North America,2008,2748SE Asia & Pacific,North America,2009,3300SE Asia & Pacific,North America,2010,560SE Asia & Pacific,NW Asia,1972,3SE Asia & Pacific,NW Asia,1978,1SE Asia & Pacific,NW Asia,1979,14SE Asia & Pacific,NW Asia,1985,2SE Asia & Pacific,NW Asia,1986,4SE Asia & Pacific,NW Asia,1992,1SE Asia & Pacific,NW Asia,1996,32SE Asia & Pacific,NW Asia,1997,24SE Asia & Pacific,NW Asia,1998,13SE Asia & Pacific,NW Asia,1999,1SE Asia & Pacific,NW Asia,2001,9SE Asia & Pacific,NW Asia,2003,4SE Asia & Pacific,NW Asia,2004,11SE Asia & Pacific,NW Asia,2005,28SE Asia & Pacific,NW Asia,2006,1894SE Asia & Pacific,NW Asia,2007,2326SE Asia & Pacific,NW Asia,2008,1232SE Asia & Pacific,NW Asia,2009,855SE Asia & Pacific,NW Asia,2010,142SE Asia & Pacific,NW Europe,1972,3SE Asia & Pacific,NW Europe,1978,1SE Asia & Pacific,NW Europe,1979,3SE Asia & Pacific,NW Europe,1985,1SE Asia & Pacific,NW Europe,1986,1SE Asia & Pacific,NW Europe,1987,1SE Asia & Pacific,NW Europe,1989,16SE Asia & Pacific,NW Europe,1990,2SE Asia & Pacific,NW Europe,1992,2SE Asia & Pacific,NW Europe,1993,1SE Asia & Pacific,NW Europe,1994,7SE Asia & Pacific,NW Europe,1995,7SE Asia & Pacific,NW Europe,1996,12SE Asia & Pacific,NW Europe,1997,11SE Asia & Pacific,NW Europe,1998,27SE Asia & Pacific,NW Europe,1999,5SE Asia & Pacific,NW Europe,2000,11SE Asia & Pacific,NW Europe,2001,15SE Asia & Pacific,NW Europe,2002,13SE Asia & Pacific,NW Europe,2003,18SE Asia & Pacific,NW Europe,2004,14SE Asia & Pacific,NW Europe,2005,137SE Asia & Pacific,NW Europe,2006,3353SE Asia & Pacific,NW Europe,2007,3146SE Asia & Pacific,NW Europe,2008,3141SE Asia & Pacific,NW Europe,2009,5121SE Asia & Pacific,NW Europe,2010,753SE Asia & Pacific,SE Asia & Pacific,1972,4SE Asia & Pacific,SE Asia & Pacific,1973,4SE Asia & Pacific,SE Asia & Pacific,1975,1SE Asia & Pacific,SE Asia & Pacific,1978,5SE Asia & Pacific,SE Asia & Pacific,1979,8SE Asia & Pacific,SE Asia & Pacific,1985,14SE Asia & Pacific,SE Asia & Pacific,1986,10SE Asia & Pacific,SE Asia & Pacific,1987,35SE Asia & Pacific,SE Asia & Pacific,1988,18SE Asia & Pacific,SE Asia & Pacific,1989,124SE Asia & Pacific,SE Asia & Pacific,1990,31SE Asia & Pacific,SE Asia & Pacific,1991,12SE Asia & Pacific,SE Asia & Pacific,1992,38SE Asia & Pacific,SE Asia & Pacific,1993,22SE Asia & Pacific,SE Asia & Pacific,1994,39SE Asia & Pacific,SE Asia & Pacific,1995,41SE Asia & Pacific,SE Asia & Pacific,1996,20SE Asia & Pacific,SE Asia & Pacific,1997,102SE Asia & Pacific,SE Asia & Pacific,1998,95SE Asia & Pacific,SE Asia & Pacific,1999,38SE Asia & Pacific,SE Asia & Pacific,2000,147SE Asia & Pacific,SE Asia & Pacific,2001,394SE Asia & Pacific,SE Asia & Pacific,2002,671SE Asia & Pacific,SE Asia & Pacific,2003,594SE Asia & Pacific,SE Asia & Pacific,2004,684SE Asia & Pacific,SE Asia & Pacific,2005,2519SE Asia & Pacific,SE Asia & Pacific,2006,38641SE Asia & Pacific,SE Asia & Pacific,2007,41537SE Asia & Pacific,SE Asia & Pacific,2008,45416SE Asia & Pacific,SE Asia & Pacific,2009,46157SE Asia & Pacific,SE Asia & Pacific,2010,6458SE Asia & Pacific,SE Europe,1972,1SE Asia & Pacific,SE Europe,1978,1SE Asia & Pacific,SE Europe,1979,3SE Asia & Pacific,SE Europe,1985,2SE Asia & Pacific,SE Europe,1988,1SE Asia & Pacific,SE Europe,1989,11SE Asia & Pacific,SE Europe,1990,1SE Asia & Pacific,SE Europe,1992,2SE Asia & Pacific,SE Europe,1993,1SE Asia & Pacific,SE Europe,1994,1SE Asia & Pacific,SE Europe,1996,7SE Asia & Pacific,SE Europe,1997,7SE Asia & Pacific,SE Europe,1998,7SE Asia & Pacific,SE Europe,1999,4SE Asia & Pacific,SE Europe,2000,1SE Asia & Pacific,SE Europe,2001,13SE Asia & Pacific,SE Europe,2002,8SE Asia & Pacific,SE Europe,2003,6SE Asia & Pacific,SE Europe,2004,3SE Asia & Pacific,SE Europe,2005,38SE Asia & Pacific,SE Europe,2006,1505SE Asia & Pacific,SE Europe,2007,1568SE Asia & Pacific,SE Europe,2008,1603SE Asia & Pacific,SE Europe,2009,1989SE Asia & Pacific,SE Europe,2010,287SE Europe,Africa,1986,7SE Europe,Africa,1990,5SE Europe,Africa,1996,3SE Europe,Africa,1997,12SE Europe,Africa,2000,1SE Europe,Africa,2001,1SE Europe,Africa,2002,13SE Europe,Africa,2003,8SE Europe,Africa,2004,8SE Europe,Africa,2005,8SE Europe,Africa,2006,230SE Europe,Africa,2007,500SE Europe,Africa,2008,391SE Europe,Africa,2009,336SE Europe,Africa,2010,35SE Europe,Latin America,2001,1SE Europe,Latin America,2002,2SE Europe,Latin America,2003,4SE Europe,Latin America,2004,2SE Europe,Latin America,2005,12SE Europe,Latin America,2006,318SE Europe,Latin America,2007,395SE Europe,Latin America,2008,212SE Europe,Latin America,2009,207SE Europe,Latin America,2010,81SE Europe,North America,1985,1SE Europe,North America,1988,3SE Europe,North America,1989,1SE Europe,North America,1990,1SE Europe,North America,1991,3SE Europe,North America,1992,3SE Europe,North America,1994,6SE Europe,North America,1995,4SE Europe,North America,1997,5SE Europe,North America,1998,1SE Europe,North America,1999,1SE Europe,North America,2000,2SE Europe,North America,2001,11SE Europe,North America,2002,117SE Europe,North America,2003,206SE Europe,North America,2004,755SE Europe,North America,2005,1120SE Europe,North America,2006,1616SE Europe,North America,2007,2574SE Europe,North America,2008,2316SE Europe,North America,2009,2034SE Europe,North America,2010,340SE Europe,NW Asia,1985,5SE Europe,NW Asia,1986,4SE Europe,NW Asia,1988,1SE Europe,NW Asia,1993,1SE Europe,NW Asia,1994,6SE Europe,NW Asia,1996,1SE Europe,NW Asia,2000,1SE Europe,NW Asia,2002,1SE Europe,NW Asia,2003,6SE Europe,NW Asia,2004,15SE Europe,NW Asia,2005,19SE Europe,NW Asia,2006,631SE Europe,NW Asia,2007,765SE Europe,NW Asia,2008,760SE Europe,NW Asia,2009,710SE Europe,NW Asia,2010,86SE Europe,NW Europe,1985,2SE Europe,NW Europe,1989,3SE Europe,NW Europe,1990,1SE Europe,NW Europe,1992,34SE Europe,NW Europe,1994,12SE Europe,NW Europe,1995,1SE Europe,NW Europe,1997,4SE Europe,NW Europe,2000,1SE Europe,NW Europe,2002,8SE Europe,NW Europe,2003,15SE Europe,NW Europe,2004,14SE Europe,NW Europe,2005,119SE Europe,NW Europe,2006,825SE Europe,NW Europe,2007,1023SE Europe,NW Europe,2008,601SE Europe,NW Europe,2009,752SE Europe,NW Europe,2010,75SE Europe,SE Asia & Pacific,1985,1SE Europe,SE Asia & Pacific,1989,2SE Europe,SE Asia & Pacific,1990,5SE Europe,SE Asia & Pacific,1992,1SE Europe,SE Asia & Pacific,1993,1SE Europe,SE Asia & Pacific,1997,1SE Europe,SE Asia & Pacific,2000,2SE Europe,SE Asia & Pacific,2001,3SE Europe,SE Asia & Pacific,2002,6SE Europe,SE Asia & Pacific,2003,4SE Europe,SE Asia & Pacific,2004,3SE Europe,SE Asia & Pacific,2005,17SE Europe,SE Asia & Pacific,2006,431SE Europe,SE Asia & Pacific,2007,912SE Europe,SE Asia & Pacific,2008,633SE Europe,SE Asia & Pacific,2009,732SE Europe,SE Asia & Pacific,2010,78SE Europe,SE Europe,1985,3SE Europe,SE Europe,1986,9SE Europe,SE Europe,1988,5SE Europe,SE Europe,1989,7SE Europe,SE Europe,1990,10SE Europe,SE Europe,1991,19SE Europe,SE Europe,1992,24SE Europe,SE Europe,1993,1SE Europe,SE Europe,1994,31SE Europe,SE Europe,1995,16SE Europe,SE Europe,1996,1SE Europe,SE Europe,1997,24SE Europe,SE Europe,1998,4SE Europe,SE Europe,1999,3SE Europe,SE Europe,2000,6SE Europe,SE Europe,2001,25SE Europe,SE Europe,2002,173SE Europe,SE Europe,2003,408SE Europe,SE Europe,2004,454SE Europe,SE Europe,2005,1008SE Europe,SE Europe,2006,6268SE Europe,SE Europe,2007,8568SE Europe,SE Europe,2008,7956SE Europe,SE Europe,2009,7991SE Europe,SE Europe,2010,1154
