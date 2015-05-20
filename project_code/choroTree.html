@@ -2,6 +2,28 @@
 <meta charset="utf-8">
 <style>
 
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: auto;
+  position: relative;
+  width: 960px;
+}
+
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.node {
+  border: solid 1px white;
+  font: 12px sans-serif;
+  line-height: 16px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 2px;
+}
+
 .countries {
   fill: gray;
 }
@@ -12,21 +34,16 @@
   stroke-linejoin: round;
 }
 
-.map {
-  margin-left:15%;
+#map {
+  margin-left:10%;
 }
-.q0-9 { fill:rgb(247,251,255); }
-.q1-9 { fill:rgb(222,235,247); }
-.q2-9 { fill:rgb(198,219,239); }
-.q3-9 { fill:rgb(158,202,225); }
-.q4-9 { fill:rgb(107,174,214); }
-.q5-9 { fill:rgb(66,146,198); }
-.q6-9 { fill:rgb(33,113,181); }
-.q7-9 { fill:rgb(8,81,156); }
-.q8-9 { fill:rgb(8,48,107); }
+#treemap {
+  margin-left: 10%;
+}
+
 .onoffswitch {
     position: relative; width: 108px;
-    margin-left:35%;
+    margin-left:45%;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
 }
 .onoffswitch-checkbox {
@@ -76,6 +93,8 @@
 
 </style>
 <body>
+
+<svg id="map">
 <div class="onoffswitch">
     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
     <label class="onoffswitch-label" for="myonoffswitch">
@@ -83,6 +102,10 @@
         <span class="onoffswitch-switch"></span>
     </label>
 </div>
+<div id="year_slider"></div>
+
+<div id="treemap"></div>
+
 <link rel="stylesheet" type="text/css" href="css/d3.slider.css">
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/queue.v1.min.js"></script>
@@ -90,8 +113,9 @@
 <script type="text/javascript" src="js/d3.slider.js"></script>
 <script>
 
-var width = 900,
-    height = 450;
+
+var width = 800,
+    height = 375;
 
 var sliderWidth = 800; 
 var sliderHeight = 80;
@@ -101,23 +125,45 @@ var countByCountry = d3.map();
 var otherIdsByCountry = d3.map();
 
 var projection = d3.geo.equirectangular()
-    .scale(150)
-    .translate([width / 2 - 15, height / 2 + 60]);
+    .scale(130)
+    .translate([width / 2 - 15, height / 2]);
 
 var path = d3.geo.path()
     .projection(projection);
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#map")
     .attr("width", width)
     .attr("height", height)
-    .attr("class", "map");
 
-var slidersvg = d3.select("body").append("div")
-    .attr("id", "year_slider")
+var slidersvg = d3.select("#year_slider")
     .style("margin-left", "30px");
+
+//treemap stuff 
+var margin = {top: 40, right: 10, bottom: 10, left: 10},
+tree_width = 800 - margin.left - margin.right,
+tree_height = 400 - margin.top - margin.bottom;
+
+var tree_color = d3.scale.category20c();
+
+var treemap = d3.layout.treemap()
+    .size([tree_width, tree_height])
+    .sticky(false)
+    .value(function(d) { return d.size; });
+
+var div = d3.select("#treemap")
+    .style("position", "relative")
+    .style("width", (tree_width + margin.left + margin.right) + "px")
+    .style("height", (tree_height + margin.top + margin.bottom) + "px")
+    .style("left", margin.left + "px")
+    .style("top", margin.top + "px");
+
+var currentDirection = "origin";
+var currentCountry = 818; 
+var currentYear = "2008";
 
 d3.json("data/choroplethAggregation2.json", function(countError, countData){
   d3.json("data/world-countries.json", function(countryData){
+    d3.json("data/treemapAgg.json", function(error, root) {
 var highlightOn = false; 
 
     function redrawChoro(quant){
@@ -201,10 +247,53 @@ var highlightOn = false;
 
     resetCounts(2010, "origin");
 
+
+/// treemap
+    var currentCountry = 818; 
+    var currentYear = "2008"; 
+    direction_root = root[currentDirection];
+    data = direction_root.filter(function(d){ return d.country == currentCountry && d.year == currentYear;})[0]; 
+
+    var node = div.datum(data).selectAll(".node")
+    .data(treemap.nodes)
+    .enter().append("div")
+    .attr("class", "node")
+    .call(position)
+    .style("background", function(d) { return d.children ? tree_color(d.name) : null; })
+    .text(function(d) { return d.children ? null : d.name; });
+
+
+d3.selectAll("input").on("change", function change() {
+  currentDirection = this.value; 
+  redrawTreemap();
+  });
+
+
+function redrawTreemap(){
+  newData = root[currentDirection].filter(function(d){ return d.country == currentCountry && d.year == currentYear})[0];
+    console.log(newData);
+
+    var node = div.datum(newData)
+        .selectAll(".node")
+        .data(treemap.nodes); 
+    node.enter().append("div")
+      .attr("class", "node"); 
+
+      node.transition()
+        .duration(400)
+        .call(position)
+        .style("background", function(d) { return d.children ? tree_color(d.name) : null; })
+        .text(function(d) { return d.children ? null : d.name; });
+};
+
+
     yearScale = d3.slider().scale(d3.scale.ordinal()
       .domain(years).rangePoints([0, 1]), 0.5)
       .axis(d3.svg.axis()).snap(true).value(2010).on("slide", function(evt, value){
-        resetCounts(value, "origin");
+        resetCounts(value, currentDirection);
+        currentYear = String(value);
+        redrawTreemap();
+
         // rerender(value);
       });
 
@@ -212,11 +301,19 @@ var highlightOn = false;
 
     
 
-
   });
   });
+  });
 
 
+
+
+function position() {
+  this.style("left", function(d) { return d.x + "px"; })
+      .style("top", function(d) { return d.y + "px"; })
+      .style("width", function(d) { return Math.max(0, d.dx - 1) + "px"; })
+      .style("height", function(d) { return Math.max(0, d.dy - 1) + "px"; });
+}
 
 
 
