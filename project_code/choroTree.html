@@ -66,12 +66,12 @@ form {
 .onoffswitch-inner:before {
     content: "Origin";
     padding-left: 10px;
-    background-color: #5034C1; color: #FFFFFF;
+    background-color: #d8b365; color: #FFFFFF;
 }
 .onoffswitch-inner:after {
     content: "Destination";
     padding-right: 10px;
-    background-color: #F7B551; color: #FFFFFF;
+    background-color: #5ab4ac; color: #FFFFFF;
     text-align: right;
 }
 .onoffswitch-switch {
@@ -102,6 +102,9 @@ form {
         <span class="onoffswitch-switch"></span>
     </label>
 </div>
+<!--   <label><input type="radio" name="mode" value="origin" checked> Origin</label>
+  <label><input type="radio" name="mode" value="destination"> Destination</label>
+ -->
 <div id="year_slider"></div>
 
 <div id="treemap"></div>
@@ -158,8 +161,8 @@ var div = d3.select("#treemap")
     .style("top", margin.top + "px");
 
 var currentDirection = "origin";
-var currentCountry = 818; 
-var currentYear = "2008";
+var currentCountry = 840; 
+var currentYear = "2010";
 
 d3.json("data/choroplethAggregation2.json", function(countError, countData){
   d3.json("data/world-countries.json", function(countryData){
@@ -178,20 +181,25 @@ var highlightOn = false;
             .on('click', function(thisD){
               console.log(thisD);
               if (highlightOn){
+                highlightOn = false;
                 d3.selectAll(".countriesAgain")
                     .transition()
                     .duration(150)
                     .style("opacity", 1)
                     .attr("fill", function(d) { return quant(countByCountry.get(d.id)); });
-                highlightOn = false; 
-
-
+                currentCountry = 840; 
+                redrawTreemap();
+                
               } else {
+                highlightOn = true; 
                   d3.selectAll(".countriesAgain")
                     .filter(function(d) {return d.id != thisD.id;})
                     .transition()
                     .duration(150)
-                    .style("opacity", 0.2);
+                    .style("opacity", 0.15);
+
+                    currentCountry = thisD.id; 
+                    redrawTreemap();
 
                   // if (thisD.topOthers.length > 0){
                   //   d3.selectAll(".countriesAgain")
@@ -212,7 +220,7 @@ var highlightOn = false;
                   //     })
                   // };
 
-                  highlightOn = true; 
+                  
               }
 
               
@@ -228,14 +236,16 @@ var highlightOn = false;
       d3.select(self.frameElement).style("height", height + "px");
     };
 
-    function resetCounts(year, direction){
+    function resetCounts(){
+      year = currentYear; 
+      direction = currentDirection;
       directionData = countData[direction];
       yearData = directionData.filter(function(d){ return d.yr == year});
       dataRange = d3.extent(yearData, function(d){return +d.count});
-      console.log(dataRange);
       var quantize = d3.scale.log()
         .domain(dataRange)
-        .range(["#efedf5","#3f007d"]);
+        .range(["#ffffb2", "#bd0026"])
+        // .range(["#efedf5","#3f007d"]);
 
       yearData.forEach(function(d){
         countByCountry.set(d.countryCode, +d.count);
@@ -249,8 +259,8 @@ var highlightOn = false;
 
 
 /// treemap
-    var currentCountry = 818; 
-    var currentYear = "2008"; 
+    // var currentCountry = 840; 
+    // var currentYear = "2008"; 
     direction_root = root[currentDirection];
     data = direction_root.filter(function(d){ return d.country == currentCountry && d.year == currentYear;})[0]; 
 
@@ -263,15 +273,20 @@ var highlightOn = false;
     .text(function(d) { return d.children ? null : d.name; });
 
 
-d3.selectAll("input").on("change", function change() {
-  currentDirection = this.value; 
+d3.selectAll("#myonoffswitch").on("change", function change() {
+  if(currentDirection == "origin"){
+    currentDirection = "destination";
+  } else {
+    currentDirection = "origin"
+  };
+  // currentDirection = this.value; 
   redrawTreemap();
+  resetCounts();
   });
 
 
 function redrawTreemap(){
-  newData = root[currentDirection].filter(function(d){ return d.country == currentCountry && d.year == currentYear})[0];
-    console.log(newData);
+  newData = root[currentDirection].filter(function(d){ return d.country == currentCountry && d.year == String(currentYear)})[0];
 
     var node = div.datum(newData)
         .selectAll(".node")
@@ -290,13 +305,13 @@ function redrawTreemap(){
     yearScale = d3.slider().scale(d3.scale.ordinal()
       .domain(years).rangePoints([0, 1]), 0.5)
       .axis(d3.svg.axis()).snap(true).value(2010).on("slide", function(evt, value){
-        resetCounts(value, currentDirection);
-        currentYear = String(value);
+        currentYear = value;
+        resetCounts();
         redrawTreemap();
 
         // rerender(value);
       });
-
+    resetCounts()
     d3.select('#year_slider').call(yearScale);
 
     
