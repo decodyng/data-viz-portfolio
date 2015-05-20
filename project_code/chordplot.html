@@ -71,6 +71,7 @@
   </section><!-- end main -->
   
   <script>
+  //http://bl.ocks.org/carsonfarmer/11478345
     var w = 550,
     h = 550,
     r1 = Math.min(w, h) / 2 - 4,
@@ -109,7 +110,7 @@ var svg = d3.select("#chords")
     .attr("height", h + 10)
   .append("g")
     .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
-
+var last_chord = {};
 function value() {
     return +this.count;
   }
@@ -121,7 +122,7 @@ d3.csv("data/chordAggregations.csv", function(data) {
  
 
   function drawChordplot(yr){
-          var regions = ["Africa", "Latin America", "North America", "NW Asia", "NW Europe", "SE Asia & Pacific", "SE Europe"];
+        var regions = ["Africa", "Latin America", "North America", "NW Asia", "NW Europe", "SE Asia & Pacific", "SE Europe"];
         n = regions.length;
 
 
@@ -146,7 +147,7 @@ d3.csv("data/chordAggregations.csv", function(data) {
           cables[regions.indexOf(d.originAggRegion)][regions.indexOf(d.destinationAggRegion)] = d;
         });
 
-      
+      var yearCount = d3.sum(yearData, function(d){return d.count});
         
 
 
@@ -197,17 +198,99 @@ d3.csv("data/chordAggregations.csv", function(data) {
       g.append("svg:text")
           .attr("x", 6)
           .attr("dy", 15)
-          .filter(function(d) { return d.value > 110; })
+          .filter(function(d) { return d.value/yearCount > .04; })
         .append("svg:textPath")
           .attr("xlink:href", function(d) { return "#group_" + regions[d.index]; })
-          .text(function(d) { return regions[d.index]; })
-          .style("font-size", "14");
+          .text(function(d) { console.log(regions[d.index]); return regions[d.index]; })
+          .style("font-size", "12");
          
 
       // svg.selectAll("path.chord").transition().duration(10).style("opacity", "1");
       // svg.selectAll("g.group").transition().duration(10).style("opacity", "1");
   };
 
+  // function rerender(yr) {
+  //   var regions = ["Africa", "Latin America", "North America", "NW Asia", "NW Europe", "SE Asia & Pacific", "SE Europe"];
+  //       n = regions.length;
+
+
+
+  //       for (var i = 0; i < n; i++) {
+  //         cables[i] = [];
+  //         for (var j = 0; j < n; j++) {
+  //           cables[i][j] = 0;
+  //         }
+  //       };
+  //       yearData = data.filter(function(d){ return d.year == yr});
+
+
+  //        yearData.forEach(function(d) {
+  //         console.log(d)
+  //         d.count = +d.count;
+  //         d.year = +d.year;
+  //         d.valueOf = value; 
+  //         console.log(regions.indexOf(d.originAggRegion));
+  //         console.log(regions);
+  //         console.log(d.originAggRegion);
+  //         cables[regions.indexOf(d.originAggRegion)][regions.indexOf(d.destinationAggRegion)] = d;
+  //       });
+  //        layout.matrix(cables);
+
+  //        svg.selectAll("g.group")
+  //            .data(layout.groups)
+  //            .transition()
+  //            .duration(1500)
+  //            .attrTween("d", arcTween(last_chord))
+  //            .select("title")
+  //           .text(function(d) { return regions[d.index]+ " sent "  + format(Math.round(d.value)) + " cables total"; });
+
+  //       svg.select(".chord")
+  //    .selectAll("path")
+  //    .data(layout.chords)
+  //    .transition()
+  //    .duration(1500)
+  //    .attrTween("d", chordTween(last_chord))
+  //    .select("title").text(function(d) {
+  //       return neighs[d.source.index].name
+  //         + " → " + neighs[d.target.index].name
+  //         + ": " + formatPercent(d.source.value)
+  //         + "\n" + neighs[d.target.index].name
+  //         + " → " + neighs[d.source.index].name
+  //         + ": " + formatPercent(d.target.value);
+  //       });
+
+  //     last_chord = chord;
+  //   }
+
+    // var arc =  d3.svg.arc()
+    //       .startAngle(function(d) { return d.startAngle })
+    //       .endAngle(function(d) { return d.endAngle })
+    //       .innerRadius(r0)
+    //       .outerRadius(r1);
+
+    // var chordl = d3.svg.chord().radius(r0);
+
+    // function arcTween(chord) {
+    //   return function(d,i) {
+    //     var i = d3.interpolate(layout.groups()[i], d);
+
+    //     return function(t) {
+    //       return arc(i(t));
+    //     }
+    //   }
+    // }
+
+    // function chordTween(chord) {
+    //   return function(d,i) {
+    //     var i = d3.interpolate(layout.chords()[i], d);
+
+    //     return function(t) {
+    //       return chordl(i(t));
+    //     }
+    //   }
+    // }
+
+  
 
 
     drawChordplot(2010);
@@ -218,6 +301,7 @@ d3.csv("data/chordAggregations.csv", function(data) {
       .domain(years).rangePoints([0, 1], 0.5))
       .axis(d3.svg.axis()).snap(true).value(2010).on("slide", function(evt, value){
         drawChordplot(value)
+        // rerender(value);
       });
 
     d3.select('#year_slider').call(yearScale);
