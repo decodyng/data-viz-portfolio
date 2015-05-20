@@ -71,7 +71,7 @@ form {
 .onoffswitch-inner:after {
     content: "Destination";
     padding-right: 10px;
-    background-color: #5ab4ac; color: #FFFFFF;
+    background-color: #bae4bc; color: #FFFFFF;
     text-align: right;
 }
 .onoffswitch-switch {
@@ -147,6 +147,7 @@ tree_width = 800 - margin.left - margin.right,
 tree_height = 400 - margin.top - margin.bottom;
 
 var tree_color = d3.scale.category20();
+
 
 var treemap = d3.layout.treemap()
     .size([tree_width, tree_height])
@@ -242,9 +243,16 @@ var highlightOn = false;
       directionData = countData[direction];
       yearData = directionData.filter(function(d){ return d.yr == year});
       dataRange = d3.extent(yearData, function(d){return +d.count});
-      var quantize = d3.scale.log()
+      if (currentDirection == "origin"){
+        var quantize = d3.scale.log()
         .domain(dataRange)
         .range(["#ffffb2", "#bd0026"])
+      } else {
+        var quantize = d3.scale.log()
+        .domain(dataRange)
+        .range(["#bae4bc", "#0868ac"])
+      }
+      
         // .range(["#efedf5","#3f007d"]);
 
       yearData.forEach(function(d){
@@ -296,6 +304,7 @@ d3.selectAll("#myonoffswitch").on("change", function change() {
 
 
 function redrawTreemap(){
+
   newData = root[currentDirection].filter(function(d){ return d.country == currentCountry && d.year == String(currentYear)})[0];
 
     var node = div.datum(newData)
