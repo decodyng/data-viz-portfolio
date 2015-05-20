@@ -146,7 +146,7 @@ var margin = {top: 40, right: 10, bottom: 10, left: 10},
 tree_width = 800 - margin.left - margin.right,
 tree_height = 400 - margin.top - margin.bottom;
 
-var tree_color = d3.scale.category20c();
+var tree_color = d3.scale.category20();
 
 var treemap = d3.layout.treemap()
     .size([tree_width, tree_height])
@@ -196,7 +196,7 @@ var highlightOn = false;
                     .filter(function(d) {return d.id != thisD.id;})
                     .transition()
                     .duration(150)
-                    .style("opacity", 0.15);
+                    .style("opacity", 0.08);
 
                     currentCountry = thisD.id; 
                     redrawTreemap();
@@ -270,7 +270,17 @@ var highlightOn = false;
     .attr("class", "node")
     .call(position)
     .style("background", function(d) { return d.children ? tree_color(d.name) : null; })
-    .text(function(d) { return d.children ? null : d.name; });
+    .text(function(d) { 
+      if (d.dx < 50 && d.dy < 50){
+        console.log(d.dx);
+        console.log(d.dy);
+        return null
+      }
+      else{
+        return d.children ? null : d.name; 
+      }
+      
+    });
 
 
 d3.selectAll("#myonoffswitch").on("change", function change() {
@@ -298,7 +308,16 @@ function redrawTreemap(){
         .duration(400)
         .call(position)
         .style("background", function(d) { return d.children ? tree_color(d.name) : null; })
-        .text(function(d) { return d.children ? null : d.name; });
+        .text(function(d) { 
+          if (d.dx < 50 && d.dy < 50){
+        console.log(d.dx);
+        console.log(d.dy);
+        return null
+      }
+      else{
+        return d.children ? null : d.name; 
+      }
+        });
 };
 
 
