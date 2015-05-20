@@ -166,7 +166,7 @@ var currentYear = "2010";
 
 d3.json("data/choroplethAggregation2.json", function(countError, countData){
   d3.json("data/world-countries.json", function(countryData){
-    d3.json("data/treemapAgg.json", function(error, root) {
+    d3.json("data/treemapAggTruncate.json", function(error, root) {
 var highlightOn = false; 
 
     function redrawChoro(quant){
