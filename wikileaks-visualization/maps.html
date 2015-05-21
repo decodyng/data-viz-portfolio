@@ -257,7 +257,7 @@ var div = d3.select("#treemap")
 
 var currentDirection = "origin";
 var currentCountry = 840; 
-var currentYear = "2004";
+var currentYear = "2010";
 
 d3.json("data/choroplethAggregation2.json", function(countError, countData){
   d3.json("data/world-countries.json", function(countryData){
@@ -336,7 +336,7 @@ var highlightOn = false;
     var years = [];
     for (var i = 2000; i != 2011; ++i) years.push(i)
 
-    resetCounts(2004, "origin");
+    resetCounts(2010, "origin");
     d3.select(".onoffswitch").transition().duration(50).style("opacity", 1);
 
 
@@ -450,7 +450,7 @@ function redrawTreemap(){
 
     yearScale = d3.slider().scale(d3.scale.ordinal()
       .domain(years).rangePoints([0, 1]), 0.5)
-      .axis(d3.svg.axis()).snap(true).value(2004).on("slide", function(evt, value){
+      .axis(d3.svg.axis()).snap(true).value(2010).on("slide", function(evt, value){
         currentYear = value;
         resetCounts();
         redrawTreemap();
