@@ -38,10 +38,13 @@ form {
   margin-left:10%;
 }
 #treemap {
-  margin-left: 10%;
+  margin-left: 8%;
+  top: 15px;
 }
 
+
 .onoffswitch {
+    opacity: 0;
     position: relative; width: 108px;
     margin-left:45%;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
@@ -89,11 +92,20 @@ form {
     right: 0px; 
 }
 
+#wait-message {
+  margin-left:60%;
+  text-align:center;
+  font-family: Georgia, serif
+
+}
 
 
 </style>
 <body>
-
+<div class="wait-message">
+<h2>Sorry for working your browser so hard!</h2>
+<h3>This page will be finished loading in just a few seconds</h3>
+</div>
 <svg id="map">
 <div class="onoffswitch">
     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
@@ -106,8 +118,9 @@ form {
   <label><input type="radio" name="mode" value="destination"> Destination</label>
  -->
 <div id="year_slider"></div>
-
+<div id="treemap-legend"></div>
 <div id="treemap"></div>
+
 
 <link rel="stylesheet" type="text/css" href="css/d3.slider.css">
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -115,7 +128,6 @@ form {
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script type="text/javascript" src="js/d3.slider.js"></script>
 <script>
-
 
 var width = 800,
     height = 375;
@@ -142,11 +154,11 @@ var slidersvg = d3.select("#year_slider")
     .style("margin-left", "30px");
 
 //treemap stuff 
-var margin = {top: 40, right: 10, bottom: 10, left: 10},
+var margin = {top: 5, right: 10, bottom: 10, left: 10},
 tree_width = 800 - margin.left - margin.right,
 tree_height = 400 - margin.top - margin.bottom;
 
-var tree_color = d3.scale.category20();
+var tree_color = d3.scale.category10();
 
 
 var treemap = d3.layout.treemap()
@@ -168,8 +180,11 @@ var currentYear = "2010";
 d3.json("data/choroplethAggregation2.json", function(countError, countData){
   d3.json("data/world-countries.json", function(countryData){
     d3.json("data/treemapAggTruncate.json", function(error, root) {
-var highlightOn = false; 
 
+      d3.selectAll(".wait-message").remove()
+
+var highlightOn = false; 
+    
     function redrawChoro(quant){
         svg.append("g")
             .attr("class", "countries")
@@ -264,6 +279,7 @@ var highlightOn = false;
     for (var i = 2000; i != 2011; ++i) years.push(i)
 
     resetCounts(2010, "origin");
+    d3.select(".onoffswitch").transition().duration(50).style("opacity", 1);
 
 
 /// treemap
@@ -302,6 +318,47 @@ d3.selectAll("#myonoffswitch").on("change", function change() {
   resetCounts();
   });
 
+toplevels = ["Government","Sociology", "Geography", "Economics",  "Military"];
+
+var legend = d3.select("#treemap-legend")
+              .style("margin-left", "15%")
+              .style("padding-top", "3%")
+              .style("margin-bottom", 0)
+              .append("svg")
+              .attr("width", 700)
+              .attr("height", 40);
+
+
+yscale = d3.scale.linear().domain([0, 5]).range([0, 700])
+
+// legend.selectAll("circle")
+//       .data(toplevels)
+//       .enter()
+//       .append("circle")
+//       .attr("r", 25)
+//       .attr("cx", function(d, i){return yscale(i)})
+//       .attr("cy", 25)
+//       .attr("fill", function(d){ return tree_color(d)})
+//         .append("text")
+//         .text(function(d){return d});
+
+console.log(tree_color.domain())
+legend.selectAll("text")
+      .data(toplevels)
+      .enter()
+      .append("text")
+      .attr("x", function(d, i){return yscale(i)})
+      .attr("y", 20)
+      .attr("fill", function(d){ return tree_color(d)})
+      .style("font-size", 20)
+      .style("font-family", "Georgia, serif")
+      .text(function(d){return d});
+      // 
+        // .append("text")
+        
+
+
+
 
 function redrawTreemap(){
 
@@ -312,6 +369,8 @@ function redrawTreemap(){
         .data(treemap.nodes); 
     node.enter().append("div")
       .attr("class", "node"); 
+
+
 
       node.transition()
         .duration(400)
@@ -327,6 +386,8 @@ function redrawTreemap(){
         return d.children ? null : d.name; 
       }
         });
+
+      node.exit().remove();
 };
 
 
