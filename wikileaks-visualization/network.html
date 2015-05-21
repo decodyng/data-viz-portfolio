@@ -1,0 +1,298 @@
+<!DOCTYPE HTML>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Prologue by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/css/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/d3.slider.css">
+		<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollzer.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script type="text/javascript" src="assets/js/d3.js"></script>
+			<script type="text/javascript" src="assets/js/d3.slider.js"></script>
+
+			<style>
+    
+    .group text {
+      font: 11px sans-serif;
+      pointer-events: none;
+    }
+
+    .group path {
+      stroke: #000;
+    }
+
+    path.chord {
+      stroke-width: .75;
+      fill-opacity: .75;
+    }
+
+
+    </style>
+	</head>
+	<body>
+
+		<!-- Header -->
+			<div id="header">
+
+				<div class="top">
+
+					<!-- Logo -->
+						<div id="logo">
+							<span class="image avatar48"><img src="images/cody_pic.jpg" alt="" /></span>
+							<h1 id="title">Visualizing State Department Cables</h1>
+							<p>Cody Wild</p>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+						
+							<ul>
+								<li><a href="index.html" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Intro</span></a></li>
+								<li><a href="network.html" id="portfolio-link" class="skel-layers-ignoreHref active"><span class="icon fa-arrows-h">Networks: Seen Across Time</span></a></li>
+								<li><a href="classification.html" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-ban">Classified or Not?</span></a></li>
+								<li><a href="maps.html" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-map-marker">Maps: Geographic & Topical</span></a></li>
+								<li><a href="writeup.html" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-pencil">Reflection</span></a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+				<div class="bottom">
+
+					<!-- Social Icons -->
+						<ul class="icons">
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+							<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+
+				</div>
+
+			</div>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Intro -->
+					<section id="top">
+						<div class="container">
+<h1 style="font-size: 28px" class="title">Chordplot Showing Transfer of Cables</h1>
+<h4 style="font-size: 16px">Chords are colored by their region of origin and connect to the region to which they were sent. Move the slider to shift in time. Hover for details. </h4>
+      <div id="prototype">
+        <svg id="chords">
+        <div id="year_slider">
+          
+        </div>
+						</div>
+					</section>
+
+
+		<script>
+  //http://bl.ocks.org/carsonfarmer/11478345
+    var w = 550,
+    h = 550,
+    r1 = Math.min(w, h) / 2 - 4,
+    r0 = r1 - 20,
+    format = d3.format(",.3r");
+
+
+// Square matrices, asynchronously loaded; credits is the transpose of debits.
+var cables = [];
+
+
+// The chord layout, for computing the angles of chords and groups.
+var layout = d3.layout.chord()
+    .sortGroups(d3.descending)
+    .sortSubgroups(d3.descending)
+    .sortChords(d3.descending)
+    .padding(.04);
+var regions = ["Africa", "Latin America", "North America", "NW Asia", "NW Europe", "SE Asia & Pacific", "SE Europe"];
+// The color scale, for different categories of "worrisome" risk.
+var color = d3.scale.ordinal()
+    .domain(regions)
+    .range(['rgb(27,158,119)','rgb(217,95,2)','rgb(117,112,179)','rgb(231,41,138)','rgb(102,166,30)','rgb(230,171,2)','rgb(166,118,29)']);
+
+// The arc generator, for the groups.
+var arc = d3.svg.arc()
+    .innerRadius(r0)
+    .outerRadius(r1);
+
+var chord = d3.svg.chord()
+    .radius(r0);
+
+var svg = d3.select("#chords")
+    .attr("width", w)
+    .attr("height", h + 10)
+  .append("g")
+    .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+var last_chord = {};
+function value() {
+    return +this.count;
+  }
+
+
+// Load our data file…
+d3.csv("data/chordAggregations.csv", function(data) {
+  
+ 
+
+  function drawChordplot(yr){
+        var regions = ["Africa", "Latin America", "North America", "NW Asia", "NW Europe", "SE Asia & Pacific", "SE Europe"];
+        n = regions.length;
+
+
+
+        for (var i = 0; i < n; i++) {
+          cables[i] = [];
+          for (var j = 0; j < n; j++) {
+            cables[i][j] = 0;
+          }
+        };
+        yearData = data.filter(function(d){ return d.year == yr});
+
+
+         yearData.forEach(function(d) {
+          console.log(d)
+          d.count = +d.count;
+          d.year = +d.year;
+          d.valueOf = value; 
+          console.log(regions.indexOf(d.originAggRegion));
+          console.log(regions);
+          console.log(d.originAggRegion);
+          cables[regions.indexOf(d.originAggRegion)][regions.indexOf(d.destinationAggRegion)] = d;
+        });
+
+      var yearCount = d3.sum(yearData, function(d){return d.count});
+        
+
+
+      // Compute the chord layout.
+      layout.matrix(cables);
+      console.log(cables);
+      console.log(layout.groups());
+      // Add chords.
+      // svg.selectAll("path.chord").transition().duration(350).style("opacity", "0");
+      svg.selectAll("path.chord").remove();
+
+      // svg.selectAll("g.group").transition().duration(350).style("opacity", "0");
+      svg.selectAll("g.group").remove();
+
+
+      svg.selectAll("path.chord")
+          .data(layout.chords)
+        .enter().append("svg:path")
+          .attr("class", "chord")
+          .style("fill", function(d) { return color(d.source.value.originAggRegion); })
+          .style("stroke", function(d) { return d3.rgb(color(d.source.value.originAggRegion)).darker(); })
+          .style("opacity", 1)
+          .on("mouseover", function(d, i){mouseoverChord(d, i)})
+          .on("mouseout", function(d){mouseout()})
+          .attr("d", chord)
+        .append("svg:title")
+          .text(function(d) { return d.source.value.originAggRegion + " sent " + d.source.value.count + " cables to " + d.source.value.destinationAggRegion; });
+
+      // Add groups.
+      var g = svg.selectAll("g.group")
+          .data(layout.groups)
+        .enter().append("svg:g")
+          .attr("class", "group");
+
+      // Add the group arc.
+      g.append("svg:path")
+          .style("fill", function(d) { return color(regions[d.index]); })
+          .style("opacity", 1)
+          .attr("id", function(d, i) { return "group_" + regions[d.index]; })
+          .on("mouseover", function(d, i){mouseover(d, i)})
+          .on("mouseout", function(d){mouseout()})
+          .attr("d", arc)
+        .append("svg:title")
+          .text(function(d) { return regions[d.index]+ " sent "  + format(Math.round(d.value)) + " cables total"; });
+
+      // Add the group label (but only for large groups, where it will fit).
+      // An alternative labeling mechanism would be nice for the small groups.
+      g.append("svg:text")
+          .attr("x", 6)
+          .attr("dy", 15)
+          .filter(function(d) { return d.value/yearCount > .04; })
+        .append("svg:textPath")
+          .attr("xlink:href", function(d) { return "#group_" + regions[d.index]; })
+          .text(function(d) { console.log(regions[d.index]); return regions[d.index]; })
+          .style("font-size", "12");
+         
+
+  };
+
+
+
+  
+
+
+    drawChordplot(2010);
+    var years = [];
+    for (var i = 1985; i != 2011; ++i) years.push(i)
+
+    yearScale = d3.slider().scale(d3.scale.ordinal()
+      .domain(years).rangePoints([0, 1], 0.5))
+      .axis(d3.svg.axis()).snap(true).value(2010).on("slide", function(evt, value){
+        drawChordplot(value)
+        // rerender(value);
+      });
+
+    d3.select('#year_slider').call(yearScale);
+
+    });
+function mouseover(d, i){
+  d3.selectAll("path.chord")
+  .filter(function(otherD){
+    return otherD.source.index != i && otherD.target.index != i; 
+  })
+  .transition()
+  .duration(200).style("opacity", "0.25")
+
+  d3.selectAll("g.group")
+  .filter(function(otherD){
+    return otherD.index != i;
+  })
+  .transition()
+  .duration(200).style("opacity", "0.25")
+}
+
+function mouseoverChord(d, i){
+  d3.selectAll("path.chord")
+  .filter(function(otherD){
+    return otherD.source.index != d.source.index && otherD.target.index != d.source.index; 
+  })
+  .transition()
+  .duration(200).style("opacity", "0.25")
+
+  d3.selectAll("g.group")
+  .filter(function(otherD){
+    return otherD.index != d.source.index;
+  })
+  .transition()
+  .duration(200).style("opacity", "0.25")
+}
+
+
+function mouseout(){
+  d3.selectAll("path.chord").transition().duration(200).style("opacity", "1");
+  d3.selectAll("g.group").transition().duration(200).style("opacity", "1");
+}
+
+
+  </script>
+
+
+	</body>
+</html>

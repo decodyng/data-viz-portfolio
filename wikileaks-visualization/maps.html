@@ -1,0 +1,484 @@
+<!DOCTYPE HTML>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Prologue by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/css/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/d3.slider.css">
+		<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollzer.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script type="text/javascript" src="assets/js/d3.js"></script>
+			<script type="text/javascript" src="assets/js/d3.slider.js"></script>
+			<style>
+#main {
+				margin-left: 0%;
+				width:1200px;
+			}
+
+body {
+  margin: auto;
+  position: relative;
+  width: 960px;
+}
+
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.node {
+  border: solid 1px black;
+  font: 12px sans-serif;
+  line-height: 16px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 2px;
+}
+
+.countries {
+  fill: gray;
+}
+
+.states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+
+#map {
+  margin-left:0%;
+}
+#treemap {
+  top: 15px;
+  margin-left:11%;
+}
+
+
+.onoffswitch {
+    opacity: 0;
+    position: relative; width: 108px;
+    margin-left:44%;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 27px; padding: 0; line-height: 27px;
+    font-size: 12px; color: white; font-weight: bold;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "Origin";
+    padding-left: 10px;
+    background-color: #d8b365; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "Destination";
+    padding-right: 10px;
+    background-color: #bae4bc; color: #FFFFFF;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 17px; margin: 5px;
+    background: #FFFFFF;
+    border: 2px solid #999999; border-radius: 20px;
+    position: absolute; top: 0; bottom: 0; right: 77px;
+    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+
+#wait-message {
+  margin-left:-20%;
+  text-align:center;
+
+}
+.appear {
+	opacity: 0;
+}
+
+
+
+</style>
+	</head>
+	<body>
+
+		<!-- Header -->
+			<div id="header">
+
+				<div class="top">
+
+					<!-- Logo -->
+						<div id="logo">
+							<span class="image avatar48"><img src="images/cody_pic.jpg" alt="" /></span>
+							<h1 id="title">Visualizing State Department Cables</h1>
+							<p>Cody Wild</p>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<!--
+
+								Prologue's nav expects links in one of two formats:
+
+								1. Hash link (scrolls to a different section within the page)
+
+								   <li><a href="#foobar" id="foobar-link" class="icon fa-whatever-icon-you-want skel-layers-ignoreHref"><span class="label">Foobar</span></a></li>
+
+								2. Standard link (sends the user to another page/site)
+
+								   <li><a href="http://foobar.tld" id="foobar-link" class="icon fa-whatever-icon-you-want"><span class="label">Foobar</span></a></li>
+
+							-->
+							<ul>
+								<li><a href="index.html" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Intro</span></a></li>
+								<li><a href="network.html" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-arrows-h">Networks: Seen Across Time</span></a></li>
+								<li><a href="classification.html" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-ban">Classified or Not?</span></a></li>
+								<li><a href="maps.html" id="contact-link" class="skel-layers-ignoreHref active"><span class="icon fa-map-marker">Maps: Geographic & Topical</span></a></li>
+								<li><a href="writeup.html" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-pencil">Reflection</span></a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+				<div class="bottom">
+
+					<!-- Social Icons -->
+						<ul class="icons">
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+							<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+
+				</div>
+
+			</div>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Intro -->
+					<section id="top">
+						<div class="container">
+
+							<div class="wait-message">
+							<h2>Sorry for working your browser so hard!</h2>
+							<h3>This page will be finished loading in just a few seconds</h3>
+							</div>
+							<h1 style="font-size: 28px" class="title appear">Geographic Cable Density and Topical Breakdown</h1>
+							<h4 style="font-size: 16px" class="appear">Choropleth shows density of cables originating in or targeting a given country. 
+							Click country to switch from US topic treemaps to another country's</h4>
+							<svg id="map">
+							<div class="onoffswitch">
+							    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+							    <label class="onoffswitch-label" for="myonoffswitch">
+							        <span class="onoffswitch-inner"></span>
+							        <span class="onoffswitch-switch"></span>
+							    </label>
+							</div>
+							<div style="width:950px"><div id="year_slider"></div></div>
+							<div id="treemap-legend"></div>
+							<div id="treemap"></div>
+
+						</div>
+					</section>
+<script>
+var margin = {top: 5, right: 15, bottom: 10, left: 15},
+ 	width = 900 - margin.left - margin.right,
+    height = 425;
+
+var sliderWidth = 900; 
+var sliderHeight = 80;
+
+var countByCountry = d3.map();
+
+var otherIdsByCountry = d3.map();
+
+var projection = d3.geo.equirectangular()
+    .scale(130)
+    .translate([width / 2 - 15, height / 2]);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("#map")
+    .attr("width", width)
+    .attr("height", height)
+
+var slidersvg = d3.select("#year_slider")
+    .style("margin-left", "20%");
+
+//treemap stuff 
+
+tree_width = 900 - margin.left - margin.right,
+tree_height = 450 - margin.top - margin.bottom;
+
+var tree_color = d3.scale.category10();
+
+
+var treemap = d3.layout.treemap()
+    .size([tree_width, tree_height])
+    .sticky(false)
+    .value(function(d) { return d.size; });
+
+var div = d3.select("#treemap")
+    .style("position", "relative")
+    .style("width", (tree_width + margin.left + margin.right) + "px")
+    .style("height", (tree_height + margin.top + margin.bottom) + "px")
+    .style("left", margin.left + "px")
+    .style("top", margin.top + "px");
+
+var currentDirection = "origin";
+var currentCountry = 840; 
+var currentYear = "2010";
+
+d3.json("data/choroplethAggregation2.json", function(countError, countData){
+  d3.json("data/world-countries.json", function(countryData){
+    d3.json("data/treemapAggTruncate.json", function(error, root) {
+
+      d3.selectAll(".wait-message").remove(); 
+      d3.selectAll(".appear").transition().duration(100).style("opacity", 1);
+
+var highlightOn = false; 
+    
+    function redrawChoro(quant){
+        svg.append("g")
+            .attr("class", "countries")
+          .selectAll("path")
+            .data(countryData.features)
+          .enter().append("path")
+            .attr("class", "countriesAgain")
+            .attr("fill", function(d) { return quant(countByCountry.get(d.id)); })
+            .attr("d", path)
+            .on('click', function(thisD){
+              console.log(thisD);
+              if (highlightOn){
+                highlightOn = false;
+                d3.selectAll(".countriesAgain")
+                    .transition()
+                    .duration(150)
+                    .style("opacity", 1)
+                    .attr("fill", function(d) { return quant(countByCountry.get(d.id)); });
+                currentCountry = 840; 
+                redrawTreemap();
+                
+              } else {
+                highlightOn = true; 
+                  d3.selectAll(".countriesAgain")
+                    .filter(function(d) {return d.id != thisD.id;})
+                    .transition()
+                    .duration(150)
+                    .style("opacity", 0.08);
+
+                    currentCountry = thisD.id; 
+                    redrawTreemap();
+
+                  
+              }
+
+              
+
+            });
+
+      d3.select(self.frameElement).style("height", height + "px");
+    };
+
+    function resetCounts(){
+      year = currentYear; 
+      direction = currentDirection;
+      directionData = countData[direction];
+      yearData = directionData.filter(function(d){ return d.yr == year});
+      dataRange = d3.extent(yearData, function(d){return +d.count});
+      if (currentDirection == "origin"){
+        var quantize = d3.scale.log()
+        .domain(dataRange)
+        .range(["#ffffb2", "#bd0026"])
+      } else {
+        var quantize = d3.scale.log()
+        .domain(dataRange)
+        .range(["#bae4bc", "#0868ac"])
+      }
+      
+        // .range(["#efedf5","#3f007d"]);
+
+      yearData.forEach(function(d){
+        countByCountry.set(d.countryCode, +d.count);
+      })
+      redrawChoro(quantize)
+    };
+    var years = [];
+    for (var i = 2000; i != 2011; ++i) years.push(i)
+
+    resetCounts(2010, "origin");
+    d3.select(".onoffswitch").transition().duration(50).style("opacity", 1);
+
+
+/// treemap
+    // var currentCountry = 840; 
+    // var currentYear = "2008"; 
+    direction_root = root[currentDirection];
+    data = direction_root.filter(function(d){ return d.country == currentCountry && d.year == currentYear;})[0]; 
+
+    var node = div.datum(data).selectAll(".node")
+    .data(treemap.nodes)
+    .enter().append("div")
+    .attr("class", "node")
+    .call(position)
+    .style("background", function(d) { return d.children ? tree_color(d.name) : null; })
+    .style("color", "black")
+    .text(function(d) { 
+      if (d.dx < 50 && d.dy < 50){
+        console.log(d.dx);
+        console.log(d.dy);
+        return null
+      }
+      else{
+        return d.children ? null : d.name; 
+      }
+      
+    });
+
+
+d3.selectAll("#myonoffswitch").on("change", function change() {
+  if(currentDirection == "origin"){
+    currentDirection = "destination";
+  } else {
+    currentDirection = "origin"
+  };
+  // currentDirection = this.value; 
+  redrawTreemap();
+  resetCounts();
+  });
+
+toplevels = ["Government","Sociology", "Geography", "Economics",  "Military"];
+
+var legend = d3.select("#treemap-legend")
+              .style("margin-left", "0%")
+              .style("padding-top", "3%")
+              .style("margin-bottom", 0)
+              .append("svg")
+              .attr("width", 700)
+              .attr("height", 40);
+
+
+yscale = d3.scale.linear().domain([0, 5]).range([0, 700])
+
+// legend.selectAll("circle")
+//       .data(toplevels)
+//       .enter()
+//       .append("circle")
+//       .attr("r", 25)
+//       .attr("cx", function(d, i){return yscale(i)})
+//       .attr("cy", 25)
+//       .attr("fill", function(d){ return tree_color(d)})
+//         .append("text")
+//         .text(function(d){return d});
+
+legend.selectAll("text")
+      .data(toplevels)
+      .enter()
+      .append("text")
+      .attr("x", function(d, i){return yscale(i)})
+      .attr("y", 20)
+      .attr("fill", function(d){ return tree_color(d)})
+      .style("font-size", 20)
+      .text(function(d){return d});
+      // 
+        // .append("text")
+        
+
+
+
+
+function redrawTreemap(){
+
+  newData = root[currentDirection].filter(function(d){ return d.country == currentCountry && d.year == String(currentYear)})[0];
+
+    var node = div.datum(newData)
+        .selectAll(".node")
+        .data(treemap.nodes); 
+    node.enter().append("div")
+      .attr("class", "node"); 
+
+
+
+      node.transition()
+        .duration(400)
+        .call(position)
+        .style("background", function(d) { return d.children ? tree_color(d.name) : null; })
+        .style("color", "black")
+        .text(function(d) { 
+          if (d.dx < 50 && d.dy < 50){
+        return null
+      }
+      else{
+        return d.children ? null : d.name; 
+      }
+        })
+        ;
+
+      node.exit().remove();
+};
+
+
+    yearScale = d3.slider().scale(d3.scale.ordinal()
+      .domain(years).rangePoints([0, 1]), 0.5)
+      .axis(d3.svg.axis()).snap(true).value(2010).on("slide", function(evt, value){
+        currentYear = value;
+        resetCounts();
+        redrawTreemap();
+
+        // rerender(value);
+      });
+    resetCounts()
+    d3.select('#year_slider').call(yearScale);
+
+    
+
+  });
+  });
+  });
+
+
+
+
+function position() {
+  this.style("left", function(d) { return d.x + "px"; })
+      .style("top", function(d) { return d.y + "px"; })
+      .style("width", function(d) { return Math.max(0, d.dx - 1) + "px"; })
+      .style("height", function(d) { return Math.max(0, d.dy - 1) + "px"; });
+}
+
+
+
+</script>
+
+	</body>
+</html>

@@ -52,12 +52,14 @@
           </ul>             
           
         </div><!-- end work_nav -->
-        <h1 class="title">Chordplot Showing Transfer of Cables</h1>
+        
       </div>    
     </section><!-- end top -->
 
     <section class="wrapper">
       <div class="content">
+      <h1 class="title">Chordplot Showing Transfer of Cables</h1>
+      <h4>Chords are colored by their region of origin. Move the slider to shift in time</h4>
       <div id="prototype">
         <svg id="chords">
         <div id="year_slider">
@@ -93,18 +95,16 @@ var regions = ["Africa", "Latin America", "North America", "NW Asia", "NW Europe
 // The color scale, for different categories of "worrisome" risk.
 var color = d3.scale.ordinal()
     .domain(regions)
-    .range(['rgb(141,211,199)','rgb(255,255,179)','rgb(190,186,218)','rgb(251,128,114)','rgb(128,177,211)','rgb(253,180,98)','rgb(179,222,105)']);
+    .range(['rgb(27,158,119)','rgb(217,95,2)','rgb(117,112,179)','rgb(231,41,138)','rgb(102,166,30)','rgb(230,171,2)','rgb(166,118,29)']);
 
 // The arc generator, for the groups.
 var arc = d3.svg.arc()
     .innerRadius(r0)
     .outerRadius(r1);
 
-// The chord generator (quadratic Bézier), for the chords.
 var chord = d3.svg.chord()
     .radius(r0);
 
-// Add an SVG element for each diagram, and translate the origin to the center.
 var svg = d3.select("#chords")
     .attr("width", w)
     .attr("height", h + 10)
@@ -205,90 +205,9 @@ d3.csv("data/chordAggregations.csv", function(data) {
           .style("font-size", "12");
          
 
-      // svg.selectAll("path.chord").transition().duration(10).style("opacity", "1");
-      // svg.selectAll("g.group").transition().duration(10).style("opacity", "1");
   };
 
-  // function rerender(yr) {
-  //   var regions = ["Africa", "Latin America", "North America", "NW Asia", "NW Europe", "SE Asia & Pacific", "SE Europe"];
-  //       n = regions.length;
 
-
-
-  //       for (var i = 0; i < n; i++) {
-  //         cables[i] = [];
-  //         for (var j = 0; j < n; j++) {
-  //           cables[i][j] = 0;
-  //         }
-  //       };
-  //       yearData = data.filter(function(d){ return d.year == yr});
-
-
-  //        yearData.forEach(function(d) {
-  //         console.log(d)
-  //         d.count = +d.count;
-  //         d.year = +d.year;
-  //         d.valueOf = value; 
-  //         console.log(regions.indexOf(d.originAggRegion));
-  //         console.log(regions);
-  //         console.log(d.originAggRegion);
-  //         cables[regions.indexOf(d.originAggRegion)][regions.indexOf(d.destinationAggRegion)] = d;
-  //       });
-  //        layout.matrix(cables);
-
-  //        svg.selectAll("g.group")
-  //            .data(layout.groups)
-  //            .transition()
-  //            .duration(1500)
-  //            .attrTween("d", arcTween(last_chord))
-  //            .select("title")
-  //           .text(function(d) { return regions[d.index]+ " sent "  + format(Math.round(d.value)) + " cables total"; });
-
-  //       svg.select(".chord")
-  //    .selectAll("path")
-  //    .data(layout.chords)
-  //    .transition()
-  //    .duration(1500)
-  //    .attrTween("d", chordTween(last_chord))
-  //    .select("title").text(function(d) {
-  //       return neighs[d.source.index].name
-  //         + " → " + neighs[d.target.index].name
-  //         + ": " + formatPercent(d.source.value)
-  //         + "\n" + neighs[d.target.index].name
-  //         + " → " + neighs[d.source.index].name
-  //         + ": " + formatPercent(d.target.value);
-  //       });
-
-  //     last_chord = chord;
-  //   }
-
-    // var arc =  d3.svg.arc()
-    //       .startAngle(function(d) { return d.startAngle })
-    //       .endAngle(function(d) { return d.endAngle })
-    //       .innerRadius(r0)
-    //       .outerRadius(r1);
-
-    // var chordl = d3.svg.chord().radius(r0);
-
-    // function arcTween(chord) {
-    //   return function(d,i) {
-    //     var i = d3.interpolate(layout.groups()[i], d);
-
-    //     return function(t) {
-    //       return arc(i(t));
-    //     }
-    //   }
-    // }
-
-    // function chordTween(chord) {
-    //   return function(d,i) {
-    //     var i = d3.interpolate(layout.chords()[i], d);
-
-    //     return function(t) {
-    //       return chordl(i(t));
-    //     }
-    //   }
-    // }
 
   
 

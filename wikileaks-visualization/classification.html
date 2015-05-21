@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Prologue by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/css/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollzer.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script type="text/javascript" src="assets/js/d3.js"></script>
+			<style>
+    #number {
+		float:left;
+	}
+	#classifications {
+		float: left;
+	}
+	#continents { 
+		float: left;
+	}
+
+	.domain {
+	  opacity:0;
+	}
+
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: none;
+	}
+
+	.bar {
+	  fill: steelblue;
+	}
+
+	.x.axis path {
+	  display: none;
+	}
+
+
+	.legend line {
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+    </style>
+	</head>
+	<body>
+
+		<!-- Header -->
+			<div id="header">
+
+				<div class="top">
+
+					<!-- Logo -->
+						<div id="logo">
+							<span class="image avatar48"><img src="images/cody_pic.jpg" alt="" /></span>
+							<h1 id="title">Visualizing State Department Cables</h1>
+							<p>Cody Wild</p>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<!--
+
+								Prologue's nav expects links in one of two formats:
+
+								1. Hash link (scrolls to a different section within the page)
+
+								   <li><a href="#foobar" id="foobar-link" class="icon fa-whatever-icon-you-want skel-layers-ignoreHref"><span class="label">Foobar</span></a></li>
+
+								2. Standard link (sends the user to another page/site)
+
+								   <li><a href="http://foobar.tld" id="foobar-link" class="icon fa-whatever-icon-you-want"><span class="label">Foobar</span></a></li>
+
+							-->
+							<ul>
+								<li><a href="index.html" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Intro</span></a></li>
+								<li><a href="network.html" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-arrows-h">Networks: Seen Across Time</span></a></li>
+								<li><a href="classification.html" id="about-link" class="skel-layers-ignoreHref active"><span class="icon fa-ban">Classified or Not?</span></a></li>
+								<li><a href="maps.html" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-map-marker">Maps: Geographic & Topical</span></a></li>
+								<li><a href="writeup.html" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-pencil">Reflection</span></a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+				<div class="bottom">
+
+					<!-- Social Icons -->
+						<ul class="icons">
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+							<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+
+				</div>
+
+			</div>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Intro -->
+					<section id="top" >
+						<div class="container">
+
+							<div id="prototype">
+				<h1 style="font-size: 28px" class="title">Cable Classification Status and Region: 2000-2010</h1>
+<h4 style="font-size: 16px">The vertical plot is split by classification, the right by region within classification. Click a vertical bar to subset right-hand plot for a single year.</h4>
+				<svg id="classifications"></svg>
+				<svg id="right"></svg>
+			</div>
+
+						</div>
+					</section>
+
+<script>
+var vert_margin = {top: 25, right: 15, bottom: 25, left: 45},
+    vert_width = 400 - vert_margin.left - vert_margin.right,
+    vert_height = 600 - vert_margin.top - vert_margin.bottom;
+
+
+var hor_margin = {top: 25, right: 50, bottom: 25, left: 45},
+    hor_width = 500 - hor_margin.left - hor_margin.right,
+    hor_height = 600 - hor_margin.top - hor_margin.bottom;
+
+
+var x = d3.scale.ordinal()
+    .rangeBands([0, vert_width], .1);
+
+var y = d3.scale.linear()
+    .range([vert_height, 0]);
+
+
+var commaFormat = d3.format("0,000");
+
+var color = d3.scale.ordinal()
+	.domain(['secret', 'confidential', 'unclassified', 'unknown'])
+    .range(["#e41a1c", "#a6cee3", "#b2df8a", "#bdbdbd"]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+    // .tickFormat(d3.format(".0%"));
+
+var svg = d3.select("#classifications")
+    .attr("width", vert_width + vert_margin.left + vert_margin.right)
+    .attr("height", vert_height + vert_margin.top + vert_margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + vert_margin.left + "," + vert_margin.top + ")");
+
+var rightSvg = d3.select("#right")
+	    .attr("width", hor_width + hor_margin.left + hor_margin.right + 22)
+	    .attr("height", hor_height + hor_margin.top + hor_margin.bottom);
+
+var classHeight = 250; 
+var classY  = d3.scale.ordinal()
+	.domain([""])
+    .rangeBands([classHeight, 0], .5);
+
+var classX = d3.scale.linear()
+    .range([0, hor_width]);
+
+var classYAxis = d3.svg.axis()
+    .scale(classY)
+    .orient("right");
+
+var continentColor = d3.scale.ordinal()
+		.domain(["Africa", "Latin America", "North America", "Northwest Asia", "Northwest Europe", "Southeast Asia & Pacific", "Southeast Europe"])
+		.range(['rgb(27,158,119)','rgb(217,95,2)','rgb(117,112,179)','rgb(231,41,138)','rgb(102,166,30)','rgb(230,171,2)','rgb(166,118,29)']);
+
+var continentX = {
+	"secret": d3.scale.linear().range([0, hor_width]), 
+	"confidential": d3.scale.linear().range([0, hor_width]), 
+	"unclassified": d3.scale.linear().range([0, hor_width]), 
+}
+var alreadyDrawn = false; 
+
+var abbreviations = {
+	"Africa": "Africa", 
+	"Latin America": "Lat. America",
+	"North America": "N. America",
+	"Northwest Asia": "NW Asia", 
+	"Northwest Europe": "NW Europe",
+	"Southeast Asia & Pacific": "SE Asia",
+	"Southeast Europe": "SE Europe"
+}
+d3.json("data/updatedClassCounts.json", function(error, data) {
+
+		function draw_classifications(yr){
+			year_data = data.filter(function(d) {return d.year == yr})[0].continentData;
+			console.log(year_data[0]);
+
+			year_data.forEach(function(d) {
+   			var x0 = 0;
+    		d.contentValues = ["Africa", "Latin America", "North America", "Northwest Asia", "Northwest Europe", "Southeast Asia & Pacific", "Southeast Europe"].map(function(cont) { 
+		    			if (isNaN(+d['continents'][cont])){
+		    				barWidth = 0;
+		    			}
+		    			else {
+		    				barWidth = +d['continents'][cont];
+		    			}
+		    	if (cont == "Southeast Europe"){
+		    		continentX[d['classification']].domain([0, 1]);
+		    	};
+    			return {name: cont, classif: d['classification'], x0: x0, x1: x0 += barWidth }; });
+    		d.contentValues.forEach(function(d) { d.x0 /= x0; d.x1 /= x0; });
+
+    		console.log(d.contentValues);
+ 			 });
+
+			if (alreadyDrawn){
+				rightSvg.select(".continentBars").remove(); 
+				rightSvg.select(".legend").remove();
+			} else {
+				alreadyDrawn = true; 
+			}
+			var classificationGroup = rightSvg.append("g").attr("class", "continentBars"); 
+			var legend = rightSvg.append("g").attr("transform", "translate(0," + vert_height + ")").attr("class", "legend").append("svg");
+
+			var classificationBars = classificationGroup.selectAll('.classifications')
+			.data(year_data)
+		    .enter().append("g")
+		      .attr("class", "classifications")
+		      .attr("transform", function(d) { return "translate(0," + (300 + classY(d.classification)) + ")"; });
+
+
+		    classificationBars.selectAll("rect")
+		    .data(function(d){return d.contentValues})
+		    .enter().append("rect")
+		      .attr("height", classY.rangeBand())
+		      .attr("x", function(d) { 
+		      	console.log(d.classif)
+		      	scale = continentX[d.classif];
+		      	return scale(d.x0); })
+		      .attr("width", function(d) { 
+		      	scale = continentX[d.classif];
+		      	return scale(d.x1) - scale(d.x0); })
+		      .style("fill", function(d){
+		      	return continentColor(d.name);
+		      });
+
+		  	classificationGroup.append("g")
+      		.attr("class", "cont_y axis")
+      		.attr("transform", "translate(" + (hor_width + 5) + ",300)")
+      		.call(classYAxis)
+      		.style("font-size", 15);
+
+			regions = ["Africa", "Latin America", "North America", "Northwest Asia", "Northwest Europe", "Southeast Asia & Pacific", "Southeast Europe"];
+
+			legend.attr("width", hor_width)
+			      .attr("height", 40);
+
+
+			yscale = d3.scale.ordinal().domain(regions).rangePoints([0, (hor_width - 70)])
+
+			legend.selectAll("text")
+			      .data(regions)
+			      .enter()
+			      .append("text")
+			      .attr("x", function(d, i){
+			      	if (d == "Latin America"){
+			      		return yscale(d) - 15;
+			      	} else if (d == "Southeast Asia & Pacific"){
+			      		return yscale(d) + 10
+			      		} else if (d == "Northwest Asia"){
+			      		return yscale(d) + 5
+			      		} else {
+			      			return yscale(d)
+			      		}
+			      	})
+			      .attr("y", 20)
+			      .attr("fill", function(d){ return continentColor(d)})
+			      .style("font-size", 13)
+			      .text(function(d){return abbreviations[d]});
+
+		};
+
+
+		classY.domain(['secret', 'confidential', 'unclassified']);
+		
+		yearArray = data.map(function(d){return d.year}).sort();
+		x.domain(yearArray);
+
+		// delete this. return to percentages. return to linear scale 
+		y.domain([0, d3.max(data, function(d){return +d.nCables})]);
+		console.log(y.domain());
+		console.log(y(50));
+
+		data.forEach(function(d) {
+   			var y0 = 0;
+    		d.classifications = color.domain().map(function(status) { return {name: status, 
+    																			y0: y0, 
+    																			y1: y0 += +d['stackedData'][status]}; });
+ 			 });
+
+		var yearHighlight = false; 
+		console.log(data); 
+		svg.append("g")
+      		.attr("class", "x axis")
+      		.attr("transform", "translate(0," + vert_height + ")")
+      		.call(xAxis)
+      		.style("font-size", 12);
+  		svg.append("g")
+      		.attr("class", "y axis")
+      		.call(yAxis)
+      		.style("font-size", 12);
+
+      	var years = svg.selectAll(".years")
+      		.data(data)
+		    .enter().append("g")
+		      .attr("class", "years")
+		      .attr("transform", function(d) { return "translate(" + x(d.year) + ",0)"; })
+		      .on("click", function(d){
+		      		if (yearHighlight){
+		      		yearHighlight = false; 
+		      		d3.selectAll(".years")
+		      		.transition().duration(200).style("opacity", 1);
+		 			
+
+		      	} else {
+		      		console.log(d);
+		      		yearHighlight = true; 
+		      		d3.selectAll(".years")
+		      		.filter(function(otherD){ return otherD.year != d.year})
+		      		.transition().duration(200).style("opacity", .15);
+
+		      		draw_classifications(d.year);
+		      		d3.select("#yearText").select("text").remove(); 
+		      		d3.select("#yearText")
+		      			.append("text")
+		      			.text(d.year + ": ")
+		      				.style("stroke", "#bdbdbd")
+	    					.style("fill", "#bdbdbd")
+	    					.style("font-size", 15);
+
+	    			d3.select("#numberText").select("text").remove(); 
+		      		d3.select("#numberText")
+		      			.append("text")
+		      			.text(commaFormat(d.nCables))
+		      				.style("stroke", "black")
+						    .style("fill", "black")
+						    .style("font-size", 50);
+
+
+		      	}
+		      });
+
+		console.log(data[0]);
+
+
+		years.selectAll("rect")
+	      .data(function(d) { return d.classifications; })
+	    .enter().append("rect")
+	      .attr("width", x.rangeBand())
+	      .attr("y", function(d) { return y(d.y1); })
+	      .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+	      .style("fill", function(d) { return color(d.name); });
+
+	    var sumCables = d3.sum(data, 
+	    	function(d){return d.stackedData.unclassified + d.stackedData.secret + d.stackedData.unknown + d.stackedData.confidential});
+
+	    console.log(sumCables); 
+
+	     
+
+	    rightSvg.append("g")
+	    .attr("id", "yearText")
+	    .attr("transform", "translate(0,92)")
+	    .append("text")
+	    .text("All Years: ")
+	    .style("stroke", "#bdbdbd")
+	    .style("fill", "#bdbdbd")
+	    .style("font-size", 15);
+
+	    rightSvg.append("g")
+	    .attr("id", "numberText")
+	    .attr("transform", "translate(70,92)")
+	    .append("text")
+	    .text(commaFormat(Math.round(sumCables)))
+	    .style("stroke", "black")
+	    .style("fill", "black")
+	    .style("font-size", 50);
+
+
+	    rightSvg.append("g")
+	    .attr("class", "staticText")
+	    .attr("transform", "translate(250,92)")
+	    .append("text")
+	    .text("cables")
+	    .style("stroke", "#bdbdbd")
+	    .style("fill", "#bdbdbd")
+	    .style("font-size", 15);
+
+	    rightSvg.append("g")
+	    .attr("class", "numberText")
+	    .attr("transform", "translate(0,270)")
+	    .append("text")
+	    .text("Cable Density By Region, Divided By Status")
+	    .style("stroke", "#bdbdbd")
+	    .style("fill", "#bdbdbd")
+	    .style("font-size", 19);
+
+	    
+
+	    
+	    draw_classifications("2001");
+
+	    //
+
+
+
+	});
+	</script>
+	</body>
+</html>

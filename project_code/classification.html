@@ -139,7 +139,7 @@ var classYAxis = d3.svg.axis()
 
 var continentColor = d3.scale.ordinal()
 		.domain(["Africa", "Latin America", "North America", "Northwest Asia", "Northwest Europe", "Southeast Asia & Pacific", "Southeast Europe"])
-		.range(['rgb(141,211,199)','rgb(255,255,179)','rgb(190,186,218)','rgb(251,128,114)','rgb(128,177,211)','rgb(253,180,98)','rgb(179,222,105)']);
+		.range(['rgb(27,158,119)','rgb(217,95,2)','rgb(117,112,179)','rgb(231,41,138)','rgb(102,166,30)','rgb(230,171,2)','rgb(166,118,29)']);
 
 var continentX = {
 	"secret": d3.scale.linear().range([0, hor_width]), 
@@ -148,6 +148,15 @@ var continentX = {
 }
 var alreadyDrawn = false; 
 
+var abbreviations = {
+	"Africa": "Africa", 
+	"Latin America": "Lat. America",
+	"North America": "N. America",
+	"Northwest Asia": "NW Asia", 
+	"Northwest Europe": "NW Europe",
+	"Southeast Asia & Pacific": "SE Asia",
+	"Southeast Europe": "SE Europe"
+}
 d3.json("data/updatedClassCounts.json", function(error, data) {
 
 		function draw_classifications(yr){
@@ -174,12 +183,12 @@ d3.json("data/updatedClassCounts.json", function(error, data) {
 
 			if (alreadyDrawn){
 				rightSvg.select(".continentBars").remove(); 
-				// rightSvg.select(".legend").remove();
+				rightSvg.select(".legend").remove();
 			} else {
 				alreadyDrawn = true; 
 			}
 			var classificationGroup = rightSvg.append("g").attr("class", "continentBars"); 
-			var legend = rightSvg.append("svg").attr("class", "legend");
+			var legend = rightSvg.append("g").attr("transform", "translate(0," + vert_height + ")").attr("class", "legend").append("svg");
 
 			var classificationBars = classificationGroup.selectAll('.classifications')
 			.data(year_data)
@@ -209,30 +218,32 @@ d3.json("data/updatedClassCounts.json", function(error, data) {
       		.call(classYAxis)
       		.style("font-size", 15);
 
-			toplevels = ["Government","Sociology", "Geography", "Economics",  "Military"];
+			regions = ["Africa", "Latin America", "North America", "Northwest Asia", "Northwest Europe", "Southeast Asia & Pacific", "Southeast Europe"];
 
-			// var legend = d3.select("#treemap-legend")
-			//               .style("margin-left", "15%")
-			//               .style("padding-top", "3%")
-			//               .style("margin-bottom", 0)
-			//               .append("svg")
-			//               .attr("width", 700)
-			//               .attr("height", 40);
+			legend.attr("width", hor_width)
+			      .attr("height", 40);
 
 
-			// yscale = d3.scale.linear().domain([0, 5]).range([0, 700])
+			yscale = d3.scale.ordinal().domain(regions).rangePoints([0, (hor_width - 70)])
 
-			// console.log(tree_color.domain())
-			// legend.selectAll("text")
-			//       .data(toplevels)
-			//       .enter()
-			//       .append("text")
-			//       .attr("x", function(d, i){return yscale(i)})
-			//       .attr("y", 20)
-			//       .attr("fill", function(d){ return tree_color(d)})
-			//       .style("font-size", 20)
-			//       .style("font-family", "Georgia, serif")
-			//       .text(function(d){return d});
+			legend.selectAll("text")
+			      .data(regions)
+			      .enter()
+			      .append("text")
+			      .attr("x", function(d, i){
+			      	if (d == "Latin America"){
+			      		return yscale(d) - 15;
+			      	} else if (d == "Southeast Asia & Pacific"){
+			      		return yscale(d) + 10
+			      		} else {
+			      			return yscale(d)
+			      		}
+			      	})
+			      .attr("y", 20)
+			      .attr("fill", function(d){ return continentColor(d)})
+			      .style("font-size", 13)
+			      .style("font-family", "Georgia, serif")
+			      .text(function(d){return abbreviations[d]});
 
 		};
 
