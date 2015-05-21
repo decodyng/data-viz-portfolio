@@ -283,7 +283,7 @@ var highlightOn = false;
                 highlightOn = false;
                 d3.selectAll(".countriesAgain")
                     .transition()
-                    .duration(150)
+                    .duration(220)
                     .style("opacity", 1)
                     .attr("fill", function(d) { return quant(countByCountry.get(d.id)); });
                 currentCountry = 840; 
@@ -294,8 +294,8 @@ var highlightOn = false;
                   d3.selectAll(".countriesAgain")
                     .filter(function(d) {return d.id != thisD.id;})
                     .transition()
-                    .duration(150)
-                    .style("opacity", 0.08);
+                    .duration(220)
+                    .style("opacity", 0.05);
 
                     currentCountry = thisD.id; 
                     redrawTreemap();
@@ -377,7 +377,7 @@ d3.selectAll("#myonoffswitch").on("change", function change() {
   resetCounts();
   });
 
-toplevels = ["Government","Sociology", "Geography", "Economics",  "Military", "root"];
+toplevels = ["Government","Sociology", "Geography", "Economics",  "Military", "Misc"];
 
 var legend = d3.select("#treemap-legend")
               .style("margin-left", "0%")
@@ -388,8 +388,8 @@ var legend = d3.select("#treemap-legend")
               .attr("height", 40);
 
 
-yscale = d3.scale.linear().domain([0, 5]).range([0, 700])
-
+yscale = d3.scale.linear().domain([0, 6]).range([0, 700]);
+console.log(tree_color.domain());
 // legend.selectAll("circle")
 //       .data(toplevels)
 //       .enter()
@@ -405,10 +405,17 @@ legend.selectAll("text")
       .data(toplevels)
       .enter()
       .append("text")
-      .attr("x", function(d, i){return yscale(i)})
+      .attr("x", function(d, i){
+        if (d=="Sociology" || d=="Military"){
+          return yscale(i) + 10;
+        } else {
+            return yscale(i);
+        }
+        
+      })
       .attr("y", 20)
       .attr("fill", function(d){ return tree_color(d)})
-      .style("font-size", 20)
+      .style("font-size", 22)
       .text(function(d){return d});
       // 
         // .append("text")
