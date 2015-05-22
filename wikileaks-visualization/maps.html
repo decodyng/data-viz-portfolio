@@ -123,6 +123,9 @@ form {
 .appear {
 	opacity: 0;
 }
+#cableList {
+  margin-left: -40%;
+}
 
 
 
@@ -206,6 +209,8 @@ form {
 							<div style="width:950px"><div id="year_slider"></div></div>
 							<div id="treemap-legend"></div>
 							<div id="treemap"></div>
+              <div><h2 id="cableTitle", style="opacity: 0">Click cable ID to read raw cable text</h2></div>
+              <svg id="cableList"></svg>
 
 						</div>
 					</section>
@@ -269,6 +274,9 @@ d3.json("data/choroplethAggregation2.json", function(countError, countData){
       d3.selectAll(".appear").transition().duration(100).style("opacity", 1);
 
 var highlightOn = false; 
+var nodeIsClicked = false;
+var nodeClicked = ""; 
+
     
     function redrawChoro(quant){
         svg.append("g")
@@ -334,6 +342,8 @@ var highlightOn = false;
 
       yearData.forEach(function(d){
         countByCountry.set(d.countryCode, +d.count);
+        // do something with this? 
+        otherIdsByCountry.set(d.countryCode, d.topOthers)
       })
       redrawChoro(quantize)
     };
@@ -357,6 +367,57 @@ var highlightOn = false;
     .attr("class", "node")
     .call(position)
     .style("background", function(d) { return d.children ? tree_color(d.name) : null; })
+    .on("click", function(d){
+      if(nodeIsClicked && nodeClicked == d.name){
+          d3.selectAll(".node").transition().duration(250).style("opacity", 1);
+          d3.select("#cableTitle").transition().style("opacity", 0);
+          d3.select("#cableList").selectAll("text").remove();
+          d3.select("#cableList").attr("width", 0).attr("height", 0); 
+
+          nodeIsClicked = false; 
+
+      } else if (nodeIsClicked && nodeClicked != d.name){
+        d3.select(this).transition().style("opacity", 1);
+        d3.selectAll(".node").filter(function(otherD){return otherD.name != d.name}).transition().duration(150).style("opacity", .25);
+        d3.select("#cableTitle").transition().style("opacity", 1);
+
+        d3.select("#cableList").selectAll("text").remove();
+        nodeClicked = d.name; 
+        cables = d3.set(d.ids).values();
+        // d3.select("#cableList").selectAll("p").remove();
+        listScale = d3.scale.ordinal().domain(d.ids).rangePoints([0, cables.length*25]);
+        listSvg = d3.select("#cableList").attr("width", 500).attr("height", cables.length*25);
+        listSvg
+          .selectAll("text")  
+          .data(cables)
+          .enter()
+          .append("text")
+          .attr("x", 50)
+          .attr("y", function(d, i){return i*25})
+          .text(function(c){return c + ".txt"})
+          .on("click", function(c) { window.open("cables/" + c + ".txt"); });;
+      } else {
+        d3.selectAll(".node").filter(function(otherD){return otherD.name != d.name}).transition().duration(250).style("opacity", .25);
+        d3.select("#cableTitle").transition().style("opacity", 1);
+
+        nodeClicked = d.name; 
+        cables = d3.set(d.ids).values();
+        // d3.select("#cableList").selectAll("p").remove();
+        listScale = d3.scale.ordinal().domain(d.ids).rangePoints([0, cables.length*25]);
+        listSvg = d3.select("#cableList").attr("width", 500).attr("height", cables.length*25);
+        listSvg
+          .selectAll("text")  
+          .data(cables)
+          .enter()
+          .append("text")
+          .attr("x", 50)
+          .attr("y", function(d, i){return i*25})
+          .text(function(c){return c + ".txt"})
+          .on("click", function(c) { window.open("cables/" + c + ".txt"); });;
+        nodeIsClicked = true; 
+      }
+      
+    })
     .style("color", "black")
     .text(function(d) { 
       if (d.dx < 50 && d.dy < 50){
@@ -397,16 +458,7 @@ var legend = d3.select("#treemap-legend")
 
 yscale = d3.scale.linear().domain([0, 6]).range([0, 700]);
 console.log(tree_color.domain());
-// legend.selectAll("circle")
-//       .data(toplevels)
-//       .enter()
-//       .append("circle")
-//       .attr("r", 25)
-//       .attr("cx", function(d, i){return yscale(i)})
-//       .attr("cy", 25)
-//       .attr("fill", function(d){ return tree_color(d)})
-//         .append("text")
-//         .text(function(d){return d});
+
 
 legend.selectAll("text")
       .data(toplevels)
@@ -447,6 +499,9 @@ function redrawTreemap(){
         .duration(400)
         .call(position)
         .style("background", function(d) { return d.children ? tree_color(d.name) : null; })
+        .on("click", function(d){
+          console.log(d);
+        })
         .style("color", "black")
         .text(function(d) { 
           if (d.dx < 50 && d.dy < 50){
