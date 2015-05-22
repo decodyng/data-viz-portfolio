@@ -395,7 +395,7 @@ var nodeClicked = "";
           .attr("x", 50)
           .attr("y", function(d, i){return i*25})
           .text(function(c){return c + ".txt"})
-          .on("click", function(c) { window.open("cables/" + c + ".txt"); });;
+          .on("click", function(c) { window.open("http://decodyng.com/cables/" + c + ".txt"); });;
       } else {
         d3.selectAll(".node").filter(function(otherD){return otherD.name != d.name}).transition().duration(250).style("opacity", .25);
         d3.select("#cableTitle").transition().style("opacity", 1);
@@ -526,7 +526,7 @@ function redrawTreemap(){
           .attr("x", 50)
           .attr("y", function(d, i){return i*25})
           .text(function(c){return c + ".txt"})
-          .on("click", function(c) { window.open("cables/" + c + ".txt"); });;
+          .on("click", function(c) { window.open("http://decodyng.com/cables/" + c + ".txt"); });;
       } else {
         d3.selectAll(".node").filter(function(otherD){return otherD.name != d.name}).transition().duration(250).style("opacity", .25);
         d3.select("#cableTitle").transition().style("opacity", 1);
