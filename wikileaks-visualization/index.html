@@ -14,6 +14,9 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie/v8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie/v9.css" /><![endif]-->
 		<!--[if lte IE 8]><script src="assets/css/ie/respond.min.js"></script><![endif]-->
+		<style>
+		
+		</style>
 	</head>
 	<body>
 
@@ -45,11 +48,11 @@
 
 							-->
 							<ul>
-								<li><a href="index.html" id="top-link" class="skel-layers-ignoreHref active"><span class="icon fa-home">Intro</span></a></li>
-								<li><a href="network.html" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-arrows-h">Networks: Seen Across Time</span></a></li>
+								<li><a href="index.html" id="top-link" class="skel-layers-ignoreHref active"><span class="icon fa-home">Intro & Discussion</span></a></li>
+								<li><a href="network.html" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-arrows-h">Networks Across Time</span></a></li>
 								<li><a href="classification.html" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-ban">Classified or Not?</span></a></li>
-								<li><a href="maps.html" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-map-marker">Maps: Geographic & Topical</span></a></li>
-								<li><a href="writeup.html" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-pencil">Reflection</span></a></li>
+								<li><a href="maps.html" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-map-marker">Maps: Geo & Topical</span></a></li>
+								
 							</ul>
 						</nav>
 
@@ -76,7 +79,7 @@
 						<div class="container">
 
 							<header>
-								<h2 class="alt">This project uses the D3 visualization library to dive into the temporal, geographic, and textual data contained in the 251K State Department cables leaked by Wikieaks in 2011</p>
+								<h2 class="alt">This project uses the D3 visualization library to dive into the temporal, geographic, and textual data contained in the 251K State Department cables made public by Wikileaks in 2011</p>
 							</header>
 
 							<footer>
@@ -86,49 +89,259 @@
 						</div>
 					</section>
 
-					<section id="portfolio" class="two">
-						<div class="container">
+					<section id="preparation" class="two">
+						<div class="container" style="font-size: 16px; text-align:left">
 
 							<header>
-								<h2>Portfolio</h2>
+								<h2 style="text-align:center">Data Preparation</h2>
 							</header>
 
-							<p>Vitae natoque dictum etiam semper magnis enim feugiat convallis convallis
-							egestas rhoncus ridiculus in quis risus amet curabitur tempor orci penatibus.
-							Tellus erat mauris ipsum fermentum etiam vivamus eget. Nunc nibh morbi quis
-							fusce hendrerit lacus ridiculus.</p>
+							<p>The data used in this project consists over 250,000 cables sent internally by the U.S. State Department between 1965 and 2010, with the overwhelming bulk of that volume concentrated between 2000 and 2010. Each cable observation consists of a few key pieces of information. <img class="image fit" src="images/data_example.jpg"> First, temporal information: the date and time the cable was sent. The second column can be ignored, as it's just an internal identifier. The third column is a category-string indicating the classification level of the cable prior to its being leaked. This column takes on three possible values: unclassified, confidential, and secret. The fourth column is an English-formatted string identifying the origin location of the cable. The fifth and sixth columns are, respectively, an internally-formatted marker for the destination city, and a header that includes other embassies to which this cable was also copied. The final column contains the English-language text of the cable itself. </p>
+
+							<p>Out of this data, the following processing steps were performed to get it ready for visualizing: 
+							<ol>
+								<li>1. Loaded into Postgres</li>
+								<li>2. Regular expressions were used to extract and canonicalize city names in "origin", "destination", and "header"</li>
+								<li>3. Python Geocoder library used to attach country codes to cities</li>
+								<li>4. Based on a Google reference list mapping country codes to both subregions and regions, created a custom list of regions - some of which were single subregions, some conjuntions of subregions</li>
+								<li>5. Regular expressions were used to extract and canonicalize city names</li>
+								<li>6. Gensim topic modeling used to construct 60-topic model based on content of cables</li>
+								<li>7. General python used to do all other grouping, attaching of categories, and formatting of data into appropriate JSON or CSV structures</li>
+
+							</ol></p>
+
+						</div>
+
+
+					</section>
+
+					<section id="techniques" class="three">
+						<div class="container" style="margin-left: 10px">
+
+							<header>
+								<h2>Visualization Techniques</h2>
+							</header>
+
+							<p style="font-size: 16px">This dataset provided unique challenges, given that it had no actual continuous numeric fields, leaving only time, geography, classification, and textual content to work with. However, I believe this challenge inspired me to explore new techniques in order to find ones appropriate to the task. The primary theme across all three visualizations is that of showing the connectivity between and temporal trends of State department communications, as represented by this leaked sample. 
 
 							<div class="row">
 								<div class="4u 12u$(mobile)">
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
-										<header>
-											<h3>Networks</h3>
-										</header>
+									<article style="font-size: 14px; text-align:left" class="item">
+										<h3 style="text-align:center">Networks</h3>
+										<a href="network.html" class="image fit"><img src="images/chordplot.jpg" alt="" /></a>
+										
+										<p>This visualization relies on temporal and geographic encoded in date and origin/destination columns respectively. The goal of this visualization was to show the network connectivity dimension of this cable dataset, which naturally possess a starting point and an ending point. While it was originally intended that this visualization appear atop a map, a few concerns motivated a switch away from that model. Firstly, that encoding each city, or even each country, with its incoming and outgoing connections would be far too much information and visual clutter to ingest properly, and secondly, that it would duplicate work already being done by my other Choropleth plot. </p>
+
+										<p>And so I implemented a chordplot, which encodes the count of cables that left one region and were sent to each of the six other regions via combination of size (representing count) and color (segments are colored according to their country of origin). Interactivity on this plot is of two major types: temporal filtering - the plot is redrawn for each successive year - and brushing/highlighting on selection - when a user hovers over either the external ring or the internal segments, only that region of origin is highlighted.</p>
+
+										<ul>
+											<li><strong>Data/Ink Ratio</strong>: High. Virtually all ink on the screen is being used to encode either size or direction of the cable flows</li>
+											<li><strong>Lie Factor</strong>: Low. </li>
+											<li><strong>Data Density</strong>: Not as high as it could be. Since volume is encoded in circular form, (i.e. proportions of circumferance) the plot needs to be large in order for smaller segments to be visible, leading to perhaps more use of space than is necessary</li>
+										</ul>
+
+										<p>The primary strength of this visualization is that it balances specificity and simplicity by aggregating cables sent to and from countries on a regional level, and allows a user to see the differing levels of connectivity between embassies in different countries during each year</p>
+
 									</article>
 						
 								</div>
 								<div class="4u 12u$(mobile)">
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-										<header>
-											<h3>Classification Categories</h3>
-										</header>
+									<article style="font-size: 14px; text-align:left" class="item">
+										<h3 style="text-align:center">Classification Categories</h3>
+										<a href="classification.html" class="image fit"><img src="images/classification.jpg" alt="" /></a>
+										
+
+										<p>This visualization makes use of simple techniques - the humble bar chart - to encode sizes and categorical proportions of of the cables over time. This plot is composed of two components: a left-hand vertical plot showing volume and classification-status breakdown of cables over time, and a right-hand horizontal plot that shows the unclassified, confidential, and secret columns broken out by the proportion sent from each of the seven regions - common in both definition and color scheme between both this and the network plot.</p>
+
+										<p>The chart begins showing the data for all years (note: in a minor bug, this is all years from 1965-2010, not just 2000-2010, so the numbers for those years, while they make up about 99% of the total, don't add up completely to the initial humber shown). It supplements the two plot components by dynamically updating a text block showing the year a user has selected and the overall number of cables attached to that year.</p>
+										<p>Interactivity on this plot is straightforward: clicking on a single year highlights that year via brushing and switches the chart on the right to reflect data subset to only that year. One note is that after a bar is clicked, that year remains highlighted until another year is clicked, rather than returning to a set of default values</p>
+
+
+										<ul>
+											<li><strong>Data/Ink Ratio</strong>: Fairly High. Both colored ink in visualizations and the majority of the text on the page encode actual information. The only caveat to this is that I likely didn't need as many ticks on the vertical axis as I implemented, so that is an area of Data/Ink ratio that could be improved</li>
+											<li><strong>Lie Factor</strong>: Low/Medium. Although I did try to correct for this by showing the raw volumes per year as well as the within-year breakdown in the left-hand plot, there is still some lie factor inherent in the use of 100% stacked horizontal bar plots to compare across years, since the total volume of cables both over all status and within each status differs. </li>
+											<li><strong>Data Density</strong>: Fairly high. Bars are about as wide as they need to be in order for small stacked areas to still be visible and interpretable</li>
+										</ul>
+
+										<p>This visualization excels at showing several different dimensions of the data - volume over time, classification patterns over time, and geographic patterns within different levels of secrecy classification - in a simple way that utilizes color and length, two of the visual elements humans are most astute at detecting. </p>
+
+
 									</article>
 									
 								</div>
-								<div class="4u$ 12u$(mobile)">
+								<div style="font-size: 14px; text-align:left" class="4u$ 12u$(mobile)">
 									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
-										<header>
-											<h3>Maps</h3>
-										</header>
+										<h3 style="text-align:center">Maps</h3>
+										<a href="maps.html" class="image fit"><img src="images/maps.jpg" alt="" /></a>
+										
+
+										<p>This page combines two linked visualizations: a choropleth and a treemap, to give the user a highly interactive way to dig down into the cables along both geographic and temporal dimensions and see how the breakdown of topics within that set of cables shifts. The treemap is constructed by running LDA topic modeling on the full set of cables. This approach works by identifying groups of words that frequently co-occur, and, based on being given a set number of topics to identify, reutrns lists of those co-occuring words, and then can represent each document as a distribution across topics, in the sense that a document could be, as an oversimplified example, 70% about conflict and 30% about economic interaction. For the purposes of this plot, a documents is represented by (at least) the topic with the highest probability density across all topics, and then whatever number of subsequent topics exhibit probability mass (i.e. proportions) of greater than 15%. Topics, which fundamentally exist as lists of words, were then given summary names via human interpretation, and those summaries were grouped into six main categories (Economic, Military, Geography, Sociology, Government, and Other). To see the raw topics and how I interpreted them, <a href="#appendix">see the appendix.</a></p>
+
+										<p>The chart begins with the default values of year 2010, country United States, and direction "Origin". And so the choropleth shows density of cables with origin of a given country for 2010, with density colored on a log scale to allow differences to be more easily seen. The treemap then shows data for specifically the subset of cables sent in 2010 from points in the United States (i.e. sent from US cities or the State Department headquarters itself). </p>
+										
+										<p>Interactivity is an integral element of the functionality of this set of plots, allowing for the "drill-down" that fuels exploration. Firstly, on the choropleth plot, there is internal interactivity in the form of details that appear below the plot when a user hovers over a country, and then stabilize when a country is highlighted. This highlighting occurs when a country is clicked on, and is accomplished by brushing all other countries to low opacity. This click event also triggers cross-plot interactivity, by updating the topical treemap to include only values for that country. The final layer of interactivity comes in the form of the year slider, which allows different "slices" of data between 2000 and 2010 to be viewed. One shortcoming of this visualization is that it doesn't alllow a country to remain highlighted when year is changed, requiring a user to reselect a country once they've shifted year. </p>
+
+
+										<ul>
+											<li><strong>Data/Ink Ratio</strong>: Good for a map visualization, but map visualizations are inherently poor at this, since they requrie ink to be used to visualize background elements of the map that aren't directly related to the data being displayed</li>
+											<li><strong>Lie Factor</strong>: Medium. In order to show topics in a treemap form, topics had to A) be interpreted, which introduced human bias, and B) cables had to be represented not in their complete state as distributions across all topics, but instead as "predominantly" linked to one, two, or three topics. This is a bit of a collapse of information, but was done in the interests of increasing simplicity and allowing the plot to be interpreted, which is easier to do with simple titles than by re-printing the list of words that compose a topic many times. </li>
+											<li><strong>Data Density</strong>: High on the choropleth, less high on the treemap. Since treemaps encode size in the form of relative space, they take up more room than a comparable bar chart. However, I specifically wanted this visualization to convey the year of a tree structure, and of internal parts adding to a whole, neither of which would have been possible with a bar chart. </li>
+										</ul>
+
+										<p>This visualization excels at situating these cables in their geographic context, rather than on an aggregated regional level. It also allows some view, albeit a summarized one, into the actual content of the cables themselves, not just their transit patterns, by way of the topic treemap.</p>
 									</article>
 									
 								</div>
 							</div>
 
+		
 						</div>
+
+
+					</section>
+
+					<section id="challenges" class="four">
+						<div class="container" style="font-size: 16px; text-align:left">
+
+							<header>
+								<h2 style="text-align:center">Feedback & Challenges</h2>
+							</header>
+							<p style="font-size: 16px">The primary feedback I recieved about this project and my prototype is that it was likely too ambitious, and that I needed to make maximal use of the data fields I had. I believe that I was able to use creative groupings and data encodings to take full advantage of the data, and live up to the advice given by this strain of feedback.</p>
+							<p style="font-size: 16px">Secondly, I was advised to make my regional color scheme consistent across plots, and I did so: colors are mapped to the same regions in both the network plot and the classification plot</p>
+
+							<p style="font-size: 16px"> This was a very involved project, and posed unique and substantial challenges. The first of which was simply that, due to the incoming format of the data, a mammoth amount of processing, mapping, and grouping was required in order to make the data appropriate for injection into a D3 environment. </p>
+
+							<p style="font-size: 16px">Within the domain of D3 itself, the primary challenge I was not able to effectively address was that of implementing non-change-blindness-inducing transitions on my plots. This is due to multiple challenges, but was largely due to using layous (stacked bar charts, treemaps, and chordplots) that were complicated enough that simple shifting the size of an element on the screen wasn't sufficient. Often, new data had to be entered and old exited, and the shift between those two states wasn't one where a transition could be applied. This was exacerbated within Treemap, which presents an option to "fix" top level categories so that they don't shift between iterations, but that only allows you to use transitions related to calculating values differently. The data is actually modified and cached, so that it's not possible to enter new data to the element. The only way to get around this was to remove the "sticky" option on the treemap layout, thus allowing the branches to shift in space. </p>
+
+						</div>
+
+
+					</section>
+
+					<section id="conclusions" class="five">
+						<div class="container" style="font-size: 16px; text-align:left">
+
+							<header>
+								<h2 style="text-align:center">A Few Conclusions</h2>
+							</header>
+							<p style="font-size: 16px"></p>
+							<p style="font-size: 16px">There don't appear to be strong differences in proportions of documents being classified to each status over time, i.e. as a result of 9/11 and the Iraq war. However, you can see a sharp increase in the proportion of all cables and most particularly of "secret" cables being sent from Northwest Asia, a region that includes parts of the Middle East, Afghanistan, and Pakistan, in 2002</p>
+
+							<p style="font-size: 16px">For all regions, the largest plurality and sometimes majority of a region's outgoing cables are being sent somewhere else within that region, as opposed to being sent to an embassy in a different region. This would fit a hypothesis that communication is frequently fueled by inter-regional concerns.</p>
+
+							<p style="font-size: 16px">When you identify a cable by its most prevalent topic, you end up with groupings that, across embassy-country of origin, tend to be more dominated by Government and logistics talk on one end and least dominated by Geographic-specific topics, with the other groups of topics falling somewhere in between these two extremes</p>
+
+
+
+							
+						</div>
+
+
+					</section>
+
+
+					<section id="appendix" class="four">
+						<div class="container">
+
+							<header>
+								<h2>Resources & Appendix</h2>
+							</header>
+							<h3>Resources Used</h3>
+							<ul>
+								<li><a target="_blank", href="https://radimrehurek.com/gensim/">Gensim library for topic modeling</a></li>
+								<li><a href="https://pypi.python.org/pypi/geocoder"> Geocoding Library</a></li>
+								<li><a target="_blank", href="http://bl.ocks.org/mbostock/4060606">Choropleth Template</a></li>
+								<li><a target="_blank", href="http://bl.ocks.org/mbostock/4063582">Treemap Template</a></li>
+
+
+							</ul>
+							<h3>Raw Topics (Most representative words) & Interpreted Summaries</h3>
+							<br>
+							<h5>Economics</h5>
+
+							<h6 style="text-align:left">Fiscal Policy</h6><p style="font-size:13px; text-align:left;">("PERCENT", "ECONOMIC", "BANK", "MILLION", "BUDGET", "FINANCIAL", "BILLION", "2008")</p>
+							<h6 style="text-align:left">Air Travel</h6><p style="font-size:13px; text-align:left; ">("AIR", "INSPECTION", "AIRPORT", "PORT", "FLIGHT", "AIRCRAFT", "EQUIPMENT)</p>
+							<h6 style="text-align:left">Trade/Tourism </h6><p style="font-size:13px; text-align:left; ">("FOREIGN", "TIER", "BUSINESS", "SERVICES", "US", "DATA", "TRADE") </p>
+							<h6 style="text-align:left">Free Speech/Intellectual Property</h6><p style="font-size:13px; text-align:left;">("PROPERTY", "IPR", "MA", "PROTECTION", "INTELLECTUAL", "INTERNET")</p>
+							<h6 style="text-align:left">Agriculture</h6><p style="font-size:13px; text-align:left; ">("TRADE", "CLIMATE", "AGRICULTURAL", "PRODUCTION", "FOOD", "PRODUCTS") </p>
+							<h6 style="text-align:left">Energy Industry</h6><p style="font-size:13px; text-align:left; ">("ENERGY", "INVESTMENT", "COMPANIES", "OIL", "GAS", "POWER")</p>
+							<br>
+							<br>
+							<h5>Geography</h5>
+							<h6 style="text-align:left">Southern Europe</h6><p style="font-size:13px; text-align:left; ">("NATO", "AZERBAIJAN", "GREECE", "GREEK", "EU", "CYPRUS", "EUROPEAN") </p>
+							<h6 style="text-align:left">North Korea</h6><p style="font-size:13px; text-align:left; ">("NORTH", "BIRTH", "KOREA", "TRAINING", "ROK") </p>
+							<h6 style="text-align:left">EU</h6><p style="font-size:13px; text-align:left; ">("EU", "UK", "EUROPEAN", "COPENHAGEN", "MEMBER", "SBU", "BRUSSELS") </p>
+							<h6 style="text-align:left">French Colonies</h6><p style="font-size:13px; text-align:left; ">("FRENCH", "ZFR", "FRANCE", "ALGERIA", "DARFUR", "MOROCCO", "LIBYA", "MALI", "PORTAUPRINCE")</p>
+							<h6 style="text-align:left">Subsaharan Africa</h6><p style="font-size:13px; text-align:left; ">("DRC", "UGANDA", "CONGO", "GDRC", "BELGIAN", "CONGOLESE", "TANZANIA, "MITCHELL") </p>
+							<h6 style="text-align:left">Gulf States</h6><p style="font-size:13px; text-align:left; ">("SAUDI", "AL", "KUWAIT", "UAE", "ARABIA", "KING", "ABU") </p>
+							<h6 style="text-align:left">Iraq</h6><p style="font-size:13px; text-align:left; ">("IRAQ", "IRAQI", "BAGHDAD", "IRAQS", "KRG") </p>
+							<h6 style="text-align:left">Nigeria</h6><p style="font-size:13px; text-align:left; ">("NIGERIA", "STATE", "GON",  "MALIKI", "ABUJA") </p>
+							<h6 style="text-align:left">Southern Africa</h6><p style="font-size:13px; text-align:left; ">("SOUTH", "AFRICA", "AFRICAN", ZIMBABWE", "GHANA") </p>
+							<h6 style="text-align:left">Balkans</h6><p style="font-size:13px; text-align:left; ">("KOSOVO", "GOM", "SERBIA", "BOSNIA", "CROATIA")  </p>
+
+							<h6 style="text-align:left">Turkey/West Asia</h6><p style="font-size:13px; text-align:left; ">("TURKEY", "TURKISH", "ANKARA", "PKK", "BELARUS")  </p>
+							<h6 style="text-align:left">Japan</h6><p style="font-size:13px; text-align:left; ">("JAPAN", "TOKYO", "JAPANESE", "FUTENMA") </p>
+							<h6 style="text-align:left">Brazil/Argentina</h6><p style="font-size:13px; text-align:left; ">("OBAMA", "FEDERAL", "BRAZIL", "HONDURAS", "BRAZILIAN", "ARGENTINA", "COSTA")</p>
+							<h6 style="text-align:left">Russia</h6><p style="font-size:13px; text-align:left; ">("RUSSIAN", "RUSSIA", "ILIN", "MOSCOW", "TREATY") </p>
+							<h6 style="text-align:left">Vietnam</h6><p style="font-size:13px; text-align:left; ">("VIETNAM", "CAMBODIA", "HANOI", "PHNOM")  </p>
+							<h6 style="text-align:left">Geographic Terms</h6><p style="font-size:13px; text-align:left; ">("LOCAL", "LAUNCHERS", "CITY", "PROVINCIAL", "AREA", "WATER)"</p>
+							<h6 style="text-align:left">French-Speaking Countries</h6><p style="font-size:13px; text-align:left; ">("PRT", "CNF", "CANADA", "SENEGAL", "CANADIAN", "GUINEA") </p>
+							<h6 style="text-align:left">Latin America</h6><p style="font-size:13px; text-align:left; ">("GOC", "COLOMBIA", "VENEZUELA", "CHILE", "CUBA", "CHAVEZ")  </p>
+							<h6 style="text-align:left">Mexico</h6><p style="font-size:13px; text-align:left; ">("MEXICO", "LA", "POLICIA", "GENERAL", "MEXICAN", "SPANISH") </p>
+							<h6 style="text-align:left">India</h6><p style="font-size:13px; text-align:left; ">("INDIA", "GOI", "INDIAN", "INDONESIA", "DELHI")</p>
+							<br>
+							<br>
+							<h5>Government</h5>
+
+							<h6 style="text-align:left">Elections</h6><p style="font-size:13px; text-align:left; ">("PARTY", "ELECTIONS", "ELECTION", "POLITICAL", "OPPOSITION")</p>
+							<h6 style="text-align:left">Corruption/Government Falling</h6><p style="font-size:13px; text-align:left; ">("FORMER", "ONE", "MANY", "CORRUPTION", "ALLEGED", "INVESTIGATION") </p>
+							<h6 style="text-align:left">Law</h6><p style="font-size:13px; text-align:left; ">("LAW", "SHALL", "LEGAL", "TEXT", "ARTICLE", "COMMITTEE", "TREATY") </p>
+							<h6 style="text-align:left">Political Prediction</h6><p style="font-size:13px; text-align:left; ">("WOULD", "COULD", "GOVERNMENT", "HOWEVER", "NEW", "PRESIDENT") </p>
+							<h6 style="text-align:left">Media</h6><p style="font-size:13px; text-align:left; ">("MEDIA", "COURT", "PRESS", "CASE", "PUBLIC", "JOURNALISTS", "COVERAGE")</p>
+							<h6 style="text-align:left">Law Enforcement</h6><p style="font-size:13px; text-align:left; ">("TRAFFICKING", "VICTIMS", "LAW", "POLICE", "ENFORCEMENT") </p>
+							<h6 style="text-align:left">Government Formation</h6><p style="font-size:13px; text-align:left; ">("MINISTER", "PRIME", "NEW", "PRESIDENT", "MINISTRY", "CABINET")</p>
+							<h6 style="text-align:left">International Cooperation</h6><p style="font-size:13px; text-align:left; ">("US", "STATES", "MEETING", "COOPERATION", "ISSUES")  </p>
+							<h6 style="text-align:left">Domestic Government</h6><p style="font-size:13px; text-align:left; ">("POLITICAL", "LEADERS", "GOVERNMENT", "US", "ECONOMIC", "COMMUNITY, "ROLE") </p>
+							<h6 style="text-align:left">US News</h6><p style="font-size:13px; text-align:left; ">("US", "PRESIDENT", "NEWS", "EDITORIAL", "STATE", "PEOPLE")</p>
+
+							<br>
+							<br>
+							<h5>Misc</h5>
+							<h6 style="text-align:left">Planning/Logistics</h6><p style="font-size:13px; text-align:left; ">("VETTING", "DATE", "UNIT", "RANK", "AMEMBASSY", "COURSE")</p>
+							<h6 style="text-align:left">Americans Abroad</h6><p style="font-size:13px; text-align:left; ">("TOP", "EMBASSY", "POST", "TRAVEL", "US", "VISA", "CONSULAR", "AMERICAN")  </p>
+							<h6 style="text-align:left">Meeting Reports</h6><p style="font-size:13px; text-align:left; ">("SAID", "WOULD", "AMBASSADOR", "NOTED", "MEETING", "ASKED") </p>
+							<h6 style="text-align:left">Classification Jargon</h6><p style="font-size:13px; text-align:left; ">("C", "D", "REF", "CLASSIFIED")  </p>
+							<h6 style="text-align:left">Uncertain</h6><p style="font-size:13px; text-align:left; ">("2009", "WARNER", "003", "NEW", "AUSTRALIA") </p>
+							<h6 style="text-align:left">Information-Sharing</h6><p style="font-size:13px; text-align:left; ">("SBU", "STATE", "SUBJECT", "POST") </p>
+
+							<br>
+							<br>
+							<h5>Military</h5>
+							<h6 style="text-align:left">Security Violence</h6><p style="font-size:13px; text-align:left; ">("POLICE", "BOMBERS", "SECURITY", "ARRESTED", "KILLED") </p>
+							<h6 style="text-align:left">Chinese Aggression</h6><p style="font-size:13px; text-align:left; ">("NEPAL", "PHILIPPINES", "PEACE", "MANILA", "MUMBAI", "STATE", "DALAI", "MAOISTS") </p>
+							<h6 style="text-align:left">UN Missions</h6><p style="font-size:13px; text-align:left; ">("SUDAN", "UN", "SOMALIA", "BANGLADESH", "CHAD) </p>
+							<h6 style="text-align:left">China Nuclear</h6><p style="font-size:13px; text-align:left; ">("CHINA", "NUCLEAR", "CHINESE", "HEAVY", "TAIWAN" "MISSILE")  </p>
+							<h6 style="text-align:left">US Military</h6><p style="font-size:13px; text-align:left; ">("MILITARY", "SECURITY", "DEFENSE", "US", "TRAINING", "OPERATIONS", "AFGHANISTAN") </p>
+							<h6 style="text-align:left">Targets of Historical US Aggression</h6><p style="font-size:13px; text-align:left; ">("PAKISTAN", "GERMAN", "GERMANY", "PAKISTANI", "BERLIN") </p>
+							<h6 style="text-align:left">Middle East: Hostile</h6><p style="font-size:13px; text-align:left; ">("IRAN", "AFGHANISTAN", "IRANIAN", "KABUL", "TALIBAN", "SYRIA")</p>
+							<h6 style="text-align:left">Israel/Palestine</h6><p style="font-size:13px; text-align:left; ">("ISRAEL", "ISRAELI", "PALESTINIAN", "EGYPT", "JORDAN", "GAZA", "PEACE")</p>
+
+							<br>
+							<br>
+							<h5>Sociology</h5>
+							<h6 style="text-align:left">Gender</h6><p style="font-size:13px; text-align:left; ">("M", "F", "TITLE", "GENDER") </p>
+							<h6 style="text-align:left">Social Work</h6><p style="font-size:13px; text-align:left; ">("LABOR", "CHILD", "CHILDREN", "WORKERS", "SOCIAL")</p>
+							<h6 style="text-align:left">Human Rights</h6><p style="font-size:13px; text-align:left; ">("RIGHTS", "HUMAN", "VIOLATIONS", "GUATEMALA", "GROSS, "CIVIL") </p>
+							<h6 style="text-align:left">Public Health</h6><p style="font-size:13px; text-align:left; ">("HEALTH", "MEDICAL", "CASES", "H1N1", "TREATMENT", "CARE", "HOSPITAL") </p>
+							<h6 style="text-align:left">Humanitarian Aid</h6><p style="font-size:13px; text-align:left; ">("HAITI, "ASSISTANCE", "FOOD", "HUMANITARIAN", "UN", "MILLION", "RELIEF", "DONORS") </p>
+							<h6 style="text-align:left">Protest</h6><p style="font-size:13px; text-align:left; ">("VIOLENCE", "POLICE", "GOVERNMENT", "LOCAL", "PROTESTS", "GROUP</p>
+							<h6 style="text-align:left">Refugees</h6><p style="font-size:13px; text-align:left; ">("BORDER", "REFUGEES", "UNHRC", "IOM", "CAMP, "EARTHQUAKE", "MIGRATION") </p>
+							<h6 style="text-align:left">International Development</h6><p style="font-size:13px; text-align:left; ">("WOMEN", "PROGRAM", "TRAINING", "DEVELOPMENT", "EDUCATION") </p>
+
+
+						</div>
+
+
 					</section>
 
 
