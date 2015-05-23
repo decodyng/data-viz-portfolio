@@ -197,7 +197,7 @@ form {
 							</div>
 							<h1 style="font-size: 28px" class="title appear">Geographic Cable Density and Topical Breakdown</h1>
 							<h4 style="font-size: 16px" class="appear">Choropleth shows density of cables sent to/from a country. 
-							Click country to switch focus from US. Click treemap node to view original cables.</h4>
+							Click country to switch focus from US.</h4>
 							<svg id="map">
 							<div class="onoffswitch">
 							    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
@@ -209,8 +209,8 @@ form {
 							<div style="width:950px"><div id="year_slider"></div></div>
 							<div id="treemap-legend"></div>
 							<div id="treemap"></div>
-              <div><h2 id="cableTitle", style="opacity: 0">Click cable ID to read raw cable text</h2></div>
-              <svg width="0", height="0", id="cableList"></svg>
+<!--               <div><h2 id="cableTitle", style="opacity: 0">Click cable ID to read raw cable text</h2></div>
+              <svg width="0", height="0", id="cableList"></svg> -->
 
 						</div>
 					</section>
@@ -367,57 +367,57 @@ var nodeClicked = "";
     .attr("class", "node")
     .call(position)
     .style("background", function(d) { return d.children ? tree_color(d.name) : null; })
-    .on("click", function(d){
-      if(nodeIsClicked && nodeClicked == d.name){
-          d3.selectAll(".node").transition().duration(250).style("opacity", 1);
-          d3.select("#cableTitle").transition().style("opacity", 0);
-          d3.select("#cableList").selectAll("text").remove();
-          d3.select("#cableList").attr("width", 0).attr("height", 0); 
+    // .on("click", function(d){
+    //   if(nodeIsClicked && nodeClicked == d.name){
+    //       d3.selectAll(".node").transition().duration(250).style("opacity", 1);
+    //       d3.select("#cableTitle").transition().style("opacity", 0);
+    //       d3.select("#cableList").selectAll("text").remove();
+    //       d3.select("#cableList").attr("width", 0).attr("height", 0); 
 
-          nodeIsClicked = false; 
+    //       nodeIsClicked = false; 
 
-      } else if (nodeIsClicked && nodeClicked != d.name){
-        d3.select(this).transition().style("opacity", 1);
-        d3.selectAll(".node").filter(function(otherD){return otherD.name != d.name}).transition().duration(150).style("opacity", .25);
-        d3.select("#cableTitle").transition().style("opacity", 1);
+    //   } else if (nodeIsClicked && nodeClicked != d.name){
+    //     d3.select(this).transition().style("opacity", 1);
+    //     d3.selectAll(".node").filter(function(otherD){return otherD.name != d.name}).transition().duration(150).style("opacity", .25);
+    //     d3.select("#cableTitle").transition().style("opacity", 1);
 
-        d3.select("#cableList").selectAll("text").remove();
-        nodeClicked = d.name; 
-        cables = d3.set(d.ids).values();
-        // d3.select("#cableList").selectAll("p").remove();
-        listScale = d3.scale.ordinal().domain(d.ids).rangePoints([0, cables.length*25]);
-        listSvg = d3.select("#cableList").attr("width", 500).attr("height", cables.length*25);
-        listSvg
-          .selectAll("text")  
-          .data(cables)
-          .enter()
-          .append("text")
-          .attr("x", 50)
-          .attr("y", function(d, i){return i*25})
-          .text(function(c){return c + ".txt"})
-          .on("click", function(c) { window.open("http://decodyng.com/cables/" + c + ".txt"); });;
-      } else {
-        d3.selectAll(".node").filter(function(otherD){return otherD.name != d.name}).transition().duration(250).style("opacity", .25);
-        d3.select("#cableTitle").transition().style("opacity", 1);
+    //     d3.select("#cableList").selectAll("text").remove();
+    //     nodeClicked = d.name; 
+    //     cables = d3.set(d.ids).values();
+    //     // d3.select("#cableList").selectAll("p").remove();
+    //     listScale = d3.scale.ordinal().domain(d.ids).rangePoints([0, cables.length*25]);
+    //     listSvg = d3.select("#cableList").attr("width", 500).attr("height", cables.length*25);
+    //     listSvg
+    //       .selectAll("text")  
+    //       .data(cables)
+    //       .enter()
+    //       .append("text")
+    //       .attr("x", 50)
+    //       .attr("y", function(d, i){return i*25})
+    //       .text(function(c){return c + ".txt"})
+    //       .on("click", function(c) { window.open("http://decodyng.com/cables/" + c + ".txt"); });;
+    //   } else {
+    //     d3.selectAll(".node").filter(function(otherD){return otherD.name != d.name}).transition().duration(250).style("opacity", .25);
+    //     d3.select("#cableTitle").transition().style("opacity", 1);
 
-        nodeClicked = d.name; 
-        cables = d3.set(d.ids).values();
-        // d3.select("#cableList").selectAll("p").remove();
-        listScale = d3.scale.ordinal().domain(d.ids).rangePoints([0, cables.length*25]);
-        listSvg = d3.select("#cableList").attr("width", 500).attr("height", cables.length*25);
-        listSvg
-          .selectAll("text")  
-          .data(cables)
-          .enter()
-          .append("text")
-          .attr("x", 50)
-          .attr("y", function(d, i){return i*25})
-          .text(function(c){return c + ".txt"})
-          .on("click", function(c) { window.open("http://decodyng.com/cables/" + c + ".txt"); });;
-        nodeIsClicked = true; 
-      }
+    //     nodeClicked = d.name; 
+    //     cables = d3.set(d.ids).values();
+    //     // d3.select("#cableList").selectAll("p").remove();
+    //     listScale = d3.scale.ordinal().domain(d.ids).rangePoints([0, cables.length*25]);
+    //     listSvg = d3.select("#cableList").attr("width", 500).attr("height", cables.length*25);
+    //     listSvg
+    //       .selectAll("text")  
+    //       .data(cables)
+    //       .enter()
+    //       .append("text")
+    //       .attr("x", 50)
+    //       .attr("y", function(d, i){return i*25})
+    //       .text(function(c){return c + ".txt"})
+    //       .on("click", function(c) { window.open("http://decodyng.com/cables/" + c + ".txt"); });;
+    //     nodeIsClicked = true; 
+    //   }
       
-    })
+    // })
     .style("color", "black")
     .text(function(d) { 
       if (d.dx < 50 && d.dy < 50){
@@ -498,56 +498,56 @@ function redrawTreemap(){
       node
         .call(position)
         .style("background", function(d) { return d.children ? tree_color(d.name) : null; })
-        .on("click", function(d){
-          if(nodeIsClicked && nodeClicked == d.name){
-          d3.selectAll(".node").transition().duration(250).style("opacity", 1);
-          d3.select("#cableTitle").transition().style("opacity", 0);
-          d3.select("#cableList").selectAll("text").remove();
-          d3.select("#cableList").attr("width", 0).attr("height", 0); 
+      //   .on("click", function(d){
+      //     if(nodeIsClicked && nodeClicked == d.name){
+      //     d3.selectAll(".node").transition().duration(250).style("opacity", 1);
+      //     d3.select("#cableTitle").transition().style("opacity", 0);
+      //     d3.select("#cableList").selectAll("text").remove();
+      //     d3.select("#cableList").attr("width", 0).attr("height", 0); 
 
-          nodeIsClicked = false; 
+      //     nodeIsClicked = false; 
 
-      } else if (nodeIsClicked && nodeClicked != d.name){
-        d3.select(this).transition().style("opacity", 1);
-        d3.selectAll(".node").filter(function(otherD){return otherD.name != d.name}).transition().duration(150).style("opacity", .25);
-        d3.select("#cableTitle").transition().style("opacity", 1);
+      // } else if (nodeIsClicked && nodeClicked != d.name){
+      //   d3.select(this).transition().style("opacity", 1);
+      //   d3.selectAll(".node").filter(function(otherD){return otherD.name != d.name}).transition().duration(150).style("opacity", .25);
+      //   d3.select("#cableTitle").transition().style("opacity", 1);
 
-        d3.select("#cableList").selectAll("text").remove();
-        nodeClicked = d.name; 
-        cables = d3.set(d.ids).values();
-        // d3.select("#cableList").selectAll("p").remove();
-        listScale = d3.scale.ordinal().domain(d.ids).rangePoints([0, cables.length*25]);
-        listSvg = d3.select("#cableList").attr("width", 500).attr("height", cables.length*25);
-        listSvg
-          .selectAll("text")  
-          .data(cables)
-          .enter()
-          .append("text")
-          .attr("x", 50)
-          .attr("y", function(d, i){return i*25})
-          .text(function(c){return c + ".txt"})
-          .on("click", function(c) { window.open("http://decodyng.com/cables/" + c + ".txt"); });;
-      } else {
-        d3.selectAll(".node").filter(function(otherD){return otherD.name != d.name}).transition().duration(250).style("opacity", .25);
-        d3.select("#cableTitle").transition().style("opacity", 1);
+      //   d3.select("#cableList").selectAll("text").remove();
+      //   nodeClicked = d.name; 
+      //   cables = d3.set(d.ids).values();
+      //   // d3.select("#cableList").selectAll("p").remove();
+      //   listScale = d3.scale.ordinal().domain(d.ids).rangePoints([0, cables.length*25]);
+      //   listSvg = d3.select("#cableList").attr("width", 500).attr("height", cables.length*25);
+      //   listSvg
+      //     .selectAll("text")  
+      //     .data(cables)
+      //     .enter()
+      //     .append("text")
+      //     .attr("x", 50)
+      //     .attr("y", function(d, i){return i*25})
+      //     .text(function(c){return c + ".txt"})
+      //     .on("click", function(c) { window.open("http://decodyng.com/cables/" + c + ".txt"); });;
+      // } else {
+      //   d3.selectAll(".node").filter(function(otherD){return otherD.name != d.name}).transition().duration(250).style("opacity", .25);
+      //   d3.select("#cableTitle").transition().style("opacity", 1);
 
-        nodeClicked = d.name; 
-        cables = d3.set(d.ids).values();
-        // d3.select("#cableList").selectAll("p").remove();
-        listScale = d3.scale.ordinal().domain(d.ids).rangePoints([0, cables.length*25]);
-        listSvg = d3.select("#cableList").attr("width", 500).attr("height", cables.length*25);
-        listSvg
-          .selectAll("text")  
-          .data(cables)
-          .enter()
-          .append("text")
-          .attr("x", 50)
-          .attr("y", function(d, i){return i*25})
-          .text(function(c){return c + ".txt"})
-          .on("click", function(c) { window.open("http://decodyng.com/cables/" + c + ".txt"); });;
-        nodeIsClicked = true; 
-      }
-        })
+      //   nodeClicked = d.name; 
+      //   cables = d3.set(d.ids).values();
+      //   // d3.select("#cableList").selectAll("p").remove();
+      //   listScale = d3.scale.ordinal().domain(d.ids).rangePoints([0, cables.length*25]);
+      //   listSvg = d3.select("#cableList").attr("width", 500).attr("height", cables.length*25);
+      //   listSvg
+      //     .selectAll("text")  
+      //     .data(cables)
+      //     .enter()
+      //     .append("text")
+      //     .attr("x", 50)
+      //     .attr("y", function(d, i){return i*25})
+      //     .text(function(c){return c + ".txt"})
+      //     .on("click", function(c) { window.open("http://decodyng.com/cables/" + c + ".txt"); });;
+      //   nodeIsClicked = true; 
+      // }
+      //   })
         .style("color", "black")
         .text(function(d) { 
           if (d.dx < 50 && d.dy < 50){
